@@ -27,7 +27,7 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 <li>发送后即忘记。不关注返回结果，这样如果有配置重试机制，失败了仍然会重试，但是重试也失败，消息就将直接丢失。</li>
 </ol>
 </li>
-<li><p>kafka通过toppic进行消息分类，topic可以被分为多个partition，不同partition之间不能保证消息有序，但是单个partition内可以保证消息有序。<br><img src="./1539617888935.png" alt="Alt text"></p>
+<li><p>kafka通过toppic进行消息分类，topic可以被分为多个partition，不同partition之间不能保证消息有序，但是单个partition内可以保证消息有序。<br><img src="https://static.rainj2013.top/2018-10-18kafka%E6%B6%88%E6%81%AF%E5%86%99%E5%85%A5.png" alt="一个topic分为多个partition"></p>
 </li>
 <li><p>默认情况下，消息发布时会根据kafka内置的hash算法，均匀分发到不同的分区上，但是可以通过自定义算法（配合消息的key）来把消息映射到指定的分区上,或者直接指定分区。如果消息key为null，并且使用默认的分区器，将会使用轮询的方式分发消息到各个分区。</p>
 </li>
@@ -35,7 +35,7 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 </li>
 </ul>
 <h3 id="kafka消费者"><a href="#kafka消费者" class="headerlink" title="kafka消费者"></a>kafka消费者</h3><ul>
-<li><p>对于同一个消费者群组（group）内的消费者，每个分区（partition）只能被一个消费者消费。也就是说，如果partition数量比消费者多，将会有一个或者多个消费者消费多个partition，如果消费者数量比partition多，将会有消费者永远无法消费消息。<br><img src="./1539618376059.png" alt="Alt text"></p>
+<li><p>对于同一个消费者群组（group）内的消费者，每个分区（partition）只能被一个消费者消费。也就是说，如果partition数量比消费者多，将会有一个或者多个消费者消费多个partition，如果消费者数量比partition多，将会有消费者永远无法消费消息。<br><img src="https://static.rainj2013.top/2018-10-18kafka%E4%B8%BB%E9%A2%98%E5%88%86%E5%8C%BA.png" alt="kafka多个消费者消费多个partition"></p>
 </li>
 <li><p>消费者与被被指定为集群协调器的节点会保持心跳，如果心跳停止时间超过阈值，partition与消费者的关系就会发生rehash。当有新的消费者加入时，也可能会发生rehash（取决于当前消费者数量是否已经&gt;=partition数）</p>
 </li>
