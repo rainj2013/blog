@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="MySQL学习笔记"><meta name="keywords" content="-MySQL"><meta name="author" content="rainj2013,undefined"><meta name="copyright" content="rainj2013"><title>MySQL学习笔记 | rainj2013's blog</title><link rel="shortcut icon" href="/myfavicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-125732257-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#事务隔离级别的理解"><span class="toc-number">1.</span> <span class="toc-text">事务隔离级别的理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引擎特征"><span class="toc-number">2.</span> <span class="toc-text">引擎特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引特征"><span class="toc-number">3.</span> <span class="toc-text">索引特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引策略"><span class="toc-number">4.</span> <span class="toc-text">索引策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查询优化"><span class="toc-number">5.</span> <span class="toc-text">查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用优化"><span class="toc-number">6.</span> <span class="toc-text">常用优化</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">rainj2013</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">5</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">6</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://static.rainj2013.top/小黑.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">rainj2013's blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">MySQL学习笔记</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-10-18</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/笔记/">笔记</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h4 id="事务隔离级别的理解"><a href="#事务隔离级别的理解" class="headerlink" title="事务隔离级别的理解"></a>事务隔离级别的理解</h4><p>假设有A，B两个事务 </p>
+<ul>
+<li>未提交读：B事务能读到A事务还未提交的修改 几乎只有坏处没有好处的级别 </li>
+<li>提交读：B事务能读到A事务提交后的修改，可能导致B事务内两次查询得到的结果不一样 </li>
+<li>可重复读：B事务多次进行相同的查询，读到的同一条记录的结果一致，即使在中间A事务对这条记录进行了修改。但是仍然可能有“幻读”，即A事务在多个查询中间插入了新数据，B事务查到的结果会不一致。 </li>
+<li>串行化：顾名思义，将操作穿行执行。 </li>
+</ul>
+<h4 id="引擎特征"><a href="#引擎特征" class="headerlink" title="引擎特征"></a>引擎特征</h4><ul>
+<li>InnoDB 支持事务和行级锁，支持自动增量列，且自动增长列必须是索引（联合索引必须是第一列），支持外键（然而我斌不想用=。=）</li>
+<li>MyISAM 支持全文索引，对导入后不再修改的表进行压缩。适合读写操作多，修改删除少，对事务/并发要求不高的场景。</li>
+</ul>
+<h4 id="索引特征"><a href="#索引特征" class="headerlink" title="索引特征"></a>索引特征</h4><p>B-Tree索引支持较多的匹配方式：</p>
+<ul>
+<li>全值匹配</li>
+<li>匹配最左前缀（联合索引的第一项或者左边几项）</li>
+<li>匹配列前缀（like ‘xxx%’）</li>
+<li>精确匹配某一列并范围匹配另一列（a=x and b &lt; y）</li>
+</ul>
+<p>而Hash索引则只支持较少的匹配方式，如果某一列使用了范围匹配，则其右边的列都不能使用索引。hash索引只在Memory引擎中支持，仅在特殊场景下适用。但是显然，在hash冲突较少的情况下，通过hash算法来定位数据的性能是非常高的。</p>
+<h4 id="索引策略"><a href="#索引策略" class="headerlink" title="索引策略"></a>索引策略</h4><ul>
+<li>不要使用计算列 （where a + 1 = 2）</li>
+<li>选用适当长度的前缀索引来提高索引的区分度</li>
+<li>在多个条件的情况下，使用联合索引</li>
+<li><p>将选择性更高的索引放在左边<br>假设我们有一张user表，有性别和年龄字段<br>select count(distinct(gender)) from user;<br>结果是3(男，女，未知)<br>select count(distinct(age) from user;<br>结果是100<br>那么如果需要同时根据性别和年龄筛user,建立(age, gender)索引的性能会比(gender, age)的性能更高。但是，就这个例子而言，我们并不一定要建立(age, gender)的索引。一般来说，对年龄的匹配更多是范围匹配，而对性别的匹配则是全值匹配，如果使用(age, gender)索引，而且对年龄进行范围匹配查询的话，性别列就不能使用索引了。因为查询使用索引的最左前缀，直到遇到第一个范围匹配条件列。在可穷举而且数量较少的范围匹配条件里，我们可以用 <strong>IN</strong> 关键字来列举来确保后面的索引列也能用到。例如：<strong>select * from user where gender in (‘male’, ‘female’) and age &gt; 18</strong> </p>
+</li>
+<li><p>为了尽可能多的用上索引列，我们应该尽量避免使用多个范围匹配条件（原因不再赘述）</p>
+</li>
+</ul>
+<h4 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h4><ul>
+<li>不要查询不必要的数据行/不必要的数据列</li>
+<li>减少不必要的扫描行数 （例如对无索引的列为条件进行查找，将会导致全表扫描）</li>
+<li>尽量使用索引生成的排序结果 否则将使用内存排序甚至文件排序(filesort)</li>
+<li>使用关联查询时，确保在ON或者USING子句的列上有索引</li>
+<li>使用关联查询时，GROUP BY或者ORDER BY的表达式只涉及一个表中的列，才有机会使用索引优化</li>
+<li>适当冗余数据列避免联合查询/子查询</li>
+</ul>
+<h4 id="常用优化"><a href="#常用优化" class="headerlink" title="常用优化"></a>常用优化</h4><ul>
+<li>批量插入时，使用多值语句将减少大量与数据库之间创建连接/关闭连接等操作的时间。例如 <strong>insert into user values(1, ‘male’), (2, ‘female’)……</strong></li>
+<li>导入大量数据时，按照索引产生的排序顺序插入可以加快插入效率</li>
+<li>group by 语句会后面的字段进行排序，如果想好要避免排序结果消耗时间，可以加上order by null 禁止排序</li>
+<li><p>order by语句可以借助索引生成的排序，前提是where条件和order by使用的是小童的索引，而且order by的顺序与索引生成的排序顺序相同。如果有多个order by 字段，这些字段需要都是升序或者都是降序。<br>示例：可以利用索引的order by 语句</p>
+<ul>
+<li>在有此时有(key_part1, key_part2) 的联合索引的情况下，select * from xxx order by (key_part1, key_part2)</li>
+<li>select  * from table where a = 1 order by a desc, b desc</li>
+</ul>
+<p>不能使用索引的order by 语句：</p>
+<ul>
+<li>select * from table order by a desc, b asc</li>
+<li>select * from table where a = 1 order by b desc</li>
+<li>sekect * from table order a, b</li>
+</ul>
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">rainj2013</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://rainj2013.top/2018/10/18/MySQL学习笔记/">https://rainj2013.top/2018/10/18/MySQL学习笔记/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">-MySQL</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2018/10/17/《kafka权威指南》读书笔记/"><span>《kafka权威指南》读书笔记</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc2Ni8xNjI5Mw=="><script>(function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+})(document, 'script');</script></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By rainj2013</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
