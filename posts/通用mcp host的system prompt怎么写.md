@@ -5,7 +5,6 @@ tag: MCP
 
 # 通用mcp host的system prompt怎么写
 
-# 通用mcp host的system prompt怎么写
 
 ## 概述
 

@@ -5,7 +5,6 @@ tag: AI工程
 
 # 纸上谈兵聊聊 Context Engineering
 
-# 纸上谈兵聊聊 Context Engineering
 > 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。
 
 ## 什么是上下文工程(Context Engineering)
