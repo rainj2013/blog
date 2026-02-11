@@ -4,15 +4,23 @@
       "id": "调就是调-不调就是不调-微调是什么意思",
       "title": "可选：配置一个代理国内下载更快",
       "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提供AI服务。...",
-      "date": "2026-02-11",
+      "date": "2025-09-30",
       "tag": "技术",
       "file": "posts/调就是调，不调就是不调，微调是什么意思？.md"
+    },
+    {
+      "id": "纸上谈兵聊context-engineering",
+      "title": "纸上谈兵聊聊 Context Engineering",
+      "excerpt": "暂无摘要",
+      "date": "2025-08-02",
+      "tag": "技术",
+      "file": "posts/纸上谈兵聊context engineering.md"
     },
     {
       "id": "通用mcp-host的system-prompt怎么写",
       "title": "通用mcp host的system prompt怎么写",
       "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这里尝试实现一个简单的通用mcp host工具，来体验system prompt的设计，暂不涉及客户端架构的设计。...",
-      "date": "2026-02-11",
+      "date": "2025-07-26",
       "tag": "技术",
       "file": "posts/通用mcp host的system prompt怎么写.md"
     },
@@ -20,25 +28,17 @@
       "id": "mcp协议完整落地案例",
       "title": "MCP协议完整落地案例",
       "excerpt": "> 本文由Kimi k2和本人合作编写。...",
-      "date": "2026-02-11",
+      "date": "2025-07-20",
       "tag": "技术",
       "file": "posts/MCP协议完整落地案例.md"
     },
     {
       "id": "困惑到实践-mcp的几个细节探究",
-      "title": "FastMCP服务实例",
-      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP Host是如何判断是否需要调用外部的MCP Server、有哪些MCP Server可用、应该调用哪个MCP Serv...",
-      "date": "2026-02-11",
-      "tag": "技术",
+      "title": "无标题",
+      "excerpt": "---\ndate: 2025-07-12\n---...",
+      "date": "2025-07-12",
+      "tag": "随笔",
       "file": "posts/困惑到实践：MCP的几个细节探究.md"
-    },
-    {
-      "id": "纸上谈兵聊context-engineering",
-      "title": "纸上谈兵聊聊 Context Engineering",
-      "excerpt": "暂无摘要",
-      "date": "2026-02-11",
-      "tag": "技术",
-      "file": "posts/纸上谈兵聊context engineering.md"
     }
   ]
 }

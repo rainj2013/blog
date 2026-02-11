@@ -1,3 +1,8 @@
+---
+date: 2025-07-26
+---
+
+
 # 通用mcp host的system prompt怎么写
 
 ## 概述
