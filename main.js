@@ -146,15 +146,7 @@ function showPostPage(post, markdownContent) {
 
 // 返回首页
 function backToHome() {
-    const hero = document.querySelector('.hero');
-    const postsSection = document.querySelector('.posts-section');
-    const postContainer = document.getElementById('postContainer');
-    
-    if (hero) hero.style.display = 'block';
-    if (postsSection) postsSection.style.display = 'block';
-    if (postContainer) postContainer.style.display = 'none';
-    
-    window.scrollTo(0, 0);
+    showHomePage();
 }
 
 // 主题切换
@@ -167,9 +159,9 @@ function toggleTheme() {
     themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
 }
 
-// 加载保存的主题
+// 加载保存的主题 - 默认深色
 function loadTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     if (themeToggle) {
         themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
@@ -181,6 +173,91 @@ function setupEventListeners() {
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
     }
+    
+    // 首页按钮
+    const homeLink = document.getElementById('homeLink');
+    if (homeLink) {
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomePage();
+        });
+    }
+    
+    // 关于按钮
+    const aboutLink = document.getElementById('aboutLink');
+    if (aboutLink) {
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAboutPage();
+        });
+    }
+}
+
+// 显示首页
+function showHomePage() {
+    const hero = document.querySelector('.hero');
+    const postsSection = document.querySelector('.posts-section');
+    const postContainer = document.getElementById('postContainer');
+    const aboutContainer = document.getElementById('aboutContainer');
+    
+    // 更新导航状态
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    document.getElementById('homeLink').classList.add('active');
+    
+    // 显示首页元素
+    if (hero) hero.style.display = 'block';
+    if (postsSection) postsSection.style.display = 'block';
+    if (postContainer) postContainer.style.display = 'none';
+    if (aboutContainer) aboutContainer.style.display = 'none';
+    
+    window.scrollTo(0, 0);
+}
+
+// 显示关于页面
+function showAboutPage() {
+    const hero = document.querySelector('.hero');
+    const postsSection = document.querySelector('.posts-section');
+    const postContainer = document.getElementById('postContainer');
+    const main = document.querySelector('.main');
+    
+    // 更新导航状态
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    document.getElementById('aboutLink').classList.add('active');
+    
+    // 隐藏首页和文章
+    if (hero) hero.style.display = 'none';
+    if (postsSection) postsSection.style.display = 'none';
+    if (postContainer) postContainer.style.display = 'none';
+    
+    // 创建或显示关于容器
+    let aboutContainer = document.getElementById('aboutContainer');
+    if (!aboutContainer) {
+        aboutContainer = document.createElement('div');
+        aboutContainer.id = 'aboutContainer';
+        aboutContainer.className = 'container';
+        aboutContainer.innerHTML = `
+            <div class="post-content" style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h1 style="text-align: center; margin-bottom: 2rem;">关于</h1>
+                <div style="line-height: 1.8;">
+                    <p style="margin-bottom: 1.5rem;">👋 你好，我是 rainj2013。</p>
+                    <p style="margin-bottom: 1.5rem;">这是我的个人博客，主要分享技术文章、学习笔记和个人思考。</p>
+                    <h3 style="margin: 2rem 0 1rem;">关注我</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li>GitHub: <a href="https://github.com/rainj2013" target="_blank" style="color: var(--primary-color);">@rainj2013</a></li>
+                    </ul>
+                    <h3 style="margin: 2rem 0 1rem;">联系方式</h3>
+                    <p>欢迎通过 GitHub 与我交流。</p>
+                </div>
+                <button onclick="showHomePage()" style="margin-top: 3rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+                    ← 返回首页
+                </button>
+            </div>
+        `;
+        main.appendChild(aboutContainer);
+    }
+    aboutContainer.style.display = 'block';
+    
+    window.scrollTo(0, 0);
 }
 
 // 启动
