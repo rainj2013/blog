@@ -2,18 +2,18 @@
   "posts": [
     {
       "id": "调就是调-不调就是不调-微调是什么意思",
-      "title": "可选：配置一个代理国内下载更快",
+      "title": "调就是调，不调就是不调，微调是什么意思？",
       "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提供AI服务。...",
       "date": "2025-09-30",
-      "tag": "技术",
+      "tag": "AI技术",
       "file": "posts/调就是调，不调就是不调，微调是什么意思？.md"
     },
     {
       "id": "纸上谈兵聊context-engineering",
       "title": "纸上谈兵聊聊 Context Engineering",
-      "excerpt": "暂无摘要",
+      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。...",
       "date": "2025-08-02",
-      "tag": "技术",
+      "tag": "AI工程",
       "file": "posts/纸上谈兵聊context engineering.md"
     },
     {
@@ -21,7 +21,7 @@
       "title": "通用mcp host的system prompt怎么写",
       "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这里尝试实现一个简单的通用mcp host工具，来体验system prompt的设计，暂不涉及客户端架构的设计。...",
       "date": "2025-07-26",
-      "tag": "技术",
+      "tag": "MCP",
       "file": "posts/通用mcp host的system prompt怎么写.md"
     },
     {
@@ -29,15 +29,15 @@
       "title": "MCP协议完整落地案例",
       "excerpt": "> 本文由Kimi k2和本人合作编写。...",
       "date": "2025-07-20",
-      "tag": "技术",
+      "tag": "MCP",
       "file": "posts/MCP协议完整落地案例.md"
     },
     {
       "id": "困惑到实践-mcp的几个细节探究",
-      "title": "无标题",
-      "excerpt": "---\ndate: 2025-07-12\n---...",
+      "title": "困惑到实践：MCP的几个细节探究",
+      "excerpt": "Anthropic在2024年11月发布了MCP协议，到现在已经大半年了。在这半年相关的工具、开发框架、社区已经逐渐成熟，我对MCP协议也已经有了大致的了解，但还存在一些细节上的疑问：...",
       "date": "2025-07-12",
-      "tag": "随笔",
+      "tag": "MCP",
       "file": "posts/困惑到实践：MCP的几个细节探究.md"
     }
   ]
