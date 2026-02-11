@@ -39,22 +39,6 @@
       "date": "2026-02-11",
       "tag": "技术",
       "file": "posts/纸上谈兵聊context engineering.md"
-    },
-    {
-      "id": "hello-world",
-      "title": "你好，世界",
-      "excerpt": "这是我的第一篇博客文章。...",
-      "date": "2026-02-11",
-      "tag": "随笔",
-      "file": "posts/hello-world.md"
-    },
-    {
-      "id": "my-tech-stack",
-      "title": "我的技术栈分享",
-      "excerpt": "分享一下我目前使用的技术栈。...",
-      "date": "2026-02-10",
-      "tag": "技术",
-      "file": "posts/my-tech-stack.md"
     }
   ]
 }
