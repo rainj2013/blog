@@ -11,7 +11,7 @@
     {
       "id": "纸上谈兵聊context-engineering",
       "title": "纸上谈兵聊聊 Context Engineering",
-      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。...",
+      "excerpt": "暂无摘要",
       "date": "2025-08-02",
       "tag": "AI工程",
       "file": "posts/纸上谈兵聊context engineering.md"
@@ -35,7 +35,7 @@
     {
       "id": "困惑到实践-mcp的几个细节探究",
       "title": "困惑到实践：MCP的几个细节探究",
-      "excerpt": "Anthropic在2024年11月发布了MCP协议，到现在已经大半年了。在这半年相关的工具、开发框架、社区已经逐渐成熟，我对MCP协议也已经有了大致的了解，但还存在一些细节上的疑问：...",
+      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP Host是如何判断是否需要调用外部的MCP Server、有哪些MCP Server可用、应该调用哪个MCP Serv...",
       "date": "2025-07-12",
       "tag": "MCP",
       "file": "posts/困惑到实践：MCP的几个细节探究.md"
