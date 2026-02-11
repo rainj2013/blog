@@ -17,13 +17,50 @@
 [data-theme="dark"] {
     --primary-color: #818cf8;
     --primary-hover: #6366f1;
-    --bg-color: #0f172a;
-    --surface-color: #1e293b;
+    --bg-color: #0a0a0f;
+    --surface-color: rgba(30, 30, 40, 0.6);
     --text-color: #f1f5f9;
     --text-secondary: #94a3b8;
-    --border-color: #334155;
+    --border-color: rgba(255, 255, 255, 0.08);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+/* 深色模式背景纹理 */
+[data-theme="dark"] body {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 100% 100%, 200px 200px;
+}
+
+[data-theme="dark"] body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(180deg, rgba(10, 10, 15, 0) 0%, rgba(10, 10, 15, 0.8) 100%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(255, 255, 255, 0.015) 50px,
+            rgba(255, 255, 255, 0.015) 51px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 50px,
+            rgba(255, 255, 255, 0.015) 50px,
+            rgba(255, 255, 255, 0.015) 51px
+        );
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* 重置和基础 */
@@ -51,14 +88,16 @@ body {
     padding: 0 1.5rem;
 }
 
-/* 头部 */
+/* 头部 - 玻璃态 */
 .header {
-    background-color: var(--surface-color);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(20, 20, 30, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .header .container {
@@ -153,20 +192,23 @@ body {
     gap: 1.5rem;
 }
 
-/* 文章卡片 */
+/* 文章卡片 - 玻璃态效果 */
 .post-card {
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: var(--transition);
     cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .post-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
+    background: rgba(40, 40, 50, 0.5);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
 .post-title {
@@ -205,24 +247,28 @@ body {
     font-weight: 500;
 }
 
-/* 页脚 */
+/* 页脚 - 玻璃态 */
 .footer {
-    background: var(--surface-color);
-    border-top: 1px solid var(--border-color);
+    background: rgba(20, 20, 30, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding: 2rem 0;
     text-align: center;
     color: var(--text-secondary);
     margin-top: 2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* 文章内容页 */
+/* 文章内容页 - 玻璃态 */
 .post-content {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--surface-color);
+    background: rgba(30, 30, 40, 0.5);
     padding: 2rem;
     border-radius: var(--radius);
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .post-content h1 {
