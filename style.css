@@ -90,7 +90,7 @@ body {
 
 /* 头部 - 玻璃态 */
 .header {
-    background: rgba(20, 20, 30, 0.7);
+    background: rgba(20, 20, 30, 0.4);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     padding: 1rem 0;
     position: sticky;
@@ -194,8 +194,8 @@ body {
 
 /* 文章卡片 - 玻璃态效果 */
 .post-card {
-    background: rgba(30, 30, 40, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(30, 30, 40, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: var(--transition);
@@ -206,8 +206,8 @@ body {
 
 .post-card:hover {
     transform: translateY(-2px);
-    background: rgba(40, 40, 50, 0.5);
-    border-color: rgba(99, 102, 241, 0.2);
+    background: rgba(40, 40, 50, 0.35);
+    border-color: rgba(99, 102, 241, 0.15);
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
@@ -263,10 +263,10 @@ body {
 .post-content {
     max-width: 800px;
     margin: 0 auto;
-    background: rgba(30, 30, 40, 0.5);
+    background: rgba(30, 30, 40, 0.25);
     padding: 2rem;
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
