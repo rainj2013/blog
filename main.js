@@ -4,6 +4,9 @@ const config = {
     postsDir: 'posts'
 };
 
+// 获取当前域名（用于绝对路径）
+const baseUrl = window.location.origin;
+
 // DOM 元素
 const postsContainer = document.getElementById('postsContainer');
 const themeToggle = document.getElementById('themeToggle');
@@ -31,6 +34,7 @@ async function loadPosts() {
         postsContainer.innerHTML = `
             <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                 <p>加载文章失败，请稍后重试</p>
+                <p style="font-size: 0.875rem; margin-top: 1rem;">${error.message}</p>
             </div>
         `;
     }
@@ -62,7 +66,7 @@ function renderPosts(posts) {
     `).join('');
 }
 
-// 打开文章详情
+// 打开文章详情 - 在当前页显示，避免跨窗口路径问题
 async function openPost(postId) {
     try {
         // 先加载索引获取文章信息
@@ -74,119 +78,83 @@ async function openPost(postId) {
             throw new Error('Post not found');
         }
         
-        // 加载 Markdown 内容
-        const contentResponse = await fetch(post.file);
+        // 加载 Markdown 内容（使用绝对路径）
+        const postUrl = `${baseUrl}/${post.file}`;
+        const contentResponse = await fetch(postUrl);
         if (!contentResponse.ok) {
-            throw new Error('Failed to load post content');
+            throw new Error(`Failed to load: ${postUrl}`);
         }
         const markdownContent = await contentResponse.text();
         
-        // 渲染文章页面
-        const postHTML = createPostPage(post, markdownContent);
-        
-        // 打开新页面
-        const newWindow = window.open();
-        newWindow.document.write(postHTML);
-        newWindow.document.close();
+        // 在当前页渲染文章
+        showPostPage(post, markdownContent);
         
     } catch (error) {
         console.error('Error opening post:', error);
-        alert('加载文章失败，请稍后重试');
+        alert('加载文章失败：' + error.message);
     }
 }
 
-// 创建文章详情页 HTML
-function createPostPage(post, markdownContent) {
-    return `
-        <!DOCTYPE html>
-        <html lang="zh-CN">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${post.title} - 我的博客</title>
-            <link rel="stylesheet" href="style.css">
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
-            <style>
-                .post-header {
-                    text-align: center;
-                    padding: 2rem 0;
-                    border-bottom: 1px solid var(--border-color);
-                    margin-bottom: 2rem;
-                }
-                .post-header h1 {
-                    font-size: 2rem;
-                    margin-bottom: 1rem;
-                }
-            </style>
-        </head>
-        <body>
-            <header class="header">
-                <div class="container">
-                    <h1 class="logo" onclick="location.href='index.html'" style="cursor:pointer">📝 我的博客</h1>
-                    <nav class="nav">
-                        <a href="index.html" class="nav-link">首页</a>
-                        <button class="theme-toggle" id="themeToggle">🌙</button>
-                    </nav>
+// 显示文章页面（SPA方式，避免新窗口路径问题）
+function showPostPage(post, markdownContent) {
+    // 隐藏首页内容，显示文章
+    const main = document.querySelector('.main');
+    const hero = document.querySelector('.hero');
+    const postsSection = document.querySelector('.posts-section');
+    
+    // 隐藏首页元素
+    if (hero) hero.style.display = 'none';
+    if (postsSection) postsSection.style.display = 'none';
+    
+    // 创建文章容器
+    let postContainer = document.getElementById('postContainer');
+    if (!postContainer) {
+        postContainer = document.createElement('div');
+        postContainer.id = 'postContainer';
+        postContainer.className = 'container';
+        main.appendChild(postContainer);
+    }
+    
+    // 渲染文章内容
+    postContainer.innerHTML = `
+        <article class="post-content" style="margin-top: 2rem;">
+            <div class="post-header" style="text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h1>${post.title}</h1>
+                <div class="post-meta" style="justify-content: center; gap: 1rem; margin-top: 1rem;">
+                    <span>📅 ${post.date}</span>
+                    <span class="post-tag">${post.tag}</span>
                 </div>
-            </header>
-            
-            <main class="main">
-                <div class="container">
-                    <article class="post-content">
-                        <div class="post-header">
-                            <h1>${post.title}</h1>
-                            <div class="post-meta" style="justify-content: center; gap: 1rem;">
-                                <span>📅 ${post.date}</span>
-                                <span class="post-tag">${post.tag}</span>
-                            </div>
-                        </div>
-                        <div id="postBody"></div>
-                        <button onclick="location.href='index.html'" 
-                            style="margin-top: 3rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;"
-                        >
-                            ← 返回首页
-                        </button>
-                    </article>
-                </div>
-            </main>
-            
-            <footer class="footer">
-                <div class="container">
-                    <p>&copy; 2026 我的博客. Powered by ❤️</p>
-                </div>
-            </footer>
-            
-            <script>
-                // 配置 marked.js
-                marked.setOptions({
-                    highlight: function(code, lang) {
-                        return code;
-                    },
-                    breaks: true,
-                    gfm: true
-                });
-                
-                // 渲染 Markdown
-                const markdownContent = ${JSON.stringify(markdownContent)};
-                document.getElementById('postBody').innerHTML = marked.parse(markdownContent);
-                
-                // 主题切换
-                const themeToggle = document.getElementById('themeToggle');
-                const savedTheme = localStorage.getItem('theme') || 'light';
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-                
-                themeToggle.addEventListener('click', () => {
-                    const currentTheme = document.documentElement.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    document.documentElement.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('theme', newTheme);
-                    themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-                });
-            <\/script>
-        </body>
-        </html>
+            </div>
+            <div id="postBody"></div>
+            <button onclick="backToHome()" style="margin-top: 3rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+                ← 返回首页
+            </button>
+        </article>
     `;
+    postContainer.style.display = 'block';
+    
+    // 渲染 Markdown
+    if (typeof marked !== 'undefined') {
+        document.getElementById('postBody').innerHTML = marked.parse(markdownContent);
+    } else {
+        document.getElementById('postBody').innerHTML = '<pre>' + markdownContent + '</pre>';
+    }
+    
+    // 滚动到顶部
+    window.scrollTo(0, 0);
+}
+
+// 返回首页
+function backToHome() {
+    const hero = document.querySelector('.hero');
+    const postsSection = document.querySelector('.posts-section');
+    const postContainer = document.getElementById('postContainer');
+    
+    if (hero) hero.style.display = 'block';
+    if (postsSection) postsSection.style.display = 'block';
+    if (postContainer) postContainer.style.display = 'none';
+    
+    window.scrollTo(0, 0);
 }
 
 // 主题切换
