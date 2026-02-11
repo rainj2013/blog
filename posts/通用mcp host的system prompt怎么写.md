@@ -249,3 +249,4 @@ sequenceDiagram
 > 参考文档：
 > Claude Code 原理解读：<https://zhuanlan.zhihu.com/p/1922348743950337337>
 > 完整代码：<https://github.com/rainj2013/mermaid_mcp>
+
