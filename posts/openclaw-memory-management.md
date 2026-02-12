@@ -93,121 +93,100 @@ OpenClaw 支持对记忆文件进行语义搜索：
 
 ---
 
-## 二、Claude 的上下文管理机制（基于 Anthropic 官方文档）
+## 二、Claude Code CLI 的上下文管理机制
 
-### 2.1 Context Window 架构
+### 2.1 会话（Session）模型
 
-根据 [Anthropic 官方文档](https://docs.anthropic.com/en/build-with-claude/context-windows)，Claude 使用传统的**上下文窗口（Context Window）**机制：
+Claude Code CLI 是一个终端 AI 编程助手，其上下文管理遵循**会话隔离**原则：
 
-> "The 'context window' refers to all the text a language model can reference when generating a response, including the response itself. This is different from the large corpus of data the language model was trained on, and instead represents a 'working memory' for the model."
+- **每个会话独立**：启动 `claude` 命令后，所有对话在一个会话中进行
+- **上下文窗口限制**：受底层 Claude 模型限制（200K tokens）
+- **无自动持久化**：会话结束后，上下文不会自动保存到磁盘
+- **`/new` 命令**：创建全新会话，之前的上下文完全丢失
 
-**核心特性：**
+### 2.2 上下文构建方式
 
-| 特性 | 说明 |
-|-----|------|
-| **窗口大小** | 标准 200K tokens；Claude Opus 4.6 / Sonnet 4.5 / Sonnet 4 支持 1M tokens（Beta） |
-| **累积模式** | 渐进式 token 累积，每轮对话保留完整历史 |
-| **增长模式** | 线性增长，每轮输入包含所有历史 + 当前消息 |
-| **超出处理** | Claude Sonnet 3.7+ 返回验证错误而非静默截断 |
+Claude Code CLI 通过以下方式构建上下文：
 
-**Context Window 工作流程：**
+| 方式 | 命令 | 说明 |
+|-----|------|------|
+| **自动加载** | 启动时自动 | 加载当前目录下的 `.claude/` 配置（如果存在） |
+| **手动添加文件** | `/add <file>` | 将文件内容加入当前会话上下文 |
+| **添加目录** | `/add <dir>` | 递归添加目录下文件 |
+| **查看上下文** | `/context` | 显示当前加载的文件和 token 使用情况 |
+| **清除上下文** | `/clear` | 清空当前会话的所有上下文 |
 
+### 2.3 与 OpenClaw 的核心差异
+
+| 特性 | OpenClaw | Claude Code CLI |
+|-----|---------|-----------------|
+| **存储位置** | 磁盘文件（`memory/` 目录） | 内存（当前会话） |
+| **持久化** | ✅ 自动持久化，跨会话继承 | ❌ 会话结束即丢失 |
+| **跨会话记忆** | ✅ 通过 memory 文件自动加载 | ❌ 每次启动从零开始 |
+| **用户可控性** | ✅ 可查看、编辑、删除记忆文件 | ⚠️ 通过 `/add` 手动管理 |
+| **上下文管理** | 预压缩记忆刷新 + 自动保存 | 手动 `/add` + `/clear` |
+| **记忆触发** | 自动（接近压缩阈值时） | 完全手动 |
+
+### 2.4 Claude Code CLI 的局限性
+
+1. **无自动记忆继承**
+   - 每次运行 `claude` 或 `/new`，需要重新说明项目背景
+   - 需要手动 `/add` 文件重建上下文
+
+2. **无磁盘持久化**
+   - 不像 OpenClaw 自动写入 `memory/YYYY-MM-DD.md`
+   - 会话结束后，所有对话历史丢失
+
+3. **上下文黑盒**
+   - 用户无法查看完整的系统提示词
+   - 无法审计模型"记得"什么
+
+4. **项目级隔离**
+   - 不同项目之间完全不共享上下文
+   - 需要在每个项目重复说明偏好和约定
+
+### 2.5 Claude Code CLI 的工作流程示例
+
+```bash
+# 进入项目目录
+cd my-project
+
+# 启动 Claude Code
+claude
+
+# 手动添加关键文件到上下文
+/add README.md
+/add src/main.py
+/add .claude/CLAUDE.md  # 项目级提示词文件
+
+# 开始对话...
+# 会话结束后，所有上下文丢失
+
+# 下次启动需要重新 /add 文件
 ```
-Turn 1: [User Message] → [Claude Response]
-Turn 2: [User Message + 完整历史] → [Claude Response]
-Turn 3: [User Message + 更长的完整历史] → [Claude Response]
-        ↑
-   直到接近 200K/1M token 限制
+
+### 2.6 为什么 OpenClaw 的记忆机制更优？
+
+**场景对比：维护一个长期项目**
+
+**使用 OpenClaw：**
+```
+第 1 天：配置 GitHub SSH 密钥 → 自动保存到 memory/2026-02-10.md
+第 3 天：修改博客 CSS → 自动保存技术细节
+第 7 天：问 "我的 GitHub 邮箱是什么？" → 自动从记忆文件检索
 ```
 
-### 2.2 Server-Side Compaction（服务器端压缩）
-
-这是 Claude 处理长对话的核心机制，目前处于 Beta 阶段，仅支持 Claude Opus 4.6。
-
-根据 [Anthropic Compaction 文档](https://docs.anthropic.com/en/build-with-claude/compaction)：
-
-> "Server-side compaction is the recommended strategy for managing context in long-running conversations and agentic workflows. It handles context management automatically with minimal integration work."
-
-**工作原理：**
-
+**使用 Claude Code CLI：**
 ```
-1. 检测输入 token 超过触发阈值（默认 150K）
-   ↓
-2. Claude 生成对话摘要
-   ↓
-3. 创建 compaction 块包含摘要
-   ↓
-4. 后续请求自动丢弃 compaction 块之前的内容
-   ↓
-5. 使用摘要 + 近期消息继续对话
+第 1 天：配置 GitHub SSH 密钥 → 仅在当前会话有效
+第 3 天：修改博客 CSS → 需要重新 /add 文件和说明背景
+第 7 天：问 "我的 GitHub 邮箱是什么？" → "抱歉，我不知道..."
 ```
 
-**API 配置示例：**
-
-```json
-{
-  "model": "claude-opus-4-6",
-  "context_management": {
-    "edits": [
-      {
-        "type": "compact_20260112",
-        "trigger": {"type": "input_tokens", "value": 150000}
-      }
-    ]
-  }
-}
-```
-
-**默认摘要提示词：**
-
-> "You have written a partial transcript for the initial task above. Please write a summary of the transcript. The purpose of this summary is to provide continuity so you can continue to make progress towards solving the task in a future context, where the raw history above may not be accessible and will be replaced with this summary."
-
-### 2.3 Extended Thinking 与 Context Window
-
-Claude 的 Extended Thinking 功能会生成 thinking 块，但官方文档指出：
-
-> "Previous thinking blocks are automatically stripped from the context window calculation by the Claude API and are not part of the conversation history that the model 'sees' for subsequent turns."
-
-这意味着 thinking tokens 不会累积到上下文窗口中，保护了 token 容量用于实际对话内容。
-
-### 2.4 Context Awareness（上下文感知）
-
-Claude Sonnet 4.5 和 Haiku 4.5 引入了**上下文感知**能力：
-
-> "This capability lets these models track their remaining context window (i.e. 'token budget') throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work."
-
-模型在每次工具调用后会收到剩余容量更新，类似于烹饪比赛中的计时器，让模型知道还剩多少时间（token）。
-
-### 2.5 与 OpenClaw 的核心差异对比
-
-| 特性 | OpenClaw | Claude (Anthropic API) |
-|-----|---------|----------------------|
-| **存储位置** | 磁盘文件（Markdown） | 内存（上下文窗口） |
-| **持久化** | ✅ 自动持久化到磁盘，跨会话继承 | ❌ 会话结束即丢失（除非使用 Compaction） |
-| **跨会话记忆** | ✅ 通过 memory 文件自动继承 | ❌ 每次对话从零开始（需手动重建） |
-| **用户可控性** | ✅ 可查看、编辑、删除记忆文件 | ⚠️ 通过 API 参数配置，黑盒摘要 |
-| **压缩策略** | **预压缩记忆刷新**（磁盘持久化 + 摘要） | **后压缩**（仅内存摘要，不持久化） |
-| **摘要位置** | 压缩前写入磁盘文件 | 压缩后保留在内存响应中 |
-| **适用模型** | 所有模型 | Compaction 仅 Claude Opus 4.6 |
-
-### 2.6 Claude 的局限性（基于官方文档）
-
-1. **无自动跨会话记忆**
-   - 每次新会话需要重新提供背景信息
-   - 除非用户自己实现外部存储和重建逻辑
-
-2. **Compaction 限制**
-   - 仅支持 Claude Opus 4.6
-   - 处于 Beta 阶段
-   - 摘要是黑盒，用户无法干预或查看
-
-3. **成本增加**
-   - Compaction 需要额外的采样步骤
-   - 产生额外的 token 消耗和计费
-
-4. **Same Model 限制**
-   -  summarization 使用与主请求相同的模型
-   - 无法使用更便宜的模型进行摘要
+**关键差异：**
+- Claude Code CLI 需要**手动管理**上下文（`/add` 文件）
+- OpenClaw **自动保存**记忆到磁盘，跨会话继承
+- Claude Code CLI 的 `.claude/CLAUDE.md` 类似于 OpenClaw 的 `MEMORY.md`，但需要**手动维护**
 
 ---
 
@@ -222,12 +201,13 @@ Claude Sonnet 4.5 和 Haiku 4.5 引入了**上下文感知**能力：
 3. 第 7 天：询问 "我的 GitHub 邮箱是什么？"
    - OpenClaw 自动搜索记忆文件，返回：`yangyujian25@gmail.com`
 
-**使用 Claude：**
+**使用 Claude Code CLI：**
 
-1. 第 1 天：配置 GitHub SSH 密钥，在对话中说明
-2. 第 3 天：开启新会话，需要重新说明项目背景
+1. 第 1 天：配置 GitHub SSH 密钥，手动 `/add ~/.ssh/config` 到上下文
+2. 第 3 天：重新启动 `claude`，需要重新 `/add` 所有相关文件
 3. 第 7 天：询问 "我的 GitHub 邮箱是什么？"
-   - Claude："抱歉，我无法访问之前的对话记录..."
+   - Claude Code："抱歉，我无法访问之前的对话记录，请重新告诉我"
+   - 或需要在项目根目录创建 `.claude/CLAUDE.md` 手动记录
 
 ---
 
@@ -328,12 +308,11 @@ OpenClaw 的记忆管理机制代表了 AI 助手架构的一个重要方向：*
 4. [Compaction - OpenClaw Documentation](https://docs.openclaw.ai/concepts/compaction)
 5. [Session - OpenClaw Documentation](https://docs.openclaw.ai/concepts/session)
 
-### Anthropic 官方文档（Claude 部分信源）
+### Claude Code CLI 参考
 
-6. [Context Windows - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/context-windows)
-7. [Compaction - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/compaction)
-8. [Context Editing - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/context-editing)
+6. [Claude Code Overview - Anthropic Documentation](https://docs.anthropic.com/en/docs/claude-code)
+7. [Claude Code CLI Reference](https://docs.anthropic.com/docs/en/cli-reference)
 
 ---
 
-*本文最初由 OpenClaw 助手基于实际对话整理，所有技术细节均来自官方文档。OpenClaw 记忆文件位于 `memory/2026-02-12.md`。*
+*本文最初由 OpenClaw 助手基于实际对话整理，OpenClaw 记忆文件位于 `memory/2026-02-12.md`。*
