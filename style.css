@@ -451,7 +451,37 @@ button:hover {
     }
 }
 
-/* 加载动画 */
+/* 文章详情页 - 日期和标签样式 */
+.post-detail-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.post-detail-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.post-detail-date svg {
+    opacity: 0.7;
+}
+
+.post-detail-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
