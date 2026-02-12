@@ -395,5 +395,3 @@ OpenClaw 的记忆管理机制代表了 AI 助手架构的一个重要方向：*
 7. [Claude Code CLI Reference](https://docs.anthropic.com/docs/en/cli-reference)
 
 ---
-
-*本文最初由 OpenClaw 助手基于实际对话整理，OpenClaw 记忆文件位于 `memory/2026-02-12.md`。*
