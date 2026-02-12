@@ -5,7 +5,7 @@ tag: OpenClaw
 
 # OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索
 
-> 本文基于 OpenClaw 官方文档（v2026.1.10）和实际使用经验整理，Claude 部分参考公开技术资料，建议读者查阅各自官方文档获取最新信息。
+> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。
 
 ## 引言
 
@@ -93,35 +93,121 @@ OpenClaw 支持对记忆文件进行语义搜索：
 
 ---
 
-## 二、Claude 的上下文管理（待补充官方信源）
-
-> ⚠️ **注意**：以下 Claude 部分内容基于公开技术讨论，建议查阅 [Anthropic 官方文档](https://docs.anthropic.com/) 获取准确信息。
+## 二、Claude 的上下文管理机制（基于 Anthropic 官方文档）
 
 ### 2.1 Context Window 架构
 
-Claude 使用传统的上下文窗口（context window）机制：
+根据 [Anthropic 官方文档](https://docs.anthropic.com/en/build-with-claude/context-windows)，Claude 使用传统的**上下文窗口（Context Window）**机制：
 
-- **固定窗口大小**：不同模型有不同限制（如 Claude 3.5 Sonnet 为 200K tokens）
-- **滑动窗口**：超出限制时，最早的消息会被丢弃
-- **无持久化**：对话结束后，上下文不会自动保存到磁盘
+> "The 'context window' refers to all the text a language model can reference when generating a response, including the response itself. This is different from the large corpus of data the language model was trained on, and instead represents a 'working memory' for the model."
 
-### 2.2 与 OpenClaw 的核心差异
+**核心特性：**
 
-| 特性 | OpenClaw | Claude |
-|-----|---------|--------|
+| 特性 | 说明 |
+|-----|------|
+| **窗口大小** | 标准 200K tokens；Claude Opus 4.6 / Sonnet 4.5 / Sonnet 4 支持 1M tokens（Beta） |
+| **累积模式** | 渐进式 token 累积，每轮对话保留完整历史 |
+| **增长模式** | 线性增长，每轮输入包含所有历史 + 当前消息 |
+| **超出处理** | Claude Sonnet 3.7+ 返回验证错误而非静默截断 |
+
+**Context Window 工作流程：**
+
+```
+Turn 1: [User Message] → [Claude Response]
+Turn 2: [User Message + 完整历史] → [Claude Response]
+Turn 3: [User Message + 更长的完整历史] → [Claude Response]
+        ↑
+   直到接近 200K/1M token 限制
+```
+
+### 2.2 Server-Side Compaction（服务器端压缩）
+
+这是 Claude 处理长对话的核心机制，目前处于 Beta 阶段，仅支持 Claude Opus 4.6。
+
+根据 [Anthropic Compaction 文档](https://docs.anthropic.com/en/build-with-claude/compaction)：
+
+> "Server-side compaction is the recommended strategy for managing context in long-running conversations and agentic workflows. It handles context management automatically with minimal integration work."
+
+**工作原理：**
+
+```
+1. 检测输入 token 超过触发阈值（默认 150K）
+   ↓
+2. Claude 生成对话摘要
+   ↓
+3. 创建 compaction 块包含摘要
+   ↓
+4. 后续请求自动丢弃 compaction 块之前的内容
+   ↓
+5. 使用摘要 + 近期消息继续对话
+```
+
+**API 配置示例：**
+
+```json
+{
+  "model": "claude-opus-4-6",
+  "context_management": {
+    "edits": [
+      {
+        "type": "compact_20260112",
+        "trigger": {"type": "input_tokens", "value": 150000}
+      }
+    ]
+  }
+}
+```
+
+**默认摘要提示词：**
+
+> "You have written a partial transcript for the initial task above. Please write a summary of the transcript. The purpose of this summary is to provide continuity so you can continue to make progress towards solving the task in a future context, where the raw history above may not be accessible and will be replaced with this summary."
+
+### 2.3 Extended Thinking 与 Context Window
+
+Claude 的 Extended Thinking 功能会生成 thinking 块，但官方文档指出：
+
+> "Previous thinking blocks are automatically stripped from the context window calculation by the Claude API and are not part of the conversation history that the model 'sees' for subsequent turns."
+
+这意味着 thinking tokens 不会累积到上下文窗口中，保护了 token 容量用于实际对话内容。
+
+### 2.4 Context Awareness（上下文感知）
+
+Claude Sonnet 4.5 和 Haiku 4.5 引入了**上下文感知**能力：
+
+> "This capability lets these models track their remaining context window (i.e. 'token budget') throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work."
+
+模型在每次工具调用后会收到剩余容量更新，类似于烹饪比赛中的计时器，让模型知道还剩多少时间（token）。
+
+### 2.5 与 OpenClaw 的核心差异对比
+
+| 特性 | OpenClaw | Claude (Anthropic API) |
+|-----|---------|----------------------|
 | **存储位置** | 磁盘文件（Markdown） | 内存（上下文窗口） |
-| **持久化** | ✅ 自动持久化到磁盘 | ❌ 会话结束即丢失 |
-| **跨会话记忆** | ✅ 通过 memory 文件继承 | ❌ 每次对话从零开始 |
-| **用户可控性** | ✅ 可查看、编辑记忆文件 | ❌ 黑盒，用户无法干预 |
-| **压缩策略** | 预压缩记忆刷新（pre-compaction flush） | 滑动窗口丢弃 |
+| **持久化** | ✅ 自动持久化到磁盘，跨会话继承 | ❌ 会话结束即丢失（除非使用 Compaction） |
+| **跨会话记忆** | ✅ 通过 memory 文件自动继承 | ❌ 每次对话从零开始（需手动重建） |
+| **用户可控性** | ✅ 可查看、编辑、删除记忆文件 | ⚠️ 通过 API 参数配置，黑盒摘要 |
+| **压缩策略** | **预压缩记忆刷新**（磁盘持久化 + 摘要） | **后压缩**（仅内存摘要，不持久化） |
+| **摘要位置** | 压缩前写入磁盘文件 | 压缩后保留在内存响应中 |
+| **适用模型** | 所有模型 | Compaction 仅 Claude Opus 4.6 |
 
-### 2.3 Claude 的局限性（基于社区反馈）
+### 2.6 Claude 的局限性（基于官方文档）
 
-根据用户普遍反馈，Claude 存在以下问题：
+1. **无自动跨会话记忆**
+   - 每次新会话需要重新提供背景信息
+   - 除非用户自己实现外部存储和重建逻辑
 
-1. **长对话丢失早期内容**：当对话超过上下文窗口，早期消息被静默丢弃
-2. **无自动记忆继承**：每次 `/new` 或新会话，需要手动重新提供背景信息
-3. **Projects 功能有限**：虽然 Claude 推出了 Projects 功能，但知识库检索精度不如 OpenClaw 的语义搜索
+2. **Compaction 限制**
+   - 仅支持 Claude Opus 4.6
+   - 处于 Beta 阶段
+   - 摘要是黑盒，用户无法干预或查看
+
+3. **成本增加**
+   - Compaction 需要额外的采样步骤
+   - 产生额外的 token 消耗和计费
+
+4. **Same Model 限制**
+   -  summarization 使用与主请求相同的模型
+   - 无法使用更便宜的模型进行摘要
 
 ---
 
@@ -242,11 +328,12 @@ OpenClaw 的记忆管理机制代表了 AI 助手架构的一个重要方向：*
 4. [Compaction - OpenClaw Documentation](https://docs.openclaw.ai/concepts/compaction)
 5. [Session - OpenClaw Documentation](https://docs.openclaw.ai/concepts/session)
 
-### Claude/Anthropic 文档（待补充）
+### Anthropic 官方文档（Claude 部分信源）
 
-- [Anthropic Documentation](https://docs.anthropic.com/)
-- [Claude Context Window Guide](https://docs.anthropic.com/en/docs/build-with-claude/context-window) *(待验证)*
+6. [Context Windows - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/context-windows)
+7. [Compaction - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/compaction)
+8. [Context Editing - Anthropic Documentation](https://docs.anthropic.com/en/build-with-claude/context-editing)
 
 ---
 
-*本文最初由 OpenClaw 助手基于实际对话整理，记忆文件位于 `memory/2026-02-12.md`。*
+*本文最初由 OpenClaw 助手基于实际对话整理，所有技术细节均来自官方文档。OpenClaw 记忆文件位于 `memory/2026-02-12.md`。*

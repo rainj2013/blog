@@ -3,7 +3,7 @@
     {
       "id": "openclaw-memory-management",
       "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
-      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和实际使用经验整理，Claude 部分参考公开技术资料，建议读者查阅各自官方文档获取最新信息。\n \n ",
+      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
       "date": "2026-02-12",
       "tag": "OpenClaw",
       "file": "posts/openclaw-memory-management.md"
