@@ -17,7 +17,7 @@ tag: OpenClaw
 
 ### 1.1 核心设计哲学
 
-根据 [OpenClaw 官方文档](https://docs.openclaw.ai/concepts/memory)，OpenClaw 的记忆遵循一个简单原则：**
+根据 [OpenClaw 官方文档](https://docs.openclaw.ai/concepts/memory)，OpenClaw 的记忆遵循一个简单原则：
 
 > "OpenClaw memory is plain Markdown in the agent workspace. The files are the source of truth; the model only 'remembers' what gets written to disk."
 
@@ -279,7 +279,7 @@ claude
 1. 第 1 天：配置 GitHub SSH 密钥，记录到 `memory/2026-02-10.md`
 2. 第 3 天：修改博客 CSS，记录技术细节到 `memory/2026-02-12.md`
 3. 第 7 天：询问 "我的 GitHub 邮箱是什么？"
-   - OpenClaw 自动搜索记忆文件，返回：`yangyujian25@gmail.com`
+   - OpenClaw 自动搜索记忆文件，返回：`****@gmail.com`
 
 **使用 Claude Code CLI：**
 
