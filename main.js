@@ -161,9 +161,11 @@ function showPostPage(post, markdownContent) {
     `;
     postContainer.style.display = 'block';
     
-    // 渲染 Markdown
+    // 渲染 Markdown（移除 frontmatter）
     if (typeof marked !== 'undefined') {
-        document.getElementById('postBody').innerHTML = marked.parse(markdownContent);
+        // 移除 frontmatter (---\n...\n---)
+        const contentWithoutFrontmatter = markdownContent.replace(/^---\n[\s\S]*?\n---\n*/, '');
+        document.getElementById('postBody').innerHTML = marked.parse(contentWithoutFrontmatter);
     } else {
         document.getElementById('postBody').innerHTML = '<pre>' + markdownContent + '</pre>';
     }
