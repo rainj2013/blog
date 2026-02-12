@@ -32,6 +32,12 @@ jobs:
       - name: Generate Posts Index
         run: node generate-posts.js
       
+      - name: Add Cache Busting
+        run: |
+          TIMESTAMP=$(date +%s)
+          sed -i "s/?v=2/?v=$TIMESTAMP/g" index.html
+          echo "Cache busting version: $TIMESTAMP"
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
