@@ -17,7 +17,7 @@ function extractTitle(content) {
     return match ? match[1].trim() : '无标题';
 }
 
-// 从 Markdown 内容提取摘要（第一段非空文本）
+// 从 Markdown 内容提取摘要（固定3行，不足补空行）
 function extractExcerpt(content) {
     // 移除 YAML frontmatter
     const noFrontmatter = content.replace(/^---[\s\S]*?---\n*/, '');
@@ -25,19 +25,38 @@ function extractExcerpt(content) {
     const noTitle = noFrontmatter.replace(/^#\s+.+\n/m, '');
     // 找到第一个非空段落
     const paragraphs = noTitle.split('\n\n');
+    let excerpt = '';
     for (const p of paragraphs) {
         const trimmed = p.trim();
         if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('```')) {
             // 移除 Markdown 标记，保留纯文本
-            return trimmed
+            excerpt = trimmed
                 .replace(/\*\*/g, '')
                 .replace(/\*/g, '')
                 .replace(/`/g, '')
-                .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
-                .slice(0, 150) + '...';
+                .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+            break;
         }
     }
-    return '暂无摘要';
+
+    if (!excerpt) {
+        excerpt = '暂无摘要';
+    }
+
+    // 限制字符数（约3行的内容）
+    const maxChars = 90;
+    if (excerpt.length > maxChars) {
+        excerpt = excerpt.slice(0, maxChars) + '...';
+    }
+
+    // 统一为3行：按换行分割，不足3行补空行
+    const lines = excerpt.split('\n');
+    const targetLines = 3;
+    while (lines.length < targetLines) {
+        lines.push('\u00A0'); // 使用不间断空格作为空行占位
+    }
+
+    return lines.slice(0, targetLines).join('\n');
 }
 
 // 从文件名或内容提取日期

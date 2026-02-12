@@ -223,11 +223,9 @@ body {
     color: var(--text-secondary);
     margin-bottom: 1rem;
     line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     font-size: 0.95rem;
+    white-space: pre-line;
+    min-height: calc(1.6em * 3);
 }
 
 .post-meta {
