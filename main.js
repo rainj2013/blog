@@ -11,8 +11,28 @@ const baseUrl = window.location.origin;
 const postsContainer = document.getElementById('postsContainer');
 const themeToggle = document.getElementById('themeToggle');
 
+// 配置 marked.js 启用表格和其他 GFM 特性
+function initMarked() {
+    if (typeof marked !== 'undefined') {
+        marked.use({
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: true,
+            xhtml: false
+        });
+        console.log('marked.js configured with GFM tables');
+    } else {
+        console.error('marked.js not loaded');
+    }
+}
+
 // 初始化
 async function init() {
+    initMarked();  // 先配置 marked.js
     loadTheme();
     setupEventListeners();
     await loadPosts();
