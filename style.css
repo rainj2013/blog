@@ -11,6 +11,11 @@
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     --radius: 0.75rem;
     --transition: all 0.2s ease;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --footer-bg: rgba(255, 255, 255, 0.8);
+    --content-bg: rgba(255, 255, 255, 0.7);
 }
 
 /* 暗色模式 */
@@ -24,9 +29,32 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+    --card-bg: rgba(30, 30, 40, 0.25);
+    --card-border: rgba(255, 255, 255, 0.05);
+    --header-bg: rgba(20, 20, 30, 0.4);
+    --footer-bg: rgba(20, 20, 30, 0.6);
+    --content-bg: rgba(30, 30, 40, 0.25);
 }
 
-/* 深色模式背景纹理 */
+/* 浅色模式特殊样式 */
+html:not([data-theme="dark"]) body {
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+html:not([data-theme="dark"]) .post-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+html:not([data-theme="dark"]) .post-card:hover {
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+}
+
+html:not([data-theme="dark"]) .post-content {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
 [data-theme="dark"] body {
     background-color: var(--bg-color);
     background-image: 
@@ -90,8 +118,8 @@ body {
 
 /* 头部 - 玻璃态 */
 .header {
-    background: rgba(20, 20, 30, 0.4);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
     padding: 1rem 0;
     position: sticky;
     top: 0;
@@ -195,8 +223,8 @@ body {
 
 /* 文章卡片 - 玻璃态效果 */
 .post-card {
-    background: rgba(30, 30, 40, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: var(--transition);
@@ -207,13 +235,14 @@ body {
     flex-direction: column;
     height: 100%;
     min-height: 220px;
+    box-shadow: var(--shadow);
 }
 
 .post-card:hover {
     transform: translateY(-2px);
-    background: rgba(40, 40, 50, 0.35);
-    border-color: rgba(99, 102, 241, 0.15);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    background: var(--surface-color);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .post-title {
@@ -258,8 +287,8 @@ body {
 
 /* 页脚 - 玻璃态 */
 .footer {
-    background: rgba(20, 20, 30, 0.6);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--footer-bg);
+    border-top: 1px solid var(--border-color);
     padding: 2rem 0;
     text-align: center;
     color: var(--text-secondary);
@@ -272,12 +301,13 @@ body {
 .post-content {
     max-width: 800px;
     margin: 0 auto;
-    background: rgba(30, 30, 40, 0.25);
+    background: var(--content-bg);
     padding: 2rem;
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow);
 }
 
 .post-content h1 {
@@ -355,9 +385,10 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5rem 0;
-    background: rgba(30, 30, 40, 0.3);
+    background: var(--surface-color);
     border-radius: var(--radius);
     overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .post-content th,
@@ -368,7 +399,7 @@ body {
 }
 
 .post-content th {
-    background: rgba(99, 102, 241, 0.15);
+    background: rgba(99, 102, 241, 0.1);
     font-weight: 600;
     color: var(--text-color);
 }
