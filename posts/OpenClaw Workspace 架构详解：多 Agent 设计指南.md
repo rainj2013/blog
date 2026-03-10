@@ -63,13 +63,13 @@ OpenClaw 是一个多 Agent 管理系统，每个 Agent 有自己独立的 Works
 
 **主 Agent 内容**（已填写）：
 ```markdown
-- **Name:** 杨雨健
+- **Name:** rainj2013
 - **What to call them:** rainj2013
 - **Timezone:** UTC
 
 ## Context
 - 有个博客：https://rainj2013.top
-- 最近在准备 Java 面试
+- 最近在学习 OpenClaw
 ```
 
 **blog-agent 内容**：空（不需要了解用户太多背景，只需要知道博客位置）
@@ -194,9 +194,93 @@ blog-agent <- feishu accountId=blog # blog 群聊
 |------|----------|------------|
 | AGENTS.md | 完整通用规则 | 简化版专注博客 |
 | SOUL.md | 通用助手 | 博客写手角色 |
-| USER.md | rain 的详细信息 | 空（不需要） |
+| USER.md | rainj2013 的信息 | 空（不需要） |
 | SKILL.md | 无 | 博客工作流程 |
 | 记忆 | 包含各种上下文 | 独立不共享 |
+
+## Workspace 隔离机制详解
+
+### 文件组织：每个 Agent 独立的目录
+
+OpenClaw 通过**独立的目录**实现 Workspace 隔离。当你创建一个新的 Agent 时：
+
+```bash
+# 创建 blog-agent 时指定 workspace 目录
+openclaw agents add blog-agent --workspace /root/.openclaw/workspace-blog
+```
+
+这会在文件系统中创建独立的目录结构：
+
+```
+~/.openclaw/
+├── workspace/              # 主 Agent (main)
+│   ├── AGENTS.md
+│   ├── SOUL.md
+│   ├── USER.md
+│   ├── memory/
+│   │   └── 2026-03-10.md
+│   └── ...
+│
+├── workspace-blog/         # 博客 Agent (blog-agent)
+│   ├── AGENTS.md
+│   ├── SOUL.md
+│   ├── USER.md
+│   ├── SKILL.md
+│   ├── memory/            # 独立记忆目录
+│   │   └── 2026-03-10.md
+│   └── ...
+│
+└── agents/
+    ├── main/
+    │   └── sessions/     # main 的会话历史
+    └── blog-agent/
+        └── sessions/     # blog-agent 的会话历史（独立）
+```
+
+**关键点**：
+- 每个 Agent 的 `memory/` 目录独立，互不干扰
+- 每个 Agent 的 `sessions/` 独立，会话历史不共享
+- 配置文件（AGENTS.md、SOUL.md 等）完全隔离，可以完全不同
+
+### 记忆隔离：能否部分共享？
+
+**默认行为**：每个 Agent 的记忆**完全隔离**。
+
+这是设计上的选择——如果你希望某些 Agent 之间共享记忆，有几种方案：
+
+#### 方案 1：主 Agent 作为"枢纽"
+
+所有重要记忆都保存在 main agent 的 MEMORY.md 中。当其他 Agent 需要了解上下文时，可以：
+- 在 main 会话中让 main 把上下文传给其他 Agent
+- 通过飞书/其他渠道 @main 让它提供信息
+
+#### 方案 2：共用外部文件
+
+如果需要部分记忆共享（比如博客 Agent 需要知道博客配置），可以：
+- 在 blog-agent 的 SKILL.md 或 USER.md 中硬编码必要信息
+- 通过 GitHub 等外部存储共享
+
+#### 方案 3：手动同步
+
+定期（如每天）手动或通过 cron 同步特定记忆：
+```bash
+# 在 main 的 memory 中创建需要共享的笔记
+# 定期复制到其他 agent 的 workspace
+```
+
+#### 目前设计选择：完全隔离
+
+当前 blog-agent 设计为**完全隔离**：
+- 它不需要知道 rainj2013 的真实姓名
+- 它不需要知道面试准备进度
+- 它只需要知道：博客在哪、怎么发文章
+
+这样做的好处：
+- 隐私安全：敏感信息不会泄露到专门写博客的 Agent
+- 职责单一：Agent 只会做它该做的事，不会"多管闲事"
+- 简单可靠：不需要复杂的共享机制
+
+如果你需要部分共享记忆，可以修改 blog-agent 的 AGENTS.md 或创建一个共享知识库。具体方案取决于你的实际需求。
 
 ## 总结
 
