@@ -282,6 +282,20 @@ openclaw agents add blog-agent --workspace /root/.openclaw/workspace-blog
 
 如果你需要部分共享记忆，可以修改 blog-agent 的 AGENTS.md 或创建一个共享知识库。具体方案取决于你的实际需求。
 
+### 多 Agent 隔离的优势
+
+除了职责分离，多 Agent 隔离还有以下实际好处：
+
+| 优势 | 说明 |
+|------|------|
+| **节省 Token** | 每个 Agent 只加载自己的 memory，不用加载其他 Agent 的历史，上下文更精简 |
+| **避免记忆混乱** | 博客 Agent 不会混入主 Agent 的面试准备、飞书配置等杂七杂八的上下文 |
+| **降低延迟** | 上下文越小，LLM 处理越快，响应时间更短 |
+| **降低成本** | Token 少 = API 费用更低 |
+| **更专注** | 博客 Agent 只会想到"发文章"，不会被"要不要检查邮件"等无关任务干扰 |
+
+本质上就是**职责单一 + 上下文干净**。如果所有事情都塞给一个 Agent，上下文会越来越臃肿，Agent 也容易"分心"。
+
 ## 总结
 
 OpenClaw 的 Workspace 架构设计非常灵活：
