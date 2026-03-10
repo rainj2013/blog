@@ -271,8 +271,8 @@ openclaw agents add blog-agent --workspace /root/.openclaw/workspace-blog
 #### 目前设计选择：完全隔离
 
 当前 blog-agent 设计为**完全隔离**：
-- 它不需要知道 rainj2013 的真实姓名
-- 它不需要知道面试准备进度
+- 它不需要知道 rainj2013 的个人信息
+- 它不需要知道 rainj2013 发布过其他什么任务
 - 它只需要知道：博客在哪、怎么发文章
 
 这样做的好处：
