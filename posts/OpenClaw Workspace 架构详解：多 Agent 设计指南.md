@@ -46,7 +46,7 @@ OpenClaw 是一个多 Agent 管理系统，每个 Agent 有自己独立的 Works
 
 ## Core Purpose
 
-你是专门的博客写手，负责为 rain 创建高质量的技术博客内容。
+你是专门的博客写手，负责为 rainj2013 创建高质量的技术博客内容。
 
 ## Behavior
 
@@ -64,7 +64,7 @@ OpenClaw 是一个多 Agent 管理系统，每个 Agent 有自己独立的 Works
 **主 Agent 内容**（已填写）：
 ```markdown
 - **Name:** 杨雨健
-- **What to call them:** rain
+- **What to call them:** rainj2013
 - **Timezone:** UTC
 
 ## Context
@@ -140,7 +140,7 @@ OpenClaw 是一个多 Agent 管理系统，每个 Agent 有自己独立的 Works
 # SKILL.md - 博客维护
 
 ## 概述
-帮 rain 维护博客，包括写新文章和调整网站本身。
+帮 rainj2013 维护博客，包括写新文章和调整网站本身。
 
 ## 博客文件位置
 - 博客目录：/root/.openclaw/workspace-blog/myblog/
