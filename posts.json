@@ -1,33 +1,25 @@
 {
   "posts": [
     {
-      "id": "openclaw-workspace-架构详解-多-agent-设计指南",
-      "title": "OpenClaw Workspace 架构详解：多 Agent 设计与自定义指南",
-      "excerpt": "> 本文介绍 OpenClaw 的 Workspace 文件架构，以及如何为不同 Agent 定制个性化工作环境\n \n ",
-      "date": "2026-03-10",
-      "tag": "OpenClaw",
-      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md"
-    },
-    {
-      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
-      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
-      "excerpt": "金融行业对外发送的短信需要严格合规审核——例如理财类营销短信不能得明示或暗示无风险、催收短信不能恐吓威胁、验证码短信必须有时效说明等等。\n\n本项目实现了一个基于大模型的**短信合规审核 Agent**，输入短信内容，自动判断类型并输出结构化审核结果。",
-      "date": "2026-03-22",
-      "tag": "Agent",
-      "file": "posts/基于ReAct推理模式的Agent设计——以短信文案审核Agent为例.md"
-    },
-    {
       "id": "mcp协议完整落地案例",
       "title": "MCP协议完整落地案例",
-      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
+      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
       "date": "2025-07-20",
       "tag": "MCP",
       "file": "posts/MCP协议完整落地案例.md"
     },
     {
+      "id": "openclaw-workspace-架构详解-多-agent-设计指南",
+      "title": "OpenClaw Workspace 架构详解：多 Agent 设计与自定义指南",
+      "excerpt": "> 本文介绍 OpenClaw 的 Workspace 文件架构，以及如何为不同 Agent 定制个性化工作环境\n \n ",
+      "date": "2026-03-10",
+      "tag": "OpenClaw",
+      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md"
+    },
+    {
       "id": "openclaw-memory-management",
       "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
-      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
+      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
       "date": "2026-02-12",
       "tag": "OpenClaw",
       "file": "posts/openclaw-memory-management.md"
@@ -35,15 +27,23 @@
     {
       "id": "困惑到实践-mcp的几个细节探究",
       "title": "困惑到实践：MCP的几个细节探究",
-      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
+      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
       "date": "2025-07-12",
       "tag": "MCP",
       "file": "posts/困惑到实践：MCP的几个细节探究.md"
     },
     {
+      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
+      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
+      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
+      "date": "2026-03-22",
+      "tag": "Agent",
+      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md"
+    },
+    {
       "id": "纸上谈兵聊context-engineering",
       "title": "纸上谈兵聊聊 Context Engineering",
-      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
+      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
       "date": "2025-08-02",
       "tag": "AI工程",
       "file": "posts/纸上谈兵聊context engineering.md"
@@ -51,7 +51,7 @@
     {
       "id": "调就是调-不调就是不调-微调是什么意思",
       "title": "调就是调，不调就是不调，微调是什么意思？",
-      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
+      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
       "date": "2025-09-30",
       "tag": "AI技术",
       "file": "posts/调就是调，不调就是不调，微调是什么意思？.md"
@@ -59,7 +59,7 @@
     {
       "id": "通用mcp-host的system-prompt怎么写",
       "title": "通用mcp host的system prompt怎么写",
-      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
+      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
       "date": "2025-07-26",
       "tag": "MCP",
       "file": "posts/通用mcp host的system prompt怎么写.md"

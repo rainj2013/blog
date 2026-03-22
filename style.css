@@ -496,3 +496,90 @@ button:hover {
 .post-card {
     animation: fadeIn 0.3s ease forwards;
 }
+
+/* 视图切换按钮 */
+.posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.view-toggle {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.view-toggle:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* 紧凑列表视图 */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.posts-list .post-list-item {
+    display: grid;
+    grid-template-columns: 1fr 100px 80px;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.posts-list .post-list-item:hover {
+    background: var(--surface-color);
+    border-color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+.posts-list .post-list-title {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.posts-list .post-list-date {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.posts-list .post-list-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .posts-list .post-list-date {
+        display: none;
+    }
+}

@@ -10,6 +10,10 @@ const baseUrl = window.location.origin;
 // DOM 元素
 const postsContainer = document.getElementById('postsContainer');
 const themeToggle = document.getElementById('themeToggle');
+const viewToggle = document.getElementById('viewToggle');
+
+// 视图模式：'card' 或 'compact'
+let viewMode = localStorage.getItem('viewMode') || 'card';
 
 // 配置 marked.js 启用表格和其他 GFM 特性
 function initMarked() {
@@ -70,20 +74,34 @@ function renderPosts(posts) {
         `;
         return;
     }
-    
+
     // 按日期排序（最新的在前）
     const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    postsContainer.innerHTML = sortedPosts.map((post, index) => `
-        <article class="post-card" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.1}s">
-            <h3 class="post-title">${post.title}</h3>
-            <p class="post-excerpt">${post.excerpt}</p>
-            <div class="post-meta">
-                <span class="post-date">📅 ${post.date}</span>
-                <span class="post-tag">${post.tag}</span>
-            </div>
-        </article>
-    `).join('');
+
+    if (viewMode === 'compact') {
+        postsContainer.classList.remove('posts-grid');
+        postsContainer.classList.add('posts-list');
+        postsContainer.innerHTML = sortedPosts.map((post, index) => `
+            <article class="post-list-item" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.05}s">
+                <span class="post-list-title">${post.title}</span>
+                <span class="post-list-date">${post.date}</span>
+                <span class="post-list-tag">${post.tag}</span>
+            </article>
+        `).join('');
+    } else {
+        postsContainer.classList.remove('posts-list');
+        postsContainer.classList.add('posts-grid');
+        postsContainer.innerHTML = sortedPosts.map((post, index) => `
+            <article class="post-card" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.1}s">
+                <h3 class="post-title">${post.title}</h3>
+                <p class="post-excerpt">${post.excerpt}</p>
+                <div class="post-meta">
+                    <span class="post-date">📅 ${post.date}</span>
+                    <span class="post-tag">${post.tag}</span>
+                </div>
+            </article>
+        `).join('');
+    }
 }
 
 // 打开文章详情 - 在当前页显示，避免跨窗口路径问题
@@ -99,7 +117,7 @@ async function openPost(postId) {
         }
         
         // 加载 Markdown 内容（使用绝对路径）
-        const postUrl = `${baseUrl}/${post.file}`;
+        const postUrl = `${baseUrl}/${encodeURI(post.file)}`;
         const contentResponse = await fetch(postUrl);
         if (!contentResponse.ok) {
             throw new Error(`Failed to load: ${postUrl}`);
@@ -198,10 +216,31 @@ function loadTheme() {
     }
 }
 
+// 切换视图模式
+function toggleViewMode() {
+    viewMode = viewMode === 'card' ? 'compact' : 'card';
+    localStorage.setItem('viewMode', viewMode);
+    updateViewToggle();
+    loadPosts();
+}
+
+// 更新视图切换按钮
+function updateViewToggle() {
+    if (viewToggle) {
+        viewToggle.textContent = viewMode === 'card' ? '☰' : '▦';
+        viewToggle.title = viewMode === 'card' ? '切换到紧凑视图' : '切换到卡片视图';
+    }
+}
+
 // 设置事件监听
 function setupEventListeners() {
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    if (viewToggle) {
+        viewToggle.addEventListener('click', toggleViewMode);
+        updateViewToggle();
     }
     
     // 首页按钮

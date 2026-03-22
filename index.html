@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rainj2013的博客</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=6">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -27,7 +27,10 @@
             </section>
 
             <section class="posts-section">
-                <h3 class="section-title">最新文章</h3>
+                <div class="posts-header">
+                    <h3 class="section-title">最新文章</h3>
+                    <button class="view-toggle" id="viewToggle" title="切换视图">☰</button>
+                </div>
                 <div class="posts-grid" id="postsContainer">
                     <!-- 文章卡片将在这里生成 -->
                 </div>
@@ -41,6 +44,6 @@
         </div>
     </footer>
 
-    <script src="main.js?v=2"></script>
+    <script src="main.js?v=4"></script>
 </body>
 </html>
