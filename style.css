@@ -517,6 +517,7 @@ button:hover {
     align-items: center;
     justify-content: center;
     transition: var(--transition);
+    color: var(--text-color);
 }
 
 .view-toggle:hover {
