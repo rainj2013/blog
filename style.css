@@ -579,7 +579,22 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+    .posts-list .post-list-item {
+        grid-template-columns: 1fr auto;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+
     .posts-list .post-list-date {
         display: none;
+    }
+
+    .posts-list .post-list-tag {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .posts-list .post-list-title {
+        font-size: 0.95rem;
     }
 }
