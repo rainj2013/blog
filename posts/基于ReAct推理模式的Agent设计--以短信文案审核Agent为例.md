@@ -1,10 +1,10 @@
 ---
-title: "基于ReAct推理模式的Agent设计--以短信文案审核Agent为例"
+title: "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例"
 date: 2026-03-22
 tag: Agent
 ---
 
-# 基于ReAct推理模式的Agent设计--以短信文案审核Agent为例
+# 基于ReAct推理模式的Agent设计——以短信文案审核Agent为例
 
 ## 1. 项目背景与用途
 
