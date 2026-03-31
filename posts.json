@@ -1,12 +1,12 @@
 {
   "posts": [
     {
-      "id": "mcp协议完整落地案例",
-      "title": "MCP协议完整落地案例",
-      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
-      "date": "2025-07-20",
-      "tag": "MCP",
-      "file": "posts/MCP协议完整落地案例.md"
+      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
+      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
+      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
+      "date": "2026-03-22",
+      "tag": "Agent",
+      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md"
     },
     {
       "id": "openclaw-workspace-架构详解-多-agent-设计指南",
@@ -25,20 +25,20 @@
       "file": "posts/openclaw-memory-management.md"
     },
     {
+      "id": "mcp协议完整落地案例",
+      "title": "MCP协议完整落地案例",
+      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
+      "date": "2025-07-20",
+      "tag": "MCP",
+      "file": "posts/MCP协议完整落地案例.md"
+    },
+    {
       "id": "困惑到实践-mcp的几个细节探究",
       "title": "困惑到实践：MCP的几个细节探究",
       "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
       "date": "2025-07-12",
       "tag": "MCP",
       "file": "posts/困惑到实践：MCP的几个细节探究.md"
-    },
-    {
-      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
-      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
-      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
-      "date": "2026-03-22",
-      "tag": "Agent",
-      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md"
     },
     {
       "id": "纸上谈兵聊context-engineering",
