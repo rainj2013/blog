@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
+      "title": "讲清楚 Harness：一套简单可落地的 LLM Agent 实践",
+      "excerpt": "LLM主要应用还是chatbot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n \n ",
+      "date": "2026-04-01",
+      "tag": "AI工程",
+      "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md"
+    },
+    {
       "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
       "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
       "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
