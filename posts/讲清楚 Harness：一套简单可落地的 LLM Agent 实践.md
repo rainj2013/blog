@@ -6,7 +6,7 @@ tag: AI工程
 
 # 讲清楚 Harness：一套简单可落地的 LLM Agent 实践
 
-LLM主要应用还是chatbot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问题，上下文窗口不够用了，开始强调 Context Engineering，讲究如何组织上下文。最近又开始讨论 Harness Engineering，下面我将结合 OpenAI 和 Anthropic 的文章，聊一下我所理解的 Harness。
+LLM主要应用还是ChatBot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问题，上下文窗口不够用了，开始强调 Context Engineering，讲究如何组织上下文。最近又开始讨论 Harness Engineering，下面我将结合 OpenAI 和 Anthropic 的文章，聊一下我所理解的 Harness。
 
 **Harness** 这个词，本意是马具——用来控制马匹行动的装置。它的作用不是让马跑得更快，而是让马在正确的方向上、以可控的方式前进。
 
