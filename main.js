@@ -313,7 +313,7 @@ function showAboutPage() {
                     <h3 style="margin: 2rem 0 1rem;">关注我</h3>
                     <ul style="margin-left: 2rem; line-height: 2;">
                         <li>GitHub: <a href="https://github.com/rainj2013" target="_blank" style="color: var(--primary-color);">@rainj2013</a></li>
-                        <li>微信公众号: 搜索 <strong>rainj2013</strong></li>
+                        <li>微信公众号</li>
                     </ul>
                     <div style="margin-top: 1.5rem;">
                         <img src="/static/qrcode.jpg" alt="公众号二维码" style="max-width: 200px; border-radius: var(--radius); box-shadow: var(--shadow);">
