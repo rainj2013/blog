@@ -315,6 +315,9 @@ function showAboutPage() {
                         <li>GitHub: <a href="https://github.com/rainj2013" target="_blank" style="color: var(--primary-color);">@rainj2013</a></li>
                         <li>微信公众号: 搜索 <strong>rainj2013</strong></li>
                     </ul>
+                    <div style="margin-top: 1.5rem;">
+                        <img src="qrcode.jpg" alt="公众号二维码" style="max-width: 200px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    </div>
                     <h3 style="margin: 2rem 0 1rem;">联系方式</h3>
                     <p>欢迎通过 GitHub 与我交流。</p>
                 </div>
