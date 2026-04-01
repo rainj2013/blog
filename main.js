@@ -14,6 +14,7 @@ const viewToggle = document.getElementById('viewToggle');
 
 // 视图模式：'card' 或 'compact'
 let viewMode = localStorage.getItem('viewMode') || 'card';
+let allPosts = []; // 存储所有文章用于导航
 
 // 配置 marked.js 启用表格和其他 GFM 特性
 function initMarked() {
@@ -52,7 +53,8 @@ async function loadPosts() {
             throw new Error('Failed to load posts index');
         }
         const data = await response.json();
-        renderPosts(data.posts);
+        allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderPosts(allPosts);
     } catch (error) {
         console.error('Error loading posts:', error);
         postsContainer.innerHTML = `
@@ -125,7 +127,10 @@ async function openPost(postId) {
         const markdownContent = await contentResponse.text();
         
         // 在当前页渲染文章
-        showPostPage(post, markdownContent);
+        // 找到下一篇
+        const currentIndex = allPosts.findIndex(p => p.id === postId);
+        const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+        showPostPage(post, markdownContent, nextPost);
         
     } catch (error) {
         console.error('Error opening post:', error);
@@ -134,7 +139,7 @@ async function openPost(postId) {
 }
 
 // 显示文章页面（SPA方式，避免新窗口路径问题）
-function showPostPage(post, markdownContent) {
+function showPostPage(post, markdownContent, nextPost) {
     // 隐藏首页内容，显示文章
     const main = document.querySelector('.main');
     const hero = document.querySelector('.hero');
@@ -172,9 +177,14 @@ function showPostPage(post, markdownContent) {
                 </div>
             </div>
             <div id="postBody"></div>
-            <button onclick="backToHome()" style="margin-top: 3rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
-                ← 返回首页
-            </button>
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                <button onclick="backToHome()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+                    ← 返回首页
+                </button>
+                ${nextPost ? `<button onclick="openPost('${nextPost.id}')" style="padding: 0.75rem 1.5rem; background: var(--bg-secondary); color: var(--text); border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+                    下一篇: ${nextPost.title} →
+                </button>` : ''}
+            </div>
         </article>
     `;
     postContainer.style.display = 'block';
