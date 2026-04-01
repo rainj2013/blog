@@ -29,9 +29,6 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Generate Posts Index
-        run: node generate-posts.js
-      
       - name: Add Cache Busting
         run: |
           TIMESTAMP=$(date +%s)
