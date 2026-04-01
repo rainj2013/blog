@@ -177,11 +177,11 @@ function showPostPage(post, markdownContent, nextPost) {
                 </div>
             </div>
             <div id="postBody"></div>
-            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <button onclick="backToHome()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                <button onclick="backToHome()" style="padding: 0.75rem 1.5rem; background: transparent; color: var(--text); border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
                     ← 返回首页
                 </button>
-                ${nextPost ? `<button onclick="openPost('${nextPost.id}')" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
+                ${nextPost ? `<button onclick="openPost('${nextPost.id}')" style="padding: 0.75rem 1.5rem; background: transparent; color: var(--text); border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
                     下一篇: ${nextPost.title} →
                 </button>` : ''}
             </div>
