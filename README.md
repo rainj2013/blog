@@ -11,8 +11,7 @@
 
 ## 联系方式
 
-- 邮箱: yangyujian25@gmail.com
-- 欢迎通过 GitHub 与我交流
+欢迎通过 GitHub 与我交流。
 
 ## 关于博客
 
