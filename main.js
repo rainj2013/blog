@@ -319,7 +319,7 @@ function showAboutPage() {
                         <img src="/static/qrcode.jpg" alt="公众号二维码" style="max-width: 200px; border-radius: var(--radius); box-shadow: var(--shadow);">
                     </div>
                     <h3 style="margin: 2rem 0 1rem;">联系方式</h3>
-                    <p>欢迎通过 GitHub 与我交流。</p>
+                    <p>邮箱: <a href="mailto:yangyujian25@gmail.com" style="color: var(--primary-color);">yangyujian25@gmail.com</a></p>
                 </div>
                 <button onclick="showHomePage()" style="margin-top: 3rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
                     ← 返回首页
