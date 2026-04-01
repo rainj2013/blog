@@ -48,16 +48,29 @@ async function init() {
             // 后退到文章
             await openPost(e.state.postId, true);
         } else {
-            // 后退到首页
-            backToHome();
+            // 检查当前URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('post');
+            const about = urlParams.get('about');
+            if (postId) {
+                await openPost(postId, true);
+            } else if (about) {
+                showAboutPage();
+            } else {
+                // 后退到首页
+                backToHome();
+            }
         }
     });
     
     // 检查URL是否有post参数（直接访问文章链接）
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('post');
+    const about = urlParams.get('about');
     if (postId) {
         await openPost(postId, true);
+    } else if (about) {
+        showAboutPage();
     }
 }
 
@@ -231,6 +244,12 @@ function backToHome() {
     history.pushState(null, '', window.location.pathname);
 }
 
+// Logo点击
+function goHome() {
+    showHomePage();
+    history.pushState(null, '', window.location.pathname);
+}
+
 // 主题切换
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -283,6 +302,7 @@ function setupEventListeners() {
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             showHomePage();
+            history.pushState(null, '', window.location.pathname);
         });
     }
     
@@ -292,6 +312,7 @@ function setupEventListeners() {
         aboutLink.addEventListener('click', (e) => {
             e.preventDefault();
             showAboutPage();
+            history.pushState(null, '', '?about');
         });
     }
 }
