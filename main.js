@@ -41,6 +41,24 @@ async function init() {
     loadTheme();
     setupEventListeners();
     await loadPosts();
+    
+    // 监听浏览器前进/后退
+    window.addEventListener('popstate', async (e) => {
+        if (e.state && e.state.postId) {
+            // 后退到文章
+            await openPost(e.state.postId, true);
+        } else {
+            // 后退到首页
+            backToHome();
+        }
+    });
+    
+    // 检查URL是否有post参数（直接访问文章链接）
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('post');
+    if (postId) {
+        await openPost(postId, true);
+    }
 }
 
 // 加载文章列表
@@ -107,7 +125,7 @@ function renderPosts(posts) {
 }
 
 // 打开文章详情 - 在当前页显示，避免跨窗口路径问题
-async function openPost(postId) {
+async function openPost(postId, fromHistory = false) {
     try {
         // 先加载索引获取文章信息
         const indexResponse = await fetch(config.postsIndex);
@@ -131,6 +149,11 @@ async function openPost(postId) {
         const currentIndex = allPosts.findIndex(p => p.id === postId);
         const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
         showPostPage(post, markdownContent, nextPost);
+        
+        // 更新URL（不刷新页面），如果不是从历史记录来的
+        if (!fromHistory) {
+            history.pushState({ postId: postId }, '', '?post=' + postId);
+        }
         
     } catch (error) {
         console.error('Error opening post:', error);
@@ -205,6 +228,7 @@ function showPostPage(post, markdownContent, nextPost) {
 // 返回首页
 function backToHome() {
     showHomePage();
+    history.pushState(null, '', window.location.pathname);
 }
 
 // 主题切换
