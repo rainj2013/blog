@@ -335,6 +335,13 @@ body {
     line-height: 1.7;
 }
 
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius);
+}
+
 .post-content code {
     background: var(--bg-color);
     padding: 0.2rem 0.4rem;

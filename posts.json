@@ -1,9 +1,17 @@
 {
   "posts": [
     {
+      "id": "ward-agent-美股市场数据分析ai工具",
+      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
+      "excerpt": "平时看美股，要么开着多个浏览器标签页来回切换，要么把行情软件装个遍——指数、个股、K 线、AI 分析、聊天问答，每个需求都要一个独立工具。Ward 把这些需求整合成了一个工具。...\n\n",
+      "date": "2026-04-12",
+      "tag": "AI工程",
+      "file": "posts/ward-agent-美股市场数据分析AI工具.md"
+    },
+    {
       "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
       "title": "讲清楚 Harness：一套简单可落地的 LLM Agent 实践",
-      "excerpt": "LLM主要应用还是chatbot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n \n ",
+      "excerpt": "LLM主要应用还是chatbot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n\n",
       "date": "2026-04-01",
       "tag": "AI工程",
       "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md"
