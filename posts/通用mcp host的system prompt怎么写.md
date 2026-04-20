@@ -1,10 +1,8 @@
 ---
+title: "通用mcp host的system prompt怎么写"
 date: 2025-07-26
 tag: MCP
 ---
-
-# 通用mcp host的system prompt怎么写
-
 
 ## 概述
 

@@ -1,9 +1,8 @@
 ---
+title: "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索"
 date: 2026-02-12
 tag: OpenClaw
 ---
-
-# OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索
 
 > 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。
 

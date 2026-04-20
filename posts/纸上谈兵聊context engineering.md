@@ -1,9 +1,8 @@
 ---
+title: "纸上谈兵聊聊 Context Engineering"
 date: 2025-08-02
 tag: AI工程
 ---
-
-# 纸上谈兵聊聊 Context Engineering
 
 > 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。
 
