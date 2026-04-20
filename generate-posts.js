@@ -11,8 +11,15 @@ const path = require('path');
 const POSTS_DIR = 'posts';
 const OUTPUT_FILE = 'posts.json';
 
-// 从 Markdown 内容提取标题
+// 从 Markdown 内容提取标题（优先 frontmatter，再找 # 标题）
 function extractTitle(content) {
+    // 优先从 YAML frontmatter 提取
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n/);
+    if (frontmatterMatch) {
+        const titleMatch = frontmatterMatch[1].match(/^title:\s*["']?(.+?)["']?\s*$/m);
+        if (titleMatch) return titleMatch[1].trim();
+    }
+    // 兜底：从内容找第一个 # 标题
     const match = content.match(/^#\s+(.+)$/m);
     return match ? match[1].trim() : '无标题';
 }
