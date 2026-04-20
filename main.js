@@ -101,11 +101,17 @@ async function loadPosts() {
 function renderPosts(posts) {
     if (!posts || posts.length === 0) {
         postsContainer.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
-                <p>暂无文章</p>
+            <div style="text-align: center; padding: 3rem; color: var(--muted); grid-column: 1/-1;">
+                <p style="font-size: 1.125rem;">暂无文章</p>
             </div>
         `;
         return;
+    }
+
+    // 更新文章计数
+    const postCountEl = document.getElementById('postCount');
+    if (postCountEl) {
+        postCountEl.textContent = `${posts.length} 篇`;
     }
 
     // 按日期排序（最新的在前）
@@ -126,11 +132,21 @@ function renderPosts(posts) {
         postsContainer.classList.add('posts-grid');
         postsContainer.innerHTML = sortedPosts.map((post, index) => `
             <article class="post-card" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.1}s">
-                <h3 class="post-title">${post.title}</h3>
-                <p class="post-excerpt">${post.excerpt}</p>
-                <div class="post-meta">
-                    <span class="post-date">📅 ${post.date}</span>
-                    <span class="post-tag">${post.tag}</span>
+                <div class="post-card-inner">
+                    <h3 class="post-title">${post.title}</h3>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-meta">
+                        <span class="post-date">
+                            <svg class="post-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            ${post.date}
+                        </span>
+                        <span class="post-tag">${post.tag}</span>
+                    </div>
                 </div>
             </article>
         `).join('');
@@ -197,7 +213,7 @@ function showPostPage(post, markdownContent, nextPost) {
     // 渲染文章内容
     postContainer.innerHTML = `
         <article class="post-content" style="margin-top: 2rem;">
-            <div class="post-header" style="text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;">
+            <div class="post-header">
                 <h1>${post.title}</h1>
                 <div class="post-detail-meta">
                     <span class="post-detail-date">
@@ -213,12 +229,20 @@ function showPostPage(post, markdownContent, nextPost) {
                 </div>
             </div>
             <div id="postBody"></div>
-            <div style="margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
-                <button onclick="backToHome()" style="padding: 0.75rem 1.5rem; background: transparent; color: var(--text); border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
-                    ← 返回首页
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                <button class="back-btn" onclick="backToHome()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    返回首页
                 </button>
-                ${nextPost ? `<button onclick="openPost('${nextPost.id}')" style="padding: 0.75rem 1.5rem; background: transparent; color: var(--text); border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; font-size: 1rem;">
-                    下一篇: ${nextPost.title} →
+                ${nextPost ? `<button class="next-btn" onclick="openPost('${nextPost.id}')">
+                    下一篇: ${nextPost.title}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </button>` : ''}
             </div>
         </article>

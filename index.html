@@ -4,31 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rainj2013的博客</title>
-    <link rel="stylesheet" href="style.css?v=7">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=1">
+
+    <!-- 预加载字体，字体在后台下载，不阻塞首屏 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap"></noscript>
+
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <header class="header">
         <div class="container">
-            <h1 class="logo" onclick="goHome()" style="cursor: pointer;">📝 rainj2013的博客</h1>
+            <a href="/" class="logo" onclick="goHome(); return false;">
+                <span class="logo-icon">📝</span>
+                <span class="logo-text">
+                    <span class="logo-name">rainj2013</span>
+                    <span class="logo-tagline">技术 · 生活 · 思考</span>
+                </span>
+            </a>
             <nav class="nav">
                 <a href="/" class="nav-link active" id="homeLink">首页</a>
-                <a href="#" class="nav-link" id="aboutLink">关于</a>
-                <button class="theme-toggle" id="themeToggle">🌙</button>
+                <a href="?about" class="nav-link" id="aboutLink">关于</a>
+                <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
             </nav>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
-            <section class="hero">
-                <h2>欢迎来到我的博客</h2>
-                <p>记录生活，分享技术，探索世界</p>
+            <section class="hero" id="heroSection">
+                <div class="hero-content">
+                    <h2>探索<span class="highlight">技术</span>，分享<span class="highlight">生活</span></h2>
+                    <p>分享有意思的技术实践，以及美好的生活。</p>
+                </div>
+                <div class="hero-decoration"></div>
             </section>
 
-            <section class="posts-section">
+            <section class="posts-section" id="postsSection">
                 <div class="posts-header">
-                    <h3 class="section-title">最新文章</h3>
+                    <h3 class="section-title">
+                        文章列表
+                        <span class="section-count" id="postCount">0 篇</span>
+                    </h3>
                     <button class="view-toggle" id="viewToggle" title="切换视图">☰</button>
                 </div>
                 <div class="posts-grid" id="postsContainer">
@@ -40,10 +59,14 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 rainj2013. Powered by ❤️</p>
+            <div class="footer-content">
+                <p class="footer-text">© 2026 rainj2013</p>
+            </div>
         </div>
     </footer>
 
-    <script src="main.js?v=4"></script>
+    <!-- marked.js 本地化，省去一次 CDN 请求 -->
+    <script src="vendor/marked.min.js?v=1"></script>
+    <script src="main.js?v=6"></script>
 </body>
 </html>
