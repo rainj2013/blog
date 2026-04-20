@@ -569,7 +569,7 @@ body::before {
 
 .post-list-title {
     flex: 1;
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-weight: 600;
     font-size: 1.0625rem;
     color: var(--ink);
