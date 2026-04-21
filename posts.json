@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "id": "ward-agent更新日志-20260421",
+      "title": "Ward 更新日志：黄金监控、盘前盘后、Agent 接入",
+      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
+      "date": "2026-04-21",
+      "tag": "AI工程",
+      "file": "posts/ward-agent更新日志-20260421.md"
+    },
+    {
       "id": "通用mcp-host的system-prompt怎么写",
       "title": "通用mcp host的system prompt怎么写",
       "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
