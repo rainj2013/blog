@@ -166,8 +166,9 @@ async function openPost(postId, fromHistory = false) {
             throw new Error('Post not found');
         }
         
-        // 加载 Markdown 内容（使用绝对路径）
-        const postUrl = `${baseUrl}/${encodeURI(post.file)}`;
+        // 加载 Markdown 内容（使用绝对路径，带上 posts.json 版本号防止浏览器缓存）
+        const postsVersion = window.__POSTS_VERSION__ || '';
+        const postUrl = `${baseUrl}/${encodeURI(post.file)}${postsVersion ? '?v=' + postsVersion : ''}`;
         const contentResponse = await fetch(postUrl);
         if (!contentResponse.ok) {
             throw new Error(`Failed to load: ${postUrl}`);
