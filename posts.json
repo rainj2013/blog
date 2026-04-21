@@ -2,11 +2,11 @@
   "posts": [
     {
       "id": "ward-agent更新日志-20260421",
-      "title": "Ward 更新日志：黄金监控、盘前盘后、Agent 接入",
+      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
       "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
       "date": "2026-04-21",
       "tag": "AI工程",
-      "file": "posts/ward-agent更新日志-20260421.md"
+      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md"
     },
     {
       "id": "通用mcp-host的system-prompt怎么写",
