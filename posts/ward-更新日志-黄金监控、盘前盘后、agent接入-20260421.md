@@ -1,5 +1,5 @@
 ---
-title: "Ward 更新日志"
+title: "Ward 更新日志：黄金监控、盘前盘后、Agent 接入"
 date: 2026-04-21
 tag: AI工程
 ---
