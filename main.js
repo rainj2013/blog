@@ -1,6 +1,6 @@
 // 博客配置
 const config = {
-    // posts.json 带版本号防止缓存（构建时由 update-cache.sh 生成）
+    // posts.json 带版本号防止缓存（构建时由 update-cache.js 生成）
     postsIndex: 'posts.json?v=' + (window.__POSTS_VERSION__ || ''),
     postsDir: 'posts'
 };
