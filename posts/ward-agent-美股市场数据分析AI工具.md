@@ -8,7 +8,7 @@ tag: AI工程
 
 本文分两个部分：**功能设计**讲这个工具解决什么问题、怎么用；**技术实现**讲怎么做 AI 和 Agent 设计、上下文管理。
 
-![Ward 产品截图](/static/ward_screenshot.png)
+![Ward 产品截图](/static/2026-04-12/ward_screenshot.png)
 
 ---
 

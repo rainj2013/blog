@@ -12,7 +12,7 @@ tag: AI工程
 
 截图（市场总览）：
 
-![市场总览](/static/ward-20260421/market-overview.png)
+![市场总览](/static/2026-04-21/market-overview.png)
 
 ## 黄金行情监控
 

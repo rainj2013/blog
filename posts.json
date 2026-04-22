@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "id": "ward-agent-用-harness-思路做-agent产品",
+      "title": "用 Harness 思路做 Agent 产品：Ward 重构实录",
+      "excerpt": "用 Harness 思路重新梳理 Ward 重构中的设计决策：上下文注入、安全取消、自动摘要、短反馈循环、错误结构化。每一个设计背后都对应了 Harness 的核心原则，结合代码说清楚为什么这么做。\n\n",
+      "date": "2026-04-23",
+      "tag": "AI工程",
+      "file": "posts/ward-agent-用-harness-思路做-agent产品.md"
+    },
+    {
       "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
       "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
       "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
