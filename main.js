@@ -16,6 +16,7 @@ const viewToggle = document.getElementById('viewToggle');
 // 视图模式：'card' 或 'compact'
 let viewMode = localStorage.getItem('viewMode') || 'card';
 let allPosts = []; // 存储所有文章用于导航
+let currentTagFilter = null; // 当前筛选的 tag，null 表示全部
 
 // 配置 marked.js 启用表格和其他 GFM 特性
 function initMarked() {
@@ -42,7 +43,15 @@ async function init() {
     loadTheme();
     setupEventListeners();
     await loadPosts();
-    
+
+    // 点击外部关闭下拉菜单
+    document.addEventListener('click', (e) => {
+        const tagDropdown = document.getElementById('tagDropdown');
+        if (tagDropdown && !tagDropdown.contains(e.target)) {
+            closeTagDropdown();
+        }
+    });
+
     // 监听浏览器前进/后退
     window.addEventListener('popstate', async (e) => {
         if (e.state && e.state.postId) {
@@ -78,7 +87,23 @@ async function init() {
 // 加载文章列表
 async function loadPosts() {
     if (!postsContainer) return;
-    
+
+    // 显示骨架屏
+    postsContainer.innerHTML = Array(4).fill().map((_, i) => `
+        <div class="post-card skeleton-card" style="animation-delay: ${i * 0.08}s">
+            <div class="post-card-inner">
+                <div class="skeleton" style="height: 24px; width: 80%; margin-bottom: 16px; border-radius: 6px;"></div>
+                <div class="skeleton" style="height: 14px; width: 100%; margin-bottom: 8px;"></div>
+                <div class="skeleton" style="height: 14px; width: 90%; margin-bottom: 8px;"></div>
+                <div class="skeleton" style="height: 14px; width: 60%; margin-bottom: 20px;"></div>
+                <div style="display: flex; justify-content: space-between; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+                    <div class="skeleton" style="height: 14px; width: 80px;"></div>
+                    <div class="skeleton" style="height: 24px; width: 70px; border-radius: 9999px;"></div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
     try {
         const response = await fetch(config.postsIndex);
         if (!response.ok) {
@@ -86,16 +111,75 @@ async function loadPosts() {
         }
         const data = await response.json();
         allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        renderPosts(allPosts);
+        renderTagFilter();
+        renderPosts(currentTagFilter ? allPosts.filter(p => p.tag === currentTagFilter) : allPosts);
     } catch (error) {
         console.error('Error loading posts:', error);
         postsContainer.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+            <div style="text-align: center; padding: 2rem; color: var(--muted); grid-column: 1/-1;">
                 <p>加载文章失败，请稍后重试</p>
                 <p style="font-size: 0.875rem; margin-top: 1rem;">${error.message}</p>
             </div>
         `;
     }
+}
+
+// 渲染 tag 下拉菜单
+function renderTagFilter() {
+    const tagFilterEl = document.getElementById('tagFilter');
+    if (!tagFilterEl) return;
+
+    // 获取所有唯一的 tag
+    const tags = [...new Set(allPosts.map(p => p.tag))].sort();
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    let html = `<div class="tag-dropdown-menu-item ${currentTagFilter === null ? 'active' : ''}" onclick="clearTagFilter()">全部</div>`;
+
+    tags.forEach(tag => {
+        const colors = getTagColor(tag);
+        const isActive = currentTagFilter === tag;
+        const bg = isDark ? colors.bgDark : colors.bg;
+        const color = isDark ? colors.colorDark : colors.color;
+        html += `<div class="tag-dropdown-menu-item ${isActive ? 'active' : ''}" onclick="filterByTag('${tag}')" style="${isActive ? '' : `background:${bg}; color:${color}`}">${tag}</div>`;
+    });
+
+    tagFilterEl.innerHTML = html;
+}
+
+// 切换 tag 筛选显示
+function toggleTagFilter(e) {
+    e.stopPropagation();
+    const tagFilterEl = document.getElementById('tagFilter');
+    const tagToggle = document.getElementById('tagToggle');
+    if (!tagFilterEl || !tagToggle) return;
+
+    const isVisible = tagFilterEl.classList.toggle('visible');
+    tagToggle.classList.toggle('active', isVisible);
+}
+
+// 关闭 tag 下拉菜单
+function closeTagDropdown() {
+    const tagFilterEl = document.getElementById('tagFilter');
+    const tagToggle = document.getElementById('tagToggle');
+    if (tagFilterEl) tagFilterEl.classList.remove('visible');
+    if (tagToggle) tagToggle.classList.remove('active');
+}
+
+// 筛选 tag
+function filterByTag(tag) {
+    currentTagFilter = tag;
+    closeTagDropdown();
+    renderTagFilter();
+    renderPosts(allPosts.filter(p => p.tag === tag));
+}
+
+// 清除筛选
+function clearTagFilter() {
+    currentTagFilter = null;
+    closeTagDropdown();
+    renderTagFilter();
+    renderPosts(allPosts);
 }
 
 // 渲染文章列表
@@ -121,36 +205,37 @@ function renderPosts(posts) {
     if (viewMode === 'compact') {
         postsContainer.classList.remove('posts-grid');
         postsContainer.classList.add('posts-list');
-        postsContainer.innerHTML = sortedPosts.map((post, index) => `
+        postsContainer.innerHTML = sortedPosts.map((post, index) => {
+            const colors = getTagColor(post.tag);
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            return `
             <article class="post-list-item" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.05}s">
                 <span class="post-list-title">${post.title}</span>
                 <span class="post-list-date">${post.date}</span>
-                <span class="post-list-tag">${post.tag}</span>
+                <span class="post-list-tag" style="background:${isDark ? colors.bgDark : colors.bg}; color:${isDark ? colors.colorDark : colors.color};">${post.tag}</span>
             </article>
-        `).join('');
+        `}).join('');
     } else {
         postsContainer.classList.remove('posts-list');
         postsContainer.classList.add('posts-grid');
-        postsContainer.innerHTML = sortedPosts.map((post, index) => `
+        postsContainer.innerHTML = sortedPosts.map((post, index) => {
+            const colors = getTagColor(post.tag);
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            return `
             <article class="post-card" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.1}s">
                 <div class="post-card-inner">
                     <h3 class="post-title">${post.title}</h3>
                     <p class="post-excerpt">${post.excerpt}</p>
                     <div class="post-meta">
                         <span class="post-date">
-                            <svg class="post-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                             ${post.date}
                         </span>
-                        <span class="post-tag">${post.tag}</span>
+                        <span class="post-tag" style="background:${isDark ? colors.bgDark : colors.bg}; color:${isDark ? colors.colorDark : colors.color};">${post.tag}</span>
                     </div>
                 </div>
             </article>
-        `).join('');
+        `}).join('');
     }
 }
 
@@ -198,11 +283,11 @@ function showPostPage(post, markdownContent, nextPost) {
     const main = document.querySelector('.main');
     const hero = document.querySelector('.hero');
     const postsSection = document.querySelector('.posts-section');
-    
+
     // 隐藏首页元素
     if (hero) hero.style.display = 'none';
     if (postsSection) postsSection.style.display = 'none';
-    
+
     // 创建文章容器
     let postContainer = document.getElementById('postContainer');
     if (!postContainer) {
@@ -211,7 +296,10 @@ function showPostPage(post, markdownContent, nextPost) {
         postContainer.className = 'container';
         main.appendChild(postContainer);
     }
-    
+
+    const colors = getTagColor(post.tag);
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
     // 渲染文章内容
     postContainer.innerHTML = `
         <article class="post-content" style="margin-top: 2rem;">
@@ -219,32 +307,21 @@ function showPostPage(post, markdownContent, nextPost) {
                 <h1>${post.title}</h1>
                 <div class="post-detail-meta">
                     <span class="post-detail-date">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                         ${post.date}
                     </span>
-                    <span class="post-detail-tag">${post.tag}</span>
+                    <span class="post-detail-tag" style="background:${isDark ? colors.bgDark : colors.bg}; color:${isDark ? colors.colorDark : colors.color};">${post.tag}</span>
                 </div>
             </div>
             <div id="postBody"></div>
             <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
                 <button class="back-btn" onclick="backToHome()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                     返回首页
                 </button>
                 ${nextPost ? `<button class="next-btn" onclick="openPost('${nextPost.id}')">
                     下一篇: ${nextPost.title}
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>` : ''}
             </div>
         </article>
@@ -259,7 +336,7 @@ function showPostPage(post, markdownContent, nextPost) {
     } else {
         document.getElementById('postBody').innerHTML = '<pre>' + markdownContent + '</pre>';
     }
-    
+
     // 滚动到顶部
     window.scrollTo(0, 0);
 }
@@ -276,23 +353,38 @@ function goHome() {
     history.pushState(null, '', window.location.pathname);
 }
 
+function updateThemeIcon(theme) {
+    const themeIcon = document.getElementById('themeIcon');
+    if (!themeIcon) return;
+
+    if (theme === 'dark') {
+        themeIcon.innerHTML = '<path d="M12 3a6 6 0 0 0 9 7.5A9 9 0 1 1 12 3Z"/>';
+    } else {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+    }
+}
+
 // 主题切换
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
+
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    updateThemeIcon(newTheme);
+
+    // 重新渲染 tag 筛选和文章列表以更新颜色
+    if (allPosts.length > 0) {
+        renderTagFilter();
+        renderPosts(currentTagFilter ? allPosts.filter(p => p.tag === currentTagFilter) : allPosts);
+    }
 }
 
 // 加载保存的主题 - 默认深色
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    if (themeToggle) {
-        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-    }
+    updateThemeIcon(savedTheme);
 }
 
 // 切换视图模式
@@ -306,8 +398,13 @@ function toggleViewMode() {
 // 更新视图切换按钮
 function updateViewToggle() {
     if (viewToggle) {
-        viewToggle.textContent = viewMode === 'card' ? '☰' : '▦';
-        viewToggle.title = viewMode === 'card' ? '切换到紧凑视图' : '切换到卡片视图';
+        if (viewMode === 'card') {
+            viewToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`;
+            viewToggle.title = '切换到紧凑视图';
+        } else {
+            viewToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`;
+            viewToggle.title = '切换到卡片视图';
+        }
     }
 }
 
@@ -321,7 +418,13 @@ function setupEventListeners() {
         viewToggle.addEventListener('click', toggleViewMode);
         updateViewToggle();
     }
-    
+
+    // tag 筛选按钮
+    const tagToggle = document.getElementById('tagToggle');
+    if (tagToggle) {
+        tagToggle.addEventListener('click', toggleTagFilter);
+    }
+
     // 首页按钮
     const homeLink = document.getElementById('homeLink');
     if (homeLink) {
@@ -411,5 +514,33 @@ function showAboutPage() {
     window.scrollTo(0, 0);
 }
 
+// 根据 tag 名字生成一致的 HSL 颜色
+function getTagColor(tagName) {
+    let hash = 0;
+    for (let i = 0; i < tagName.length; i++) {
+        hash = tagName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = Math.abs(hash % 360);
+    return {
+        bg: `hsl(${hue}, 60%, 90%)`,
+        color: `hsl(${hue}, 70%, 35%)`,
+        bgDark: `hsla(${hue}, 50%, 20%, 0.8)`,
+        colorDark: `hsl(${hue}, 70%, 75%)`
+    };
+}
+
+// 回到顶部
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (!backToTopBtn) return;
+
+    window.addEventListener('scroll', () => {
+        backToTopBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+}
+
 // 启动
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initBackToTop();
+});
