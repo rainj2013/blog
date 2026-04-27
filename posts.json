@@ -1,9 +1,17 @@
 {
   "posts": [
     {
+      "id": "31岁程序员裸辞后的思考和见闻",
+      "title": "31岁程序员裸辞后的思考和见闻",
+      "excerpt": "上个月底，我从上一家公司离职了，说说在家休息这段时间的思考和见闻。\n \n ",
+      "date": "2026-04-27",
+      "tag": "生活",
+      "file": "posts/31岁程序员裸辞后的思考和见闻.md"
+    },
+    {
       "id": "ward-agent-用-harness-思路做-agent产品",
       "title": "用 Harness 思路做 Agent 产品：Ward 重构实录",
-      "excerpt": "用 Harness 思路重新梳理 Ward 重构中的设计决策：上下文注入、安全取消、自动摘要、短反馈循环、错误结构化。每一个设计背后都对应了 Harness 的核心原则，结合代码说清楚为什么这么做。\n\n",
+      "excerpt": "Ward Agent 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 Harn...\n \n ",
       "date": "2026-04-23",
       "tag": "AI工程",
       "file": "posts/ward-agent-用-harness-思路做-agent产品.md"
@@ -15,6 +23,14 @@
       "date": "2026-04-21",
       "tag": "AI工程",
       "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md"
+    },
+    {
+      "id": "ward-agent-美股市场数据分析ai工具",
+      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
+      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
+      "date": "2026-04-12",
+      "tag": "AI工程",
+      "file": "posts/ward-agent-美股市场数据分析AI工具.md"
     },
     {
       "id": "通用mcp-host的system-prompt怎么写",
@@ -55,14 +71,6 @@
       "date": "2025-08-02",
       "tag": "AI工程",
       "file": "posts/纸上谈兵聊context engineering.md"
-    },
-    {
-      "id": "ward-agent-美股市场数据分析ai工具",
-      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
-      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
-      "date": "2026-04-12",
-      "tag": "AI工程",
-      "file": "posts/ward-agent-美股市场数据分析AI工具.md"
     },
     {
       "id": "困惑到实践-mcp的几个细节探究",
