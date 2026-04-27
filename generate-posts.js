@@ -7,9 +7,16 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const POSTS_DIR = 'posts';
 const OUTPUT_FILE = 'posts.json';
+
+// 计算文件的 MD5 前8位（用于缓存 busting）
+function getFileHash(filepath) {
+    const content = fs.readFileSync(filepath);
+    return crypto.createHash('md5').update(content).digest('hex').slice(0, 8);
+}
 
 // 从 Markdown 内容提取标题（优先 frontmatter，再找 # 标题）
 function extractTitle(content) {
@@ -135,7 +142,8 @@ function main() {
             excerpt: extractExcerpt(content),
             date: extractDate(filename, content),
             tag: extractTag(content),
-            file: path.join(POSTS_DIR, filename).replace(/\\/g, '/')
+            file: path.join(POSTS_DIR, filename).replace(/\\/g, '/'),
+            hash: getFileHash(filepath)
         };
 
         console.log(`  ✓ ${post.title} (${post.date})`);

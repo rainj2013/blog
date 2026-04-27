@@ -6,7 +6,8 @@
       "excerpt": "上个月底，我从上一家公司离职了，说说在家休息这段时间的思考和见闻。\n \n ",
       "date": "2026-04-27",
       "tag": "生活",
-      "file": "posts/31岁程序员裸辞后的思考和见闻.md"
+      "file": "posts/31岁程序员裸辞后的思考和见闻.md",
+      "hash": "1f966489"
     },
     {
       "id": "ward-agent-用-harness-思路做-agent产品",
@@ -14,7 +15,8 @@
       "excerpt": "Ward Agent 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 Harn...\n \n ",
       "date": "2026-04-23",
       "tag": "AI工程",
-      "file": "posts/ward-agent-用-harness-思路做-agent产品.md"
+      "file": "posts/ward-agent-用-harness-思路做-agent产品.md",
+      "hash": "7b152091"
     },
     {
       "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
@@ -22,7 +24,8 @@
       "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
       "date": "2026-04-21",
       "tag": "AI工程",
-      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md"
+      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
+      "hash": "acd20b28"
     },
     {
       "id": "ward-agent-美股市场数据分析ai工具",
@@ -30,7 +33,8 @@
       "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
       "date": "2026-04-12",
       "tag": "AI工程",
-      "file": "posts/ward-agent-美股市场数据分析AI工具.md"
+      "file": "posts/ward-agent-美股市场数据分析AI工具.md",
+      "hash": "7f1a9703"
     },
     {
       "id": "通用mcp-host的system-prompt怎么写",
@@ -38,7 +42,8 @@
       "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
       "date": "2025-07-26",
       "tag": "MCP",
-      "file": "posts/通用mcp host的system prompt怎么写.md"
+      "file": "posts/通用mcp host的system prompt怎么写.md",
+      "hash": "61862cae"
     },
     {
       "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
@@ -46,7 +51,8 @@
       "excerpt": "LLM主要应用还是ChatBot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n \n ",
       "date": "2026-04-01",
       "tag": "AI工程",
-      "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md"
+      "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md",
+      "hash": "0f92c650"
     },
     {
       "id": "调就是调-不调就是不调-微调是什么意思",
@@ -54,7 +60,8 @@
       "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
       "date": "2025-09-30",
       "tag": "AI技术",
-      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md"
+      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
+      "hash": "5ee18514"
     },
     {
       "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
@@ -62,7 +69,8 @@
       "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
       "date": "2026-03-22",
       "tag": "Agent",
-      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md"
+      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
+      "hash": "4d4f62e2"
     },
     {
       "id": "纸上谈兵聊context-engineering",
@@ -70,7 +78,8 @@
       "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
       "date": "2025-08-02",
       "tag": "AI工程",
-      "file": "posts/纸上谈兵聊context engineering.md"
+      "file": "posts/纸上谈兵聊context engineering.md",
+      "hash": "b82e18d1"
     },
     {
       "id": "困惑到实践-mcp的几个细节探究",
@@ -78,7 +87,8 @@
       "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
       "date": "2025-07-12",
       "tag": "MCP",
-      "file": "posts/困惑到实践：MCP的几个细节探究.md"
+      "file": "posts/困惑到实践：MCP的几个细节探究.md",
+      "hash": "8aec6c01"
     },
     {
       "id": "openclaw-workspace-架构详解-多-agent-设计指南",
@@ -86,7 +96,8 @@
       "excerpt": "> 本文介绍 OpenClaw 的 Workspace 文件架构，以及如何为不同 Agent 定制个性化工作环境\n \n ",
       "date": "2026-03-10",
       "tag": "OpenClaw",
-      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md"
+      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md",
+      "hash": "f01a70f6"
     },
     {
       "id": "openclaw-memory-management",
@@ -94,7 +105,8 @@
       "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
       "date": "2026-02-12",
       "tag": "OpenClaw",
-      "file": "posts/openclaw-memory-management.md"
+      "file": "posts/openclaw-memory-management.md",
+      "hash": "5296714c"
     },
     {
       "id": "mcp协议完整落地案例",
@@ -102,7 +114,8 @@
       "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
       "date": "2025-07-20",
       "tag": "MCP",
-      "file": "posts/MCP协议完整落地案例.md"
+      "file": "posts/MCP协议完整落地案例.md",
+      "hash": "cb5ad7e5"
     }
   ]
 }
