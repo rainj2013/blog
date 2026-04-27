@@ -1,13 +1,13 @@
 {
   "posts": [
     {
-      "id": "31岁程序员裸辞后的思考和见闻",
-      "title": "31岁程序员裸辞后的思考和见闻",
+      "id": "31岁-我给自己放了一个gap-month",
+      "title": "31岁，我给自己放了一个Gap Month",
       "excerpt": "上个月底，我从上一家公司离职了，说说在家休息这段时间的思考和见闻。\n \n ",
       "date": "2026-04-27",
       "tag": "生活",
-      "file": "posts/31岁程序员裸辞后的思考和见闻.md",
-      "hash": "1f966489"
+      "file": "posts/31岁，我给自己放了一个Gap Month.md",
+      "hash": "890de621"
     },
     {
       "id": "ward-agent-用-harness-思路做-agent产品",
