@@ -379,9 +379,9 @@ function toggleTheme() {
     }
 }
 
-// 加载保存的主题 - 默认深色
+// 加载保存的主题 - 默认浅色，匹配手账纸张风格
 function loadTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
 }
@@ -488,7 +488,7 @@ function showAboutPage() {
         aboutContainer.id = 'aboutContainer';
         aboutContainer.className = 'container';
         aboutContainer.innerHTML = `
-            <div class="post-content" style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <div class="post-content" style="margin-top: 2rem; max-width: 1180px; margin-left: auto; margin-right: auto;">
                 <h1 style="text-align: center; margin-bottom: 2rem;">关于</h1>
                 <div style="line-height: 1.8;">
                     <p style="margin-bottom: 1.5rem;">👋 你好，我是 rainj2013。</p>
@@ -496,11 +496,11 @@ function showAboutPage() {
                     <h3 style="margin: 2rem 0 1rem;">关注我</h3>
                     <ul style="margin-left: 2rem; line-height: 2;">
                         <li>GitHub: <a href="https://github.com/rainj2013" target="_blank" style="color: var(--primary-color);">@rainj2013</a></li>
-                        <li>微信公众号</li>
+                        <li>
+                            <div>微信公众号</div>
+                            <img src="/static/qrcode.jpg" alt="公众号二维码" style="display: block; max-width: 200px; margin: 0.75rem 0 0; border-radius: var(--radius); box-shadow: var(--shadow);">
+                        </li>
                     </ul>
-                    <div style="margin-top: 1.5rem;">
-                        <img src="/static/qrcode.jpg" alt="公众号二维码" style="max-width: 200px; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    </div>
                     <h3 style="margin: 2rem 0 1rem;">联系方式</h3>
                     <p>邮箱: <a href="mailto:yangyujian25@gmail.com" style="color: var(--primary-color);">yangyujian25@gmail.com</a></p>
                 </div>
