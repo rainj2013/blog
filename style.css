@@ -13,8 +13,6 @@
     --accent-ink: #fff;
     --accent-soft: #eafff0;
     --warm: #f5ead0;
-    --warn: #ffe0e0;
-    --purple: #e8e0f0;
     --primary-color: var(--accent);
     --radius: 10px;
     --shadow: 3px 3px 0 rgba(61, 52, 34, 0.12);
@@ -35,8 +33,6 @@
     --accent-ink: #162113;
     --accent-soft: #203522;
     --warm: #443923;
-    --warn: #4d2f2b;
-    --purple: #3d3448;
     --shadow: 3px 3px 0 rgba(0, 0, 0, 0.28);
 }
 
@@ -230,10 +226,6 @@ button {
 
 .hero-content {
     padding: 0 8px;
-}
-
-.hero-decoration {
-    display: none;
 }
 
 .posts-header {

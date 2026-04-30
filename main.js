@@ -89,8 +89,8 @@ async function loadPosts() {
     if (!postsContainer) return;
 
     // 显示骨架屏
-    postsContainer.innerHTML = Array(4).fill().map((_, i) => `
-        <div class="post-card skeleton-card" style="animation-delay: ${i * 0.08}s">
+    postsContainer.innerHTML = Array(4).fill().map(() => `
+        <div class="post-card skeleton-card">
             <div class="post-card-inner">
                 <div class="skeleton" style="height: 24px; width: 80%; margin-bottom: 16px; border-radius: 6px;"></div>
                 <div class="skeleton" style="height: 14px; width: 100%; margin-bottom: 8px;"></div>
@@ -205,11 +205,11 @@ function renderPosts(posts) {
     if (viewMode === 'compact') {
         postsContainer.classList.remove('posts-grid');
         postsContainer.classList.add('posts-list');
-        postsContainer.innerHTML = sortedPosts.map((post, index) => {
+        postsContainer.innerHTML = sortedPosts.map((post) => {
             const colors = getTagColor(post.tag);
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             return `
-            <article class="post-list-item" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.05}s">
+            <article class="post-list-item" onclick="openPost('${post.id}')">
                 <span class="post-list-title">${post.title}</span>
                 <span class="post-list-date">${post.date}</span>
                 <span class="post-list-tag" style="background:${isDark ? colors.bgDark : colors.bg}; color:${isDark ? colors.colorDark : colors.color};">${post.tag}</span>
@@ -218,11 +218,11 @@ function renderPosts(posts) {
     } else {
         postsContainer.classList.remove('posts-list');
         postsContainer.classList.add('posts-grid');
-        postsContainer.innerHTML = sortedPosts.map((post, index) => {
+        postsContainer.innerHTML = sortedPosts.map((post) => {
             const colors = getTagColor(post.tag);
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             return `
-            <article class="post-card" onclick="openPost('${post.id}')" style="animation-delay: ${index * 0.1}s">
+            <article class="post-card" onclick="openPost('${post.id}')">
                 <div class="post-card-inner">
                     <h3 class="post-title">${post.title}</h3>
                     <p class="post-excerpt">${post.excerpt}</p>
