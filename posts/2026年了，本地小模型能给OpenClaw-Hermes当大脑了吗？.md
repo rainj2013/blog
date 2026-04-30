@@ -1,5 +1,5 @@
 ---
-title: 2026年了，本地小模型能给 OpenClaw/Hermes 当大脑了吗？
+title: 2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？
 date: 2026-04-30
 tag: AI技术
 ---

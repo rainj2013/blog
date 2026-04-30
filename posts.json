@@ -2,12 +2,12 @@
   "posts": [
     {
       "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
-      "title": "2026年了，本地小模型能给 OpenClaw/Hermes 当大脑了吗？",
+      "title": "2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？",
       "excerpt": "上一次尝试部署本地模型，还是在2025年10月，当时的体验只能说是图一乐。\n今年4月，阿里陆续开源了 Qwen3.6系列模型，其中有两款 Qwen3.6-35B-A3B 和 Qwe...\n ",
       "date": "2026-04-30",
       "tag": "AI技术",
       "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
-      "hash": "7df23bac"
+      "hash": "05219605"
     },
     {
       "id": "31岁-我给自己放了一个gap-month",
