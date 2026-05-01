@@ -331,13 +331,28 @@ function showPostPage(post, markdownContent, nextPost) {
     if (typeof marked !== 'undefined') {
         // 移除 frontmatter (---\n...\n---)
         const contentWithoutFrontmatter = markdownContent.replace(/^---\n[\s\S]*?\n---\n*/, '');
-        document.getElementById('postBody').innerHTML = marked.parse(contentWithoutFrontmatter);
+        const postBody = document.getElementById('postBody');
+        postBody.innerHTML = marked.parse(contentWithoutFrontmatter);
+        wrapPostTables(postBody);
     } else {
         document.getElementById('postBody').innerHTML = '<pre>' + markdownContent + '</pre>';
     }
 
     // 滚动到顶部
     window.scrollTo(0, 0);
+}
+
+function wrapPostTables(container) {
+    container.querySelectorAll('table').forEach(table => {
+        if (table.parentElement && table.parentElement.classList.contains('table-scroll')) {
+            return;
+        }
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+    });
 }
 
 // 返回首页

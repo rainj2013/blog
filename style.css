@@ -266,7 +266,9 @@ button {
     top: calc(100% + 10px);
     right: 0;
     z-index: 200;
+    width: max-content;
     min-width: 210px;
+    max-width: calc(100vw - 28px);
     display: none;
     flex-wrap: wrap;
     gap: 8px;
@@ -296,6 +298,8 @@ button {
 
 .tag-dropdown-menu-item {
     cursor: pointer;
+    max-width: 100%;
+    white-space: nowrap;
 }
 
 .tag-dropdown-menu-item.active {
@@ -564,14 +568,21 @@ button {
     border: 0;
 }
 
-.post-content table {
-    width: 100%;
+.table-scroll {
     margin: 1.5rem 0;
-    border-collapse: collapse;
-    overflow: hidden;
-    background: var(--card);
+    max-width: 100%;
+    overflow-x: auto;
     border: 2px solid var(--border);
     border-radius: 12px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.post-content table {
+    width: max-content;
+    min-width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    background: var(--card);
 }
 
 .post-content th,
@@ -579,6 +590,10 @@ button {
     padding: 9px 12px;
     border-bottom: 1px solid color-mix(in srgb, var(--line) 18%, transparent);
     text-align: left;
+    vertical-align: top;
+    max-width: min(34rem, 72vw);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .post-content th {
@@ -661,6 +676,11 @@ button {
     .posts-header {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .tag-dropdown-menu {
+        right: auto;
+        left: 0;
     }
 
     .post-list-item {
