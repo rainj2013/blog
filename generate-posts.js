@@ -33,6 +33,18 @@ function extractTitle(content) {
 
 // 从 Markdown 内容提取摘要（固定3行，不足补空行）
 function extractExcerpt(content) {
+    // 优先从 YAML frontmatter 提取 excerpt 字段
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n/);
+    if (frontmatterMatch) {
+        const excerptMatch = frontmatterMatch[1].match(/^excerpt:\s*["']?(.+?)["']?\s*$/m);
+        if (excerptMatch) {
+            const excerpt = excerptMatch[1].trim();
+            // 限制字符数
+            const maxChars = 90;
+            const truncated = excerpt.length > maxChars ? excerpt.slice(0, maxChars) + '...' : excerpt;
+            return [truncated, '\u00A0', '\u00A0'].join('\n');
+        }
+    }
     // 移除 YAML frontmatter
     const noFrontmatter = content.replace(/^---[\s\S]*?\n---\n*/, '');
     // 移除标题

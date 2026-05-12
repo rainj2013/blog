@@ -3,11 +3,11 @@
     {
       "id": "低速率大模型-api-下的agent体验优化",
       "title": "低速率大模型 API 下的Agent体验优化",
-      "excerpt": "Ward 最近又折腾了一轮。\n \n ",
+      "excerpt": "让 Ward 在大模型慢、速率有限、调用会失败的情况下，尽量表现得像个正常产品。\n \n ",
       "date": "2026-05-12",
       "tag": "AI工程",
       "file": "posts/低速率大模型 API 下的Agent体验优化.md",
-      "hash": "e5560f3a"
+      "hash": "544fe942"
     },
     {
       "id": "31岁-我给自己放了一个gap-month",
