@@ -17,6 +17,7 @@ const viewToggle = document.getElementById('viewToggle');
 let viewMode = localStorage.getItem('viewMode') || 'card';
 let allPosts = []; // 存储所有文章用于导航
 let currentTagFilter = null; // 当前筛选的 tag，null 表示全部
+let tagColorMap = new Map(); // 存储 tag 到 hue 的稳定映射，避免不同 tag 撞色
 
 // 配置 marked.js 启用表格和其他 GFM 特性
 function initMarked() {
@@ -111,6 +112,7 @@ async function loadPosts() {
         }
         const data = await response.json();
         allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        buildTagColorMap(allPosts.map(post => post.tag));
         renderTagFilter();
         renderPosts(currentTagFilter ? allPosts.filter(p => p.tag === currentTagFilter) : allPosts);
     } catch (error) {
@@ -528,13 +530,54 @@ function showAboutPage() {
     window.scrollTo(0, 0);
 }
 
-// 根据 tag 名字生成一致的 HSL 颜色
-function getTagColor(tagName) {
+function getTagHash(tagName) {
     let hash = 0;
     for (let i = 0; i < tagName.length; i++) {
         hash = tagName.charCodeAt(i) + ((hash << 5) - hash);
     }
-    const hue = Math.abs(hash % 360);
+    return hash;
+}
+
+function normalizeHue(hue) {
+    return ((hue % 360) + 360) % 360;
+}
+
+function getHueDistance(a, b) {
+    const distance = Math.abs(a - b);
+    return Math.min(distance, 360 - distance);
+}
+
+function getBaseTagHue(tagName) {
+    return normalizeHue(getTagHash(tagName));
+}
+
+// 根据当前 tag 集合生成稳定、不重复且尽量拉开间距的 hue
+function buildTagColorMap(tagNames) {
+    const tags = [...new Set(tagNames)].filter(Boolean).sort();
+    const usedHues = [];
+    const minHueDistance = Math.max(12, Math.floor(300 / Math.max(tags.length, 1)));
+    const hueStep = 137; // 近似黄金角，冲突时能把颜色均匀错开
+
+    tagColorMap = new Map();
+
+    tags.forEach(tag => {
+        const baseHue = getBaseTagHue(tag);
+        let hue = baseHue;
+
+        for (let attempt = 0; attempt < 360; attempt++) {
+            const isDistinct = usedHues.every(usedHue => getHueDistance(hue, usedHue) >= minHueDistance);
+            if (isDistinct) break;
+            hue = normalizeHue(baseHue + hueStep * (attempt + 1));
+        }
+
+        usedHues.push(hue);
+        tagColorMap.set(tag, hue);
+    });
+}
+
+// 根据 tag 名字生成一致的 HSL 颜色
+function getTagColor(tagName) {
+    const hue = tagColorMap.get(tagName) ?? getBaseTagHue(tagName);
     return {
         bg: `hsl(${hue}, 60%, 90%)`,
         color: `hsl(${hue}, 70%, 35%)`,
