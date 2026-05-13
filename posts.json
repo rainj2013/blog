@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "一个ai还是不够-ward-agent的team化改造",
+      "title": "一个 AI 还是不够：Ward Agent 的一次 Team 化改造",
+      "excerpt": "复杂任务需要一套能拆解、执行、验证和追踪的系统，不能只靠一个更强的模型硬扛。\n \n ",
+      "date": "2026-05-13",
+      "tag": "AI工程",
+      "file": "posts/一个AI还是不够-Ward-Agent的Team化改造.md",
+      "hash": "bf186985"
+    },
+    {
       "id": "低速率大模型-api-下的agent体验优化",
       "title": "低速率大模型 API 下的Agent体验优化",
       "excerpt": "让 Ward 在大模型慢、速率有限、调用会失败的情况下，尽量表现得像个正常产品。\n \n ",
