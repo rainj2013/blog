@@ -123,7 +123,9 @@ Skill 负责判断触发条件。比如任务涉及这些内容时，就该用 d
 
 ## 一个典型流程
 
-接入以后，流程大概是这样：先在项目里初始化 dbctx，配置生产/准生产只读库用于生成 snapshot，再配置一个测试库用于 explain。snapshot 刷新后，AI 在修改数据库相关代码时，会先查受影响表的 schema、indexes、stats，再对新增或修改的 SQL 做 review。如果测试库连接可用，再跑一次 explain。
+接入以后，流程大概是这样：先在项目里初始化 dbctx，配置生产/准生产只读库用于生成 snapshot，再配置一个测试库用于 explain。同时把 dbctx Skill 接入 Agent 的 Skill 系统。
+
+之后 Agent 在修改代码时，dbctx Skill 自动监测当前任务是否涉及 SQL、Mapper、Repository 等数据库相关变更。一旦命中触发条件，Skill 引导 Agent 按流程操作：先查受影响表的 schema、indexes、stats，再对新增或修改的 SQL 做 review。如果测试库连接可用，再跑一次 explain。整个过程 Agent 自己完成查库、验证、修正的闭环。
 
 这里有个边界要说清楚：测试库 explain 不等于生产性能结论。测试库数据量小、统计信息不一样，执行计划可能和生产不一致。所以 dbctx 的模型很明确：
 
