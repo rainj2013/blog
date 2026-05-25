@@ -1,7 +1,7 @@
 ---
 title: "用 Harness 思路做 Agent 产品：Ward 重构实录"
 date: 2026-04-23
-tag: AI工程
+tag: Agent
 ---
 
 [Ward Agent](https://github.com/rainj2013/ward-agent) 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 **Harness** 的视角重新审视产品设计。

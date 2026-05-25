@@ -1,7 +1,7 @@
 ---
 title: "一个 AI 还是不够：Ward Agent 的一次 Team 化改造"
 date: 2026-05-13
-tag: AI工程
+tag: Agent
 excerpt: "复杂任务需要一套能拆解、执行、验证和追踪的系统，不能只靠一个更强的模型硬扛。"
 ---
 
