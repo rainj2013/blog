@@ -367,7 +367,7 @@ function showPostPage(post, markdownContent, nextPost) {
 function getGiscusThemeFile(theme = document.documentElement.getAttribute('data-theme')) {
     const themeName = theme === 'dark' ? 'dark' : 'light';
     const version = window.__GISCUS_THEME_VERSION__ || '';
-    return `${baseUrl}/giscus-${themeName}.css${version ? '?v=' + version : ''}`;
+    return `${baseUrl}/assets/css/giscus-${themeName}.css${version ? '?v=' + version : ''}`;
 }
 
 async function getGiscusTheme(theme = document.documentElement.getAttribute('data-theme')) {

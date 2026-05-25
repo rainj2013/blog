@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is a static personal blog. The entry point is `index.html`, with client-side behavior in `main.js` and global styling in `style.css`. Blog posts live in `posts/` as Markdown files, and `posts.json` is the generated post index consumed by the SPA. Static media belongs under `static/`; root-level assets include `favicon.ico` and `CNAME`. The local Markdown parser is vendored at `vendor/marked.min.js`, so avoid replacing it with a CDN dependency unless the deployment model changes.
+This repository is a static personal blog. The entry point is `index.html`, with client-side behavior in `assets/js/main.js` and global styling in `assets/css/style.css`. Giscus comment themes live in `assets/css/giscus-*.css`. Blog posts live in `posts/` as Markdown files, and `posts.json` is the generated post index consumed by the SPA. Static media belongs under `static/`; root-level assets include `favicon.ico` and `CNAME`. The local Markdown parser is vendored at `assets/vendor/marked.min.js`, so avoid replacing it with a CDN dependency unless the deployment model changes.
 
 ## Build, Test, and Development Commands
 
@@ -14,7 +14,7 @@ Run `node generate-posts.js` after adding, renaming, or editing posts. Run both 
 
 ## Coding Style & Naming Conventions
 
-Use vanilla JavaScript, HTML, and CSS; do not introduce a framework without a clear need. Existing JavaScript uses 4-space indentation, `const`/`let`, CommonJS for Node scripts, and small helper functions. Keep CSS organized around existing variables and selectors in `style.css`. Markdown post filenames may be Chinese or English; date-prefixed names such as `2026-04-26-my-post.md` are supported and help metadata extraction.
+Use vanilla JavaScript, HTML, and CSS; do not introduce a framework without a clear need. Existing JavaScript uses 4-space indentation, `const`/`let`, CommonJS for Node scripts, and small helper functions. Keep CSS organized around existing variables and selectors in `assets/css/style.css`. Markdown post filenames may be Chinese or English; date-prefixed names such as `2026-04-26-my-post.md` are supported and help metadata extraction.
 
 ## Testing Guidelines
 

@@ -16,6 +16,10 @@ function getFileHash(filepath) {
     return crypto.createHash('md5').update(content).digest('hex').slice(0, 8);
 }
 
+function escapeRegExp(text) {
+    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // 替换 index.html 中的版本号
 function updateVersion(file) {
     if (!fs.existsSync(file)) {
@@ -28,12 +32,14 @@ function updateVersion(file) {
     let modified = false;
 
     // 替换 href="file?v=xxx"
-    html = html.replace(new RegExp(`(href="${file}\\?v=)[^"]*"`, 'g'), (match, prefix) => {
+    const escapedFile = escapeRegExp(file);
+
+    html = html.replace(new RegExp(`(href="${escapedFile}\\?v=)[^"]*"`, 'g'), (match, prefix) => {
         modified = true;
         return `${prefix}${hash}"`;
     });
     // 替换 src="file?v=xxx"
-    html = html.replace(new RegExp(`(src="${file}\\?v=)[^"]*"`, 'g'), (match, prefix) => {
+    html = html.replace(new RegExp(`(src="${escapedFile}\\?v=)[^"]*"`, 'g'), (match, prefix) => {
         modified = true;
         return `${prefix}${hash}"`;
     });
@@ -67,7 +73,7 @@ function updatePostsVersion() {
 }
 
 function updateGiscusThemeVersion() {
-    const themeFiles = ['giscus-light.css', 'giscus-dark.css'];
+    const themeFiles = ['assets/css/giscus-light.css', 'assets/css/giscus-dark.css'];
     const existingFiles = themeFiles.filter(file => fs.existsSync(file));
 
     if (existingFiles.length !== themeFiles.length) {
@@ -93,9 +99,9 @@ function updateGiscusThemeVersion() {
 function main() {
     console.log('🔍 更新缓存版本号...');
 
-    updateVersion('style.css');
-    updateVersion('main.js');
-    updateVersion('vendor/marked.min.js');
+    updateVersion('assets/css/style.css');
+    updateVersion('assets/js/main.js');
+    updateVersion('assets/vendor/marked.min.js');
     updateVersion('favicon.ico');
     updatePostsVersion();
     updateGiscusThemeVersion();

@@ -16,9 +16,10 @@ This is a static blog website for rainj2013. The blog features:
 posts/           - Markdown blog posts
 posts.json       - Auto-generated index of all posts (id, title, excerpt, date, tag, file)
 index.html       - Single HTML entry point with SPA behavior
-main.js          - Client-side routing, post loading, Markdown rendering via marked.js
-style.css        - All styles (CSS variables for theming)
-vendor/marked.min.js - Markdown parser (local copy to avoid CDN)
+assets/js/main.js        - Client-side routing, post loading, Markdown rendering via marked.js
+assets/css/style.css     - All styles (CSS variables for theming)
+assets/css/giscus-*.css  - Custom Giscus comment themes
+assets/vendor/marked.min.js - Markdown parser (local copy to avoid CDN)
 generate-posts.js    - CLI tool: scans posts/, extracts metadata, generates posts.json
 update-cache.js      - CLI tool: updates cache-busting version hashes in index.html
 ```
@@ -50,4 +51,4 @@ Manual deploy requires running both scripts before pushing.
 
 ## Cache Busting
 
-`update-cache.js` computes MD5 hashes of `style.css`, `main.js`, `vendor/marked.min.js`, `favicon.ico`, and `posts.json`, then embeds them as version query params in `index.html`. This ensures browsers fetch updated files after deployment.
+`update-cache.js` computes MD5 hashes of `assets/css/style.css`, `assets/js/main.js`, `assets/vendor/marked.min.js`, `favicon.ico`, `posts.json`, and the Giscus theme CSS files, then embeds them as version query params in `index.html`. This ensures browsers fetch updated files after deployment.
