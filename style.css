@@ -621,6 +621,40 @@ button {
     text-align: left;
 }
 
+.comments-section {
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 2px dashed color-mix(in srgb, var(--line) 25%, transparent);
+}
+
+.comments-header {
+    margin-bottom: 16px;
+}
+
+.comments-header h2 {
+    margin: 0;
+    border-bottom: 0;
+    font-size: 1.24rem;
+}
+
+.comments-header h2::before {
+    content: '💬';
+    margin-right: 8px;
+}
+
+.giscus-container {
+    min-height: 120px;
+}
+
+.comments-setup {
+    padding: 14px 16px;
+    color: var(--muted);
+    background: var(--soft);
+    border: 2px dashed color-mix(in srgb, var(--line) 30%, transparent);
+    border-radius: 10px;
+    font-size: 0.92rem;
+}
+
 .footer {
     margin-top: auto;
     padding: 24px 0;

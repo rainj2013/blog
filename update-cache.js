@@ -66,6 +66,30 @@ function updatePostsVersion() {
     }
 }
 
+function updateGiscusThemeVersion() {
+    const themeFiles = ['giscus-light.css', 'giscus-dark.css'];
+    const existingFiles = themeFiles.filter(file => fs.existsSync(file));
+
+    if (existingFiles.length !== themeFiles.length) {
+        console.log('  ⚠ giscus theme css 不完整，跳过');
+        return;
+    }
+
+    const hash = crypto.createHash('md5');
+    existingFiles.forEach(file => hash.update(fs.readFileSync(file)));
+    const version = hash.digest('hex').slice(0, 8);
+
+    let html = fs.readFileSync(INDEX_FILE, 'utf-8');
+    const pattern = /(window\.__GISCUS_THEME_VERSION__ = ')[^']*'/;
+    if (pattern.test(html)) {
+        html = html.replace(pattern, `$1${version}'`);
+        fs.writeFileSync(INDEX_FILE, html, 'utf-8');
+        console.log(`  ✓ giscus theme css -> ${version}`);
+    } else {
+        console.log('  - giscus theme css (无版本标记，跳过)');
+    }
+}
+
 function main() {
     console.log('🔍 更新缓存版本号...');
 
@@ -74,6 +98,7 @@ function main() {
     updateVersion('vendor/marked.min.js');
     updateVersion('favicon.ico');
     updatePostsVersion();
+    updateGiscusThemeVersion();
 
     console.log('\n✅ Done. Version numbers updated in index.html');
 }

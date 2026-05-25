@@ -2,7 +2,15 @@
 const config = {
     // posts.json 带版本号防止缓存（构建时由 update-cache.js 生成）
     postsIndex: 'posts.json?v=' + (window.__POSTS_VERSION__ || ''),
-    postsDir: 'posts'
+    postsDir: 'posts',
+    comments: {
+        enabled: true,
+        repo: 'rainj2013/blog',
+        repoId: 'MDEwOlJlcG9zaXRvcnkxNDI0NTEyNTg=',
+        category: 'General',
+        categoryId: 'DIC_kwDOCH2iOs4C9zED',
+        lang: 'zh-CN'
+    }
 };
 
 // 获取当前域名（用于绝对路径）
@@ -18,6 +26,7 @@ let viewMode = localStorage.getItem('viewMode') || 'card';
 let allPosts = []; // 存储所有文章用于导航
 let currentTagFilter = null; // 当前筛选的 tag，null 表示全部
 let tagColorMap = new Map(); // 存储 tag 到 hue 的稳定映射，避免不同 tag 撞色
+const giscusThemeCache = new Map();
 
 // 配置 marked.js 启用表格和其他 GFM 特性
 function initMarked() {
@@ -325,6 +334,12 @@ function showPostPage(post, markdownContent, nextPost) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>` : ''}
             </div>
+            <section class="comments-section" aria-label="评论">
+                <div class="comments-header">
+                    <h2>评论</h2>
+                </div>
+                <div id="commentsContainer" class="giscus-container"></div>
+            </section>
         </article>
     `;
     postContainer.style.display = 'block';
@@ -340,8 +355,92 @@ function showPostPage(post, markdownContent, nextPost) {
         document.getElementById('postBody').innerHTML = '<pre>' + markdownContent + '</pre>';
     }
 
+    renderComments(post);
+
     // 滚动到顶部
     window.scrollTo(0, 0);
+}
+
+function getGiscusThemeFile(theme = document.documentElement.getAttribute('data-theme')) {
+    const themeName = theme === 'dark' ? 'dark' : 'light';
+    const version = window.__GISCUS_THEME_VERSION__ || '';
+    return `${baseUrl}/giscus-${themeName}.css${version ? '?v=' + version : ''}`;
+}
+
+async function getGiscusTheme(theme = document.documentElement.getAttribute('data-theme')) {
+    const themeFile = getGiscusThemeFile(theme);
+
+    if (giscusThemeCache.has(themeFile)) {
+        return giscusThemeCache.get(themeFile);
+    }
+
+    try {
+        const response = await fetch(themeFile);
+        if (!response.ok) {
+            throw new Error(`Failed to load Giscus theme: ${themeFile}`);
+        }
+
+        const css = await response.text();
+        const dataUrl = `data:text/css;charset=utf-8,${encodeURIComponent(css)}`;
+        giscusThemeCache.set(themeFile, dataUrl);
+        return dataUrl;
+    } catch (error) {
+        console.warn(error);
+        return themeFile;
+    }
+}
+
+function isGiscusConfigured() {
+    const comments = config.comments;
+    return Boolean(comments.enabled && comments.repo && comments.repoId && comments.category && comments.categoryId);
+}
+
+async function renderComments(post) {
+    const container = document.getElementById('commentsContainer');
+    if (!container || !config.comments.enabled) return;
+
+    container.innerHTML = '';
+
+    if (!isGiscusConfigured()) {
+        container.innerHTML = `
+            <div class="comments-setup">
+                评论组件已接入 Giscus。启用 GitHub Discussions、安装 Giscus App 后，把 categoryId 填到 main.js 即可开始使用。
+            </div>
+        `;
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('data-repo', config.comments.repo);
+    script.setAttribute('data-repo-id', config.comments.repoId);
+    script.setAttribute('data-category', config.comments.category);
+    script.setAttribute('data-category-id', config.comments.categoryId);
+    script.setAttribute('data-mapping', 'specific');
+    script.setAttribute('data-term', post.id);
+    script.setAttribute('data-strict', '1');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', await getGiscusTheme());
+    script.setAttribute('data-lang', config.comments.lang);
+    script.setAttribute('data-loading', 'lazy');
+    container.appendChild(script);
+}
+
+async function setGiscusTheme(theme) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+
+    iframe.contentWindow.postMessage({
+        giscus: {
+            setConfig: {
+                theme: await getGiscusTheme(theme)
+            }
+        }
+    }, 'https://giscus.app');
 }
 
 function wrapPostTables(container) {
@@ -388,6 +487,7 @@ function toggleTheme() {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
+    setGiscusTheme(newTheme);
 
     // 重新渲染 tag 筛选和文章列表以更新颜色
     if (allPosts.length > 0) {
