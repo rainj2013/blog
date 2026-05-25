@@ -632,14 +632,17 @@ button {
 }
 
 .comments-header h2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin: 0;
     border-bottom: 0;
     font-size: 1.24rem;
 }
 
-.comments-header h2::before {
-    content: '💬';
-    margin-right: 8px;
+.comments-title-icon {
+    flex: 0 0 auto;
+    color: var(--accent);
 }
 
 .giscus-container {
