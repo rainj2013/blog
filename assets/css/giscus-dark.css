@@ -159,6 +159,25 @@ body {
     transform: translateY(-1px) !important;
 }
 
+.BtnGroup-item,
+.BtnGroup-item .btn,
+.BtnGroup-item .btn:focus,
+.BtnGroup-item .btn:focus-visible,
+.BtnGroup-item .btn:active,
+.BtnGroup-item--selected,
+.BtnGroup-item--selected .btn,
+.BtnGroup-item--selected .btn:focus,
+.BtnGroup-item--selected .btn:focus-visible,
+.BtnGroup-item--selected .btn:active {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.BtnGroup-item--selected .btn {
+    background: var(--color-accent-subtle) !important;
+    color: var(--color-accent-fg) !important;
+}
+
 .gsc-left-header > em {
     display: none !important;
 }
