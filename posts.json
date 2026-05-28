@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "31岁-我给自己放了一个gap-month",
+      "title": "31岁，我给自己放了一个Gap Month",
+      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
+      "date": "2026-04-27",
+      "tag": "生活",
+      "file": "posts/31岁，我给自己放了一个Gap Month.md",
+      "hash": "c2f94cef"
+    },
+    {
       "id": "ward-agent-用-harness-思路做-agent产品",
       "title": "用 Harness 思路做 Agent 产品：Ward 重构实录",
       "excerpt": "Ward Agent 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 Harn...\n \n ",
@@ -35,15 +44,6 @@
       "tag": "AI工程",
       "file": "posts/低速率大模型 API 下的Agent体验优化.md",
       "hash": "984756f4"
-    },
-    {
-      "id": "31岁-我给自己放了一个gap-month",
-      "title": "31岁，我给自己放了一个Gap Month",
-      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
-      "date": "2026-04-27",
-      "tag": "生活",
-      "file": "posts/31岁，我给自己放了一个Gap Month.md",
-      "hash": "54fc8ec8"
     },
     {
       "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
