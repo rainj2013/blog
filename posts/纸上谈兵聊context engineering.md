@@ -441,7 +441,7 @@ class ToolOrchestrationAgent:
 从这个角度来说，管理上下文，确实是一个工程化的事情：分层级、结构化、动态适应、解耦合、可拓展等等，都是传统工程中一个架构师需要设计的东西。
 从另一个角度来说，使用大模型，也像一个组织管理者在“使用”下属的人，需要清晰地描述任务背景（全局记忆）、提供必要的资源支持（RAG、MCP等），必要时给与指导意见（user prompt）。
 无论是哪个角度，使用LLM都对使用者本身的能力有要求，最近在网上有位博主的一段话很热门，给我带来一些学习方向上的启发，分享给大家：
-![image.png](https://note.youdao.com/yws/res/1479/WEBRESOURCE2219a4663e28dfaf0e9b18d341cc874c)
+![Context Engineering 相关观点截图](/static/2025-08-02/context-engineering-quote.png)
 
 ## 参考文章
 - AI写代码的“上下文陷阱”：为什么AI总是写错？如何系统性解决？ 

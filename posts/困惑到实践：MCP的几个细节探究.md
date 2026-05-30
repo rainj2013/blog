@@ -38,7 +38,7 @@ def render_mermaid(script: str) -> dict:
 ##### 使用效果
 在Cursor中连接这个MCP 在Cursor中连接这个MCP Server，输入prompt用mermaid画图时，Cursor本身内置的工具足够强大，生成的mermaid脚本默认直接用内置的工具渲染出来了。
 在prompt中显式地要求使用MCP Server中的mermaid_tools工具来绘图后，Cursor还是调用了自定义的MCP Server并返回了图片的url。最后模型还对MCP Server返回的内容做了个转换，从json中取出url，转成一个html超链接，可以直接跳转浏览器查看。
-![image.png](https://note.youdao.com/yws/res/1094/WEBRESOURCE7f7e3593df76f0685bc7d8d8b8f06c92)
+![MCP Server 在 Cursor 中返回 Mermaid 渲染结果](/static/2025-07-12/mcp-mermaid-cursor.png)
 
 #### 用户信息查询
 这是一个resource类型的MCP Server。
@@ -59,10 +59,10 @@ def get_user_profile(user_id: str) -> str:
 ##### 使用效果
 
 在Cursor中，只支持tools类型的MCP Server，直接扫描不到。
-![image.png](https://note.youdao.com/yws/res/1137/WEBRESOURCEa40704ae034713f4869d86635c3860c5)
+![Cursor 扫描 MCP resource 类型服务](/static/2025-07-12/mcp-resource-cursor.png)
 
 而Cherry Studio中声称可以支持tools、resource、prompt三种类型的MCP Server。遗憾的是，基于FastMCP框架实现的resoruce/prompt类型的Server在Cherry Studio中都扫描不到。或许目前只有Anthropic自家的Claude-Desktop对MCP协议的支持最完整。
-![image.png](https://note.youdao.com/yws/res/1130/WEBRESOURCE25b09932f13ecb9cdde7ba3a688c3efc)
+![Cherry Studio 扫描 MCP resource 类型服务](/static/2025-07-12/mcp-resource-cherry-studio.png)
 
 #### 高德地图、MinMax
 这两个是企业发布的remote的MCP Server，参考网上的课程：
@@ -71,15 +71,15 @@ def get_user_profile(user_id: str) -> str:
 3. 最后再通过prompt提供一些CSS和字体资源，将markdown转成一个带文字和语音的html网页。 
 这是一个结合多个MCP Server和Cursor内置的能力（文件读写、Web搜索），完成一个完整的应用开发的案例。
 
-![image.png](https://note.youdao.com/yws/res/1210/WEBRESOURCE247b3d51e46a58d74e244f989d3ccb11)
+![高德地图和 MiniMax MCP Server 组合案例](/static/2025-07-12/mcp-gaode-minimax-demo.png)
 
 ### 结论与猜测
 结合最初的几个疑问和以上的实践，得出几个结论和猜测：
 1. MCP Server不是传统意义BS或者CS软件架构上的Server概念，它是对工具、资源、提示词、采样等等的封装。 如果最终为了解决本地的问题（如操作本地UI、读写本地文件），就可以部署在本地。如果是公共的互联网产品服务（如高德地图），则可能部署在远端的服务器。相应的交互协议也支持两大类：仅用于本地的stdio标准输入输出，和可用于本地/远端的SSE、Streamable HTTP、WebSocket等。
 2. MCP Server需要声明自己的能力、接收的参数、返回的内容格式等信息。而MCP Host连接MCP Server时，会拉取所有的这些声明信息。类似微服务架构中的服务注册/服务发现机制。MCP Host会结合各个MCP Server声明的能力，加上内置的系统级的prompt（这些prompt理论上可以通过抓包拿到），让大模型在响应用户输入时，决定是否从中选取合适的tool。如果有多个功能类似的tool，或者Host本身就内置了相关能力，模型会结合历史上下文、系统prompt里的优先级提示等选择一个最终的工具。也可以直接用用户级的prompt去干预模型选择什么tool。这也意味着MCP Host里面同时连接的MCP Server越多，上下文会越长，所以最好还是按需连接MCP Server。
-![image.png](https://note.youdao.com/yws/res/1157/WEBRESOURCE9e4660775c63fd00dc7d67ec8991b590)
+![MCP Host 工具上下文示例](/static/2025-07-12/mcp-host-tools-context.png)
 
 3. MCP Client会根据MCP Server声明的接收参数格式要求，结合内置系统级的prompt来调用大模型组装请求参数。所以写好MCP Server中的这些Schema声明很重要。
-![image.png](https://note.youdao.com/yws/res/1180/WEBRESOURCE1acec47ab9571ecf2c69ba0878b022f0)
+![MCP Client 参数 Schema 示例](/static/2025-07-12/mcp-client-schema.png)
 
 4. 目前常用现成的MCP Host，像Cursor、Cherry Studio等对MCP协议的兼容并不完整，如果你需要自己开发一个应用接入多个MCP Server，或者有更多的客户端系统级prompt定制、自定义的鉴权之类的需求，就需要自己去实现MCP Host、MCP Client。如果是常见的需求，Cursor已经非常强大。

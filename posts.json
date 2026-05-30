@@ -97,7 +97,7 @@
       "date": "2025-09-30",
       "tag": "AI技术",
       "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
-      "hash": "5ee18514"
+      "hash": "6cb4afd8"
     },
     {
       "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
@@ -115,7 +115,7 @@
       "date": "2025-08-02",
       "tag": "AI工程",
       "file": "posts/纸上谈兵聊context engineering.md",
-      "hash": "b82e18d1"
+      "hash": "239dcacf"
     },
     {
       "id": "困惑到实践-mcp的几个细节探究",
@@ -124,7 +124,7 @@
       "date": "2025-07-12",
       "tag": "MCP",
       "file": "posts/困惑到实践：MCP的几个细节探究.md",
-      "hash": "8aec6c01"
+      "hash": "e3a5174f"
     },
     {
       "id": "openclaw-workspace-架构详解-多-agent-设计指南",
