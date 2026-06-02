@@ -108,7 +108,7 @@ AI 根据验收标准生成测试或验证计划
 
 确认之后，验收标准可以转成单元测试，也可以转成集成测试、API 测试、UI 验证、数据断言，甚至人工验收记录。它不要求所有验证都以测试代码开局，更关注“这条需求最后有没有可信证据”。所以它和 TDD 的关系可以这样理解：TDD 解决的是“先用测试约束实现”，这个项目想补的是“先确认测试应该验证什么”。在 AI 写代码、AI 写测试都很容易的情况下，这个上游环节会变得更重要。
 
-## 这个项目想做什么
+## 把这个想法做成 Skill
 
 基于这个思路，我做了一个实验性的 Skill，叫 [`verify-code-quality`](https://github.com/rainj2013/verify-code-quality-skill)。名字里虽然还有 code quality，但目标已经偏向 Requirement Verification Harness，不走 AI Code Reviewer 的路线。
 
