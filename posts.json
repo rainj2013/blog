@@ -1,13 +1,49 @@
 {
   "posts": [
     {
+      "id": "不要review-ai写的代码",
+      "title": "不要 Review AI 写的代码",
+      "excerpt": "AI 生成代码越来越快，逐行 Review 变得不现实。更可靠的方向，是用 Harness 思想、测试反馈和人工确认的验收标准来验证质量。\n \n ",
+      "date": "2026-06-02",
+      "tag": "AI工程",
+      "file": "posts/不要Review AI写的代码.md",
+      "hash": "014a3f81"
+    },
+    {
       "id": "31岁-我给自己放了一个gap-month",
       "title": "31岁，我给自己放了一个Gap Month",
       "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
       "date": "2026-04-27",
       "tag": "生活",
       "file": "posts/31岁，我给自己放了一个Gap Month.md",
-      "hash": "d5f5b86c"
+      "hash": "6da8e46c"
+    },
+    {
+      "id": "调就是调-不调就是不调-微调是什么意思",
+      "title": "调就是调，不调就是不调，微调是什么意思？",
+      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
+      "date": "2025-09-30",
+      "tag": "AI技术",
+      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
+      "hash": "6cb4afd8"
+    },
+    {
+      "id": "纸上谈兵聊context-engineering",
+      "title": "纸上谈兵聊聊 Context Engineering",
+      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
+      "date": "2025-08-02",
+      "tag": "AI工程",
+      "file": "posts/纸上谈兵聊context engineering.md",
+      "hash": "239dcacf"
+    },
+    {
+      "id": "困惑到实践-mcp的几个细节探究",
+      "title": "困惑到实践：MCP的几个细节探究",
+      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
+      "date": "2025-07-12",
+      "tag": "MCP",
+      "file": "posts/困惑到实践：MCP的几个细节探究.md",
+      "hash": "e3a5174f"
     },
     {
       "id": "ward-agent-用-harness-思路做-agent产品",
@@ -91,15 +127,6 @@
       "hash": "0f92c650"
     },
     {
-      "id": "调就是调-不调就是不调-微调是什么意思",
-      "title": "调就是调，不调就是不调，微调是什么意思？",
-      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
-      "date": "2025-09-30",
-      "tag": "AI技术",
-      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
-      "hash": "6cb4afd8"
-    },
-    {
       "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
       "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
       "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
@@ -107,24 +134,6 @@
       "tag": "Agent",
       "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
       "hash": "4d4f62e2"
-    },
-    {
-      "id": "纸上谈兵聊context-engineering",
-      "title": "纸上谈兵聊聊 Context Engineering",
-      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
-      "date": "2025-08-02",
-      "tag": "AI工程",
-      "file": "posts/纸上谈兵聊context engineering.md",
-      "hash": "239dcacf"
-    },
-    {
-      "id": "困惑到实践-mcp的几个细节探究",
-      "title": "困惑到实践：MCP的几个细节探究",
-      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
-      "date": "2025-07-12",
-      "tag": "MCP",
-      "file": "posts/困惑到实践：MCP的几个细节探究.md",
-      "hash": "e3a5174f"
     },
     {
       "id": "openclaw-workspace-架构详解-多-agent-设计指南",
