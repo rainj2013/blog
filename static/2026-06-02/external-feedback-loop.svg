@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="190" viewBox="0 0 920 190" role="img" aria-labelledby="title desc">
+  <title id="title">外部反馈验证闭环</title>
+  <desc id="desc">AI 写代码，运行测试和验证命令，收集外部反馈，根据反馈修复，再次验证。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="920" height="190" rx="10" fill="#eff6ff"/>
+  <text x="34" y="38" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#111827">更可靠的方向：外部反馈闭环</text>
+  <g font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827">
+    <rect x="28" y="74" width="122" height="52" rx="8" fill="#ffffff" stroke="#93c5fd"/>
+    <text x="89" y="100" text-anchor="middle">AI 写代码</text>
+    <line x1="164" y1="100" x2="230" y2="100" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="244" y="74" width="158" height="52" rx="8" fill="#ffffff" stroke="#93c5fd"/>
+    <text x="323" y="94" text-anchor="middle">运行测试</text>
+    <text x="323" y="110" text-anchor="middle">和验证命令</text>
+    <line x1="416" y1="100" x2="482" y2="100" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="496" y="74" width="150" height="52" rx="8" fill="#ffffff" stroke="#93c5fd"/>
+    <text x="571" y="100" text-anchor="middle">收集外部反馈</text>
+    <line x1="660" y1="100" x2="726" y2="100" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="740" y="74" width="150" height="52" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="815" y="90" text-anchor="middle">根据反馈修复</text>
+    <text x="815" y="110" text-anchor="middle">再次验证</text>
+  </g>
+  <text x="40" y="156" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#1e40af">核心：让代码面对测试、日志、报告等外部反馈。</text>
+</svg>

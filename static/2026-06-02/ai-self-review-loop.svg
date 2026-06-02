@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="180" viewBox="0 0 920 180" role="img" aria-labelledby="title desc">
+  <title id="title">AI 自我判断闭环</title>
+  <desc id="desc">AI 写代码，AI Review 代码，AI 修改代码，AI 说完成。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect width="920" height="180" rx="10" fill="#f8fafc"/>
+  <text x="34" y="38" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#111827">容易出现的问题：AI 自我判断闭环</text>
+  <g font-family="Inter, system-ui, sans-serif" font-size="15" fill="#111827">
+    <rect x="40" y="74" width="150" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="115" y="105" text-anchor="middle">AI 写代码</text>
+    <line x1="205" y1="100" x2="285" y2="100" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="300" y="74" width="150" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="375" y="100" text-anchor="middle">AI Review 代码</text>
+    <line x1="465" y1="100" x2="545" y2="100" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="560" y="74" width="150" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="635" y="100" text-anchor="middle">AI 修改代码</text>
+    <line x1="725" y1="100" x2="805" y2="100" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="820" y="74" width="70" height="52" rx="8" fill="#fee2e2" stroke="#f87171"/>
+    <text x="855" y="100" text-anchor="middle">完成</text>
+  </g>
+  <text x="40" y="153" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#64748b">问题：判断依据仍然主要来自模型自己的解释。</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="170" viewBox="0 0 760 170" role="img" aria-labelledby="title desc">
+  <title id="title">AI 写代码和测试的互证风险</title>
+  <desc id="desc">AI 写代码，AI 写测试，测试通过，AI 说完成。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="760" height="170" rx="10" fill="#fffbeb"/>
+  <text x="30" y="38" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#111827">测试也由 AI 生成时的风险</text>
+  <g font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827">
+    <rect x="36" y="74" width="120" height="50" rx="8" fill="#ffffff" stroke="#f59e0b"/>
+    <text x="96" y="103" text-anchor="middle">AI 写代码</text>
+    <line x1="170" y1="100" x2="238" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="252" y="74" width="120" height="50" rx="8" fill="#ffffff" stroke="#f59e0b"/>
+    <text x="312" y="103" text-anchor="middle">AI 写测试</text>
+    <line x1="386" y1="100" x2="454" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="468" y="74" width="104" height="50" rx="8" fill="#ffffff" stroke="#f59e0b"/>
+    <text x="520" y="103" text-anchor="middle">测试通过</text>
+    <line x1="586" y1="100" x2="654" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="668" y="74" width="64" height="50" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <text x="700" y="103" text-anchor="middle">完成</text>
+  </g>
+  <text x="36" y="146" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#92400e">风险：代码和测试可能基于同一个错误业务理解互相证明。</text>
+</svg>

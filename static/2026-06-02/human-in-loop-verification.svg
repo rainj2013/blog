@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="230" viewBox="0 0 920 230" role="img" aria-labelledby="title desc">
+  <title id="title">人机协作验证流程</title>
+  <desc id="desc">业务需求，AI 拆成验收标准，人确认验收标准，AI 生成测试或验证计划，人抽查关键测试场景，运行测试并收集证据，生成验收矩阵。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="920" height="230" rx="10" fill="#f0fdfa"/>
+  <text x="34" y="38" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#111827">人进入更合适的位置：验收标准和关键测试场景</text>
+  <g font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">
+    <rect x="36" y="70" width="110" height="48" rx="8" fill="#ffffff" stroke="#5eead4"/>
+    <text x="91" y="99" text-anchor="middle">业务需求</text>
+    <line x1="158" y1="94" x2="210" y2="94" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="224" y="70" width="130" height="48" rx="8" fill="#ffffff" stroke="#5eead4"/>
+    <text x="289" y="91" text-anchor="middle">AI 拆成</text>
+    <text x="289" y="108" text-anchor="middle">验收标准</text>
+    <line x1="366" y1="94" x2="418" y2="94" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="432" y="70" width="130" height="48" rx="8" fill="#ccfbf1" stroke="#0f766e"/>
+    <text x="497" y="91" text-anchor="middle">人确认</text>
+    <text x="497" y="108" text-anchor="middle">验收标准</text>
+    <line x1="574" y1="94" x2="626" y2="94" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="640" y="70" width="130" height="48" rx="8" fill="#ffffff" stroke="#5eead4"/>
+    <text x="705" y="91" text-anchor="middle">AI 生成</text>
+    <text x="705" y="108" text-anchor="middle">验证计划</text>
+    <line x1="705" y1="126" x2="705" y2="154" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="620" y="166" width="170" height="48" rx="8" fill="#ccfbf1" stroke="#0f766e"/>
+    <text x="705" y="187" text-anchor="middle">人抽查</text>
+    <text x="705" y="204" text-anchor="middle">关键测试场景</text>
+    <line x1="606" y1="190" x2="530" y2="190" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="360" y="166" width="156" height="48" rx="8" fill="#ffffff" stroke="#5eead4"/>
+    <text x="438" y="187" text-anchor="middle">运行测试</text>
+    <text x="438" y="204" text-anchor="middle">并收集证据</text>
+    <line x1="346" y1="190" x2="270" y2="190" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="92" y="166" width="164" height="48" rx="8" fill="#ffffff" stroke="#5eead4"/>
+    <text x="174" y="187" text-anchor="middle">生成</text>
+    <text x="174" y="204" text-anchor="middle">验收矩阵</text>
+  </g>
+</svg>
