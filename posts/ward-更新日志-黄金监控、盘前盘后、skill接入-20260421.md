@@ -1,7 +1,7 @@
 ---
 title: "Ward 更新日志：黄金监控、盘前盘后、Skill 接入"
 date: 2026-04-21
-tag: AI工程
+tag: Agent
 ---
 
 离[上一篇文章](?post=ward-agent-美股市场数据分析ai工具)过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。
