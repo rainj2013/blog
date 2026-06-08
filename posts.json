@@ -1,22 +1,40 @@
 {
   "posts": [
     {
+      "id": "31岁-我给自己放了一个gap-month",
+      "title": "31岁，我给自己放了一个Gap Month",
+      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
+      "date": "2026-06-08",
+      "tag": "生活",
+      "file": "posts/31岁，我给自己放了一个Gap Month.md",
+      "hash": "fe80f53a"
+    },
+    {
+      "id": "ward-agent-美股市场数据分析ai工具",
+      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
+      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
+      "date": "2026-04-12",
+      "tag": "Agent",
+      "file": "posts/ward-agent-美股市场数据分析AI工具.md",
+      "hash": "c4a3e36b"
+    },
+    {
+      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
+      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
+      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
+      "date": "2026-04-21",
+      "tag": "Agent",
+      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
+      "hash": "dccb569a"
+    },
+    {
       "id": "不要review-ai写的代码",
       "title": "不要 Review AI 写的代码",
-      "excerpt": "AI 生成代码越来越快，逐行 Review 变得不现实。更可靠的方向，是用 Harness 思想、测试反馈和人工确认的验收标准来验证质量。\n \n ",
+      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是：代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
       "date": "2026-06-02",
       "tag": "AI工程",
       "file": "posts/不要Review AI写的代码.md",
       "hash": "824f91e3"
-    },
-    {
-      "id": "31岁-我给自己放了一个gap-month",
-      "title": "31岁，我给自己放了一个Gap Month",
-      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
-      "date": "2026-04-27",
-      "tag": "生活",
-      "file": "posts/31岁，我给自己放了一个Gap Month.md",
-      "hash": "6da8e46c"
     },
     {
       "id": "调就是调-不调就是不调-微调是什么意思",
@@ -89,24 +107,6 @@
       "tag": "AI技术",
       "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
       "hash": "05219605"
-    },
-    {
-      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
-      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
-      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
-      "date": "2026-04-21",
-      "tag": "Agent",
-      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
-      "hash": "acd20b28"
-    },
-    {
-      "id": "ward-agent-美股市场数据分析ai工具",
-      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
-      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
-      "date": "2026-04-12",
-      "tag": "Agent",
-      "file": "posts/ward-agent-美股市场数据分析AI工具.md",
-      "hash": "7f1a9703"
     },
     {
       "id": "通用mcp-host的system-prompt怎么写",
