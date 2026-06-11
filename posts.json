@@ -1,13 +1,22 @@
 {
   "posts": [
     {
+      "id": "ward-agent-的一次上下文压缩策略优化",
+      "title": "Ward Agent 的一次上下文压缩策略优化",
+      "excerpt": "以 Ward 为例，记录一次把 Agent 上下文管理从最近历史和运行时摘要，推进到持久摘要、环境摘要和可观测状态的优化。\n \n ",
+      "date": "2026-06-11",
+      "tag": "Agent",
+      "file": "posts/Ward Agent 的一次上下文压缩策略优化.md",
+      "hash": "f033bfed"
+    },
+    {
       "id": "31岁-我给自己放了一个gap-month",
       "title": "31岁，我给自己放了一个Gap Month",
       "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
       "date": "2026-06-08",
       "tag": "生活",
       "file": "posts/31岁，我给自己放了一个Gap Month.md",
-      "hash": "fe80f53a"
+      "hash": "8e76d078"
     },
     {
       "id": "ward-agent-美股市场数据分析ai工具",
