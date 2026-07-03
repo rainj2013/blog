@@ -32,6 +32,9 @@ jobs:
       - name: Generate Posts Index
         run: node generate-posts.js
 
+      - name: Generate Sitemap
+        run: node generate-sitemap.js
+
       - name: Update Cache Version
         run: node update-cache.js
 
