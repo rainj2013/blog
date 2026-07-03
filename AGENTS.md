@@ -7,10 +7,11 @@ This repository is a static personal blog. The entry point is `index.html`, with
 ## Build, Test, and Development Commands
 
 - `node generate-posts.js`: scans `posts/`, extracts metadata, and rewrites `posts.json`.
+- `node generate-sitemap.js`: scans `posts/`, generates `sitemap.xml` for search engine discovery.
 - `node update-cache.js`: updates cache-busting hashes in `index.html` for CSS, JS, vendor, favicon, and posts index assets.
 - `python3 -m http.server 8000`: serves the site locally from the repository root for browser testing.
 
-Run `node generate-posts.js` after adding, renaming, or editing posts. Run both Node scripts before manual deployment.
+Run `node generate-posts.js` and `node generate-sitemap.js` after adding, renaming, or editing posts. Run all three Node scripts before manual deployment.
 
 ## Coding Style & Naming Conventions
 

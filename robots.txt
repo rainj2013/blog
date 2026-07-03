@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rainj2013.top/sitemap.xml

@@ -16,6 +16,53 @@ const config = {
 // 获取当前域名（用于绝对路径）
 const baseUrl = window.location.origin;
 
+// SEO 辅助函数 —— 动态更新标题、描述和结构化数据
+const defaultTitle = document.title;
+function setPostMeta(title, excerpt, url, date, tag) {
+    document.title = title + ' - ' + defaultTitle;
+
+    // 更新或创建 meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = 'description';
+        document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = (excerpt || '').replace(/\u00A0/g, '').trim() || title;
+
+    // 更新或创建 JSON-LD 结构化数据
+    const oldLd = document.getElementById('json-ld-article');
+    if (oldLd) oldLd.remove();
+
+    const ld = document.createElement('script');
+    ld.id = 'json-ld-article';
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description: (excerpt || '').replace(/\u00A0/g, '').trim(),
+        datePublished: date,
+        author: {
+            '@type': 'Person',
+            name: 'rainj2013',
+            url: 'https://github.com/rainj2013'
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': window.location.href
+        }
+    });
+    document.head.appendChild(ld);
+}
+function resetPostMeta() {
+    document.title = defaultTitle;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.remove();
+    const oldLd = document.getElementById('json-ld-article');
+    if (oldLd) oldLd.remove();
+}
+
 // DOM 元素
 const postsContainer = document.getElementById('postsContainer');
 const themeToggle = document.getElementById('themeToggle');
@@ -346,6 +393,9 @@ function showPostPage(post, markdownContent, nextPost) {
         </article>
     `;
     postContainer.style.display = 'block';
+
+    // 设置 SEO 元数据
+    setPostMeta(post.title, post.excerpt, window.location.href, post.date, post.tag);
     
     // 渲染 Markdown（移除 frontmatter）
     if (typeof marked !== 'undefined') {
@@ -582,6 +632,9 @@ function showHomePage() {
     if (postContainer) postContainer.style.display = 'none';
     if (aboutContainer) aboutContainer.style.display = 'none';
     
+    // 恢复默认 SEO 元数据
+    resetPostMeta();
+    
     window.scrollTo(0, 0);
 }
 
@@ -629,6 +682,9 @@ function showAboutPage() {
         main.appendChild(aboutContainer);
     }
     aboutContainer.style.display = 'block';
+
+    // 设置关于页 SEO
+    setPostMeta('关于', 'rainj2013 的个人博客', window.location.href, '2026', null);
     
     window.scrollTo(0, 0);
 }
