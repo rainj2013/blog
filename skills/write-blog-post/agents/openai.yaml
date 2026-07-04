@@ -1,0 +1,4 @@
+interface:
+  display_name: "撰写博客文章"
+  short_description: "按本博客的文字风格、Markdown 规范和发布流程撰写文章"
+  default_prompt: "Use $write-blog-post to draft and publish a post in this blog repository."

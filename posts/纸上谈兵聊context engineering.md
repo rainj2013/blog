@@ -1,5 +1,5 @@
 ---
-title: "纸上谈兵聊聊 Context Engineering"
+title: "纸上谈兵聊 Context Engineering"
 date: 2025-08-02
 tag: AI工程
 ---
