@@ -48,7 +48,7 @@
   <rect x="55" y="365" width="340" height="290" rx="18" fill="#fff" stroke="#fca5a5" stroke-width="2"/>
   <rect x="55" y="365" width="340" height="58" rx="18" fill="#fee2e2"/>
   <text x="225" y="402" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="21" font-weight="700" fill="#991b1b">A：直接实现</text>
-  <text x="83" y="462" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 满 1000 行就继续，无单轮上限</text>
+  <text x="83" y="462" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 每批达到上限后继续，没有总上限</text>
   <text x="83" y="504" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 非法配置回退默认值后继续删除</text>
   <text x="83" y="546" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 旧 retention 配置未兼容</text>
   <text x="83" y="588" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 每批先 count，日志数量可能失真</text>
@@ -61,7 +61,7 @@
   <text x="458" y="504" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 新旧配置兼容，异常后重新调度</text>
   <text x="458" y="546" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 用首次 count 快照限制循环次数</text>
   <text x="458" y="588" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 实际删除数仍可能与日志有偏差</text>
-  <text x="458" y="630" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">结果：功能通过，改动集中在 Config</text>
+  <text x="458" y="630" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">结果：功能通过，仅修改配置模块</text>
 
   <rect x="805" y="365" width="350" height="290" rx="18" fill="#fff" stroke="#86efac" stroke-width="2"/>
   <rect x="805" y="365" width="350" height="58" rx="18" fill="#dcfce7"/>

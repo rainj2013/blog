@@ -11,7 +11,7 @@
   </defs>
   <rect width="1200" height="700" rx="24" fill="#f8fafc"/>
   <text x="60" y="62" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="30" font-weight="700" fill="#0f172a">同一个任务，三种使用 Codex 的方式</text>
-  <text x="60" y="98" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18" fill="#475569">模型、基线和推理强度保持一致，差异来自输入契约与执行流程</text>
+  <text x="60" y="98" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18" fill="#475569">模型、基线和推理强度保持一致，差异来自输入内容与执行流程</text>
 
   <rect x="52" y="135" width="1096" height="145" rx="18" fill="#ffffff" stroke="#fca5a5" filter="url(#shadow)"/>
   <rect x="52" y="135" width="126" height="145" rx="18" fill="#fee2e2"/>
@@ -50,18 +50,18 @@
   <text x="115" y="571" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18" fill="#166534">架构保护</text>
   <text x="115" y="598" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18" fill="#166534">闭环</text>
   <rect x="198" y="515" width="175" height="82" rx="12" fill="#f0fdf4" stroke="#86efac"/>
-  <text x="286" y="546" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">完整验收契约</text>
+  <text x="286" y="546" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">完整验收条件</text>
   <text x="286" y="574" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">+ 架构约束</text>
   <line x1="385" y1="556" x2="423" y2="556" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="438" y="515" width="175" height="82" rx="12" fill="#f0fdf4" stroke="#86efac"/>
   <text x="526" y="546" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">架构影响分析</text>
-  <text x="526" y="574" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">通过格式门禁</text>
+  <text x="526" y="574" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">覆盖全部要求</text>
   <line x1="625" y1="556" x2="663" y2="556" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="678" y="515" width="145" height="82" rx="12" fill="#f0fdf4" stroke="#86efac"/>
   <text x="751" y="564" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="19" fill="#14532d">实现 + 测试</text>
   <line x1="835" y1="556" x2="873" y2="556" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="888" y="515" width="185" height="82" rx="12" fill="#dcfce7" stroke="#4ade80"/>
   <text x="981" y="546" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">全新上下文审查</text>
-  <text x="981" y="574" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">一轮证据修复</text>
-  <text x="60" y="681" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="16" fill="#64748b">C 的变量包含更完整的需求输入、计划门禁和独立审查，实验比较的是三套实际使用方式。</text>
+  <text x="981" y="574" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#14532d">根据问题修复一轮</text>
+  <text x="60" y="681" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="16" fill="#64748b">C 同时增加了更完整的需求、架构分析和独立审查，实验比较的是三套实际使用方式。</text>
 </svg>
