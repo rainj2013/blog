@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
   <title id="title">配置历史自动清理的安全运行链路</title>
-  <desc id="desc">历史清理任务从配置校验、节点所有权判断、分批删除、记录结果到下一次调度的完整链路，以及三种实现暴露的风险。</desc>
+  <desc id="desc">历史清理任务从配置校验、执行节点判断、分批删除、记录结果到下一次调度的完整链路，以及三种实现暴露的风险。</desc>
   <defs>
     <marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
@@ -21,7 +21,7 @@
   <circle cx="410" cy="174" r="18" fill="#2563eb"/>
   <text x="410" y="181" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">2</text>
   <text x="410" y="211" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="19" font-weight="700" fill="#1e3a8a">确认执行节点</text>
-  <text x="410" y="239" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="16" fill="#334155">集群中只能有一个 owner</text>
+  <text x="410" y="239" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="16" fill="#334155">只允许一个节点执行</text>
   <line x1="517" y1="205" x2="560" y2="205" stroke="#64748b" stroke-width="3" marker-end="url(#arrow3)"/>
 
   <rect x="575" y="150" width="190" height="110" rx="16" fill="#f0fdf4" stroke="#86efac"/>
@@ -42,7 +42,7 @@
   <circle cx="1098" cy="174" r="18" fill="#16a34a"/>
   <text x="1098" y="181" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">5</text>
   <text x="1098" y="211" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#14532d">安排下次</text>
-  <text x="1098" y="238" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="15" fill="#334155">支持 shutdown</text>
+  <text x="1098" y="238" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="15" fill="#334155">支持服务关闭</text>
 
   <text x="60" y="330" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="23" font-weight="700" fill="#0f172a">三种实现的差异集中在“极端情况下会发生什么”</text>
   <rect x="55" y="365" width="340" height="290" rx="18" fill="#fff" stroke="#fca5a5" stroke-width="2"/>
@@ -57,7 +57,7 @@
   <rect x="430" y="365" width="340" height="290" rx="18" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
   <rect x="430" y="365" width="340" height="58" rx="18" fill="#dbeafe"/>
   <text x="600" y="402" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="21" font-weight="700" fill="#1e40af">B：先做计划</text>
-  <text x="458" y="462" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 复用现有 owner 与 Mapper 链路</text>
+  <text x="458" y="462" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 复用执行节点规则和数据库接口</text>
   <text x="458" y="504" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 新旧配置兼容，异常后重新调度</text>
   <text x="458" y="546" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 用首次 count 快照限制循环次数</text>
   <text x="458" y="588" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 实际删除数仍可能与日志有偏差</text>
@@ -68,7 +68,7 @@
   <text x="980" y="402" text-anchor="middle" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="21" font-weight="700" fill="#166534">C：架构保护闭环</text>
   <text x="833" y="462" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 每批 1000，单轮最多 1000 批</text>
   <text x="833" y="504" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 返回数据库真实影响行数</text>
-  <text x="833" y="546" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• owner 异常也会重新安排下一次</text>
+  <text x="833" y="546" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 节点判断异常后仍会再次调度</text>
   <text x="833" y="588" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" fill="#334155">• 代价是改动扩展到三个模块</text>
   <text x="833" y="630" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#15803d">结果：可靠性更强，维护面也更大</text>
   <text x="60" y="716" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="16" fill="#64748b">应用级架构既包含代码分层，也包含模块职责、数据归属、集群执行权和后台任务生命周期。</text>
