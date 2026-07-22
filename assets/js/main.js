@@ -168,6 +168,7 @@ async function loadPosts() {
         }
         const data = await response.json();
         allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        updateHeroStats();
         buildTagColorMap(allPosts.map(post => post.tag));
         renderTagFilter();
         renderPosts(currentTagFilter ? allPosts.filter(p => p.tag === currentTagFilter) : allPosts);
@@ -180,6 +181,23 @@ async function loadPosts() {
             </div>
         `;
     }
+}
+
+function updateHeroStats() {
+    const postCount = document.getElementById('heroPostCount');
+    const tagCount = document.getElementById('heroTagCount');
+    if (postCount) postCount.textContent = allPosts.length;
+    if (tagCount) tagCount.textContent = new Set(allPosts.map(post => post.tag)).size;
+}
+
+function searchPosts(keyword) {
+    const normalizedKeyword = keyword.trim().toLowerCase();
+    currentTagFilter = null;
+    renderTagFilter();
+    const matches = normalizedKeyword
+        ? allPosts.filter(post => [post.title, post.excerpt, post.tag].some(value => (value || '').toLowerCase().includes(normalizedKeyword)))
+        : allPosts;
+    renderPosts(matches);
 }
 
 // 渲染 tag 下拉菜单
@@ -586,6 +604,32 @@ function setupEventListeners() {
     if (viewToggle) {
         viewToggle.addEventListener('click', toggleViewMode);
         updateViewToggle();
+    }
+
+    const searchToggle = document.getElementById('searchToggle');
+    const siteSearch = document.getElementById('siteSearch');
+    const searchInput = document.getElementById('searchInput');
+    if (searchToggle && siteSearch && searchInput) {
+        searchToggle.addEventListener('click', () => {
+            const willOpen = siteSearch.hidden;
+            siteSearch.hidden = !willOpen;
+            searchToggle.setAttribute('aria-expanded', String(willOpen));
+            if (willOpen) searchInput.focus();
+        });
+        searchInput.addEventListener('input', () => {
+            showHomePage();
+            searchPosts(searchInput.value);
+            document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    const articlesLink = document.getElementById('articlesLink');
+    if (articlesLink) {
+        articlesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomePage();
+            document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     }
 
     // tag 筛选按钮
