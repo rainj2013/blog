@@ -342,6 +342,10 @@ button {
     fill: color-mix(in srgb, var(--accent) 88%, var(--line));
 }
 
+.fig-blush {
+    fill: color-mix(in srgb, var(--accent-soft) 85%, transparent);
+}
+
 .hero-copy > p {
     margin-top: 20px;
     font-size: 1.05rem;
