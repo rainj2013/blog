@@ -709,7 +709,7 @@ function showAboutPage() {
                 <h1 style="text-align: center; margin-bottom: 2rem;">关于</h1>
                 <div style="line-height: 1.8;">
                     <p style="margin-bottom: 1.5rem;">👋 你好，我是 rainj2013。</p>
-                    <p style="margin-bottom: 1.5rem;">这是我的个人博客，主要分享技术文章、学习笔记和个人思考。</p>
+                    <p style="margin-bottom: 1.5rem;">这是我的个人博客，主要分享技术文章、学习笔记和个人思考，也会聊聊美食、游戏、汽车和育儿这些生活日常。</p>
                     <h3 style="margin: 2rem 0 1rem;">关注我</h3>
                     <ul style="margin-left: 2rem; line-height: 2;">
                         <li>GitHub: <a href="https://github.com/rainj2013" target="_blank" style="color: var(--primary-color);">@rainj2013</a></li>
