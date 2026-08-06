@@ -312,9 +312,8 @@ button {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(310px, .8fr);
+    grid-template-columns: 1fr;
     align-items: center;
-    gap: clamp(36px, 7vw, 100px);
 }
 
 .hero-copy > p {
@@ -339,40 +338,6 @@ button {
 
 .hero-stats strong {
     font-weight: inherit;
-}
-
-.hero-quote {
-    position: relative;
-    min-height: 205px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 42px 45px 28px;
-    background: color-mix(in srgb, var(--surface) 68%, transparent);
-    border: 2px solid var(--border);
-    border-radius: 22px 15px 20px 18px;
-    transform: rotate(.5deg);
-}
-
-.hero-quote .quote-mark {
-    position: absolute;
-    top: 10px;
-    left: 24px;
-    color: var(--accent);
-    font-family: Georgia, serif;
-    font-size: 4.8rem;
-    line-height: 1;
-}
-
-.hero-quote p {
-    text-align: center;
-    line-height: 2;
-}
-
-.hero-quote cite {
-    margin-top: 22px;
-    text-align: right;
-    font-style: normal;
 }
 
 .hero-landscape {
@@ -939,10 +904,6 @@ button {
         display: none;
     }
 
-    .hero-quote {
-        min-height: 160px;
-        padding: 36px 25px 22px;
-    }
 
     .posts-header {
         align-items: flex-start;
