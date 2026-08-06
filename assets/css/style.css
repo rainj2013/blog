@@ -312,8 +312,34 @@ button {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
     align-items: center;
+    gap: clamp(36px, 7vw, 100px);
+}
+
+.hero-art {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: end;
+}
+
+.hero-bot {
+    width: min(100%, 300px);
+    height: auto;
+    transform: rotate(-2deg) translateY(44px);
+}
+
+.fig-line {
+    fill: none;
+    stroke: color-mix(in srgb, var(--accent) 82%, var(--line));
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.fig-eye {
+    fill: color-mix(in srgb, var(--accent) 88%, var(--line));
 }
 
 .hero-copy > p {
@@ -898,6 +924,14 @@ button {
     .hero-content {
         grid-template-columns: 1fr;
         gap: 28px;
+    }
+
+    .hero-art {
+        order: 2;
+    }
+
+    .hero-bot {
+        width: min(100%, 200px);
     }
 
     .hero-copy > p br {
