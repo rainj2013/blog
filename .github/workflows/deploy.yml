@@ -49,3 +49,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry deploy (attempt 2)
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry deploy (attempt 3)
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
