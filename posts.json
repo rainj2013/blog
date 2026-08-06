@@ -1,6 +1,24 @@
 {
   "posts": [
     {
+      "id": "不要review-ai写的代码",
+      "title": "不要 Review AI 写的代码",
+      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
+      "date": "2026-06-02",
+      "tag": "AI工程",
+      "file": "posts/不要Review AI写的代码.md",
+      "hash": "d1407f19"
+    },
+    {
+      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
+      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
+      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
+      "date": "2026-06-16",
+      "tag": "AI工程",
+      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
+      "hash": "ad763234"
+    },
+    {
       "id": "为什么有些大厂做不好-ai-转型",
       "title": "为什么有些大厂做不好 AI 转型？",
       "excerpt": "企业接入 AI 以后，很多流程还是跑不快。问题往往出在系统割裂、责任边界、隐性知识和组织协作。\n \n ",
@@ -64,15 +82,6 @@
       "hash": "61862cae"
     },
     {
-      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
-      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
-      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
-      "date": "2026-06-16",
-      "tag": "AI工程",
-      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
-      "hash": "1c1f3ab3"
-    },
-    {
       "id": "低速率大模型-api-下的agent体验优化",
       "title": "低速率大模型 API 下的Agent体验优化",
       "excerpt": "让 Ward 在大模型慢、速率有限、调用会失败的情况下，尽量表现得像个正常产品。\n \n ",
@@ -116,15 +125,6 @@
       "tag": "Agent",
       "file": "posts/一个AI还是不够-Ward-Agent的Team化改造.md",
       "hash": "e1164a12"
-    },
-    {
-      "id": "不要review-ai写的代码",
-      "title": "不要 Review AI 写的代码",
-      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是：代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
-      "date": "2026-06-02",
-      "tag": "AI工程",
-      "file": "posts/不要Review AI写的代码.md",
-      "hash": "824f91e3"
     },
     {
       "id": "openclaw-memory-management",
