@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "vibe个工具系列01-ssh客户端luna-remote",
+      "title": "vibe 个工具系列 01｜SSH 客户端 Luna Remote",
+      "excerpt": "我用过一些连接服务器的工具，有的需要付费，有的必须登录后才能使用，还有的 UI 界面我不太喜欢。开源工具里也有像 Electerm 这样完成度很高的选择，功能做得很全，只是很多功能...\n \n ",
+      "date": "2026-08-06",
+      "tag": "AI工程",
+      "file": "posts/vibe个工具系列01：SSH客户端Luna Remote.md",
+      "hash": "6792414d"
+    },
+    {
       "id": "不要review-ai写的代码",
       "title": "不要 Review AI 写的代码",
       "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
