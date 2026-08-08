@@ -325,25 +325,67 @@ button {
 }
 
 .hero-bot {
-    width: min(100%, 300px);
+    width: min(100%, 286px);
     height: auto;
-    transform: rotate(-2deg) translateY(44px);
+    transform: rotate(-1.2deg) translateY(38px);
 }
 
-.fig-line {
-    fill: none;
-    stroke: color-mix(in srgb, var(--accent) 82%, var(--line));
-    stroke-width: 2.6;
+.fig-line,
+.fig-smile,
+.fig-face,
+.fig-hair,
+.fig-detail {
+    stroke: var(--ink);
+    stroke-width: 4.6;
     stroke-linecap: round;
     stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.fig-line,
+.fig-smile,
+.fig-hair {
+    fill: none;
+}
+
+.fig-face {
+    fill: var(--surface);
+}
+
+.fig-shirt,
+.fig-kid-shirt {
+    fill: var(--accent-soft);
+}
+
+.fig-shorts {
+    fill: var(--warm);
+}
+
+.fig-dress {
+    fill: color-mix(in srgb, var(--accent-soft) 68%, var(--warm));
+}
+
+.fig-detail {
+    fill: none;
+    stroke-width: 3.8;
+}
+
+.fig-heart {
+    fill: var(--accent);
+    stroke: var(--line);
+}
+
+.fig-spark {
+    stroke: color-mix(in srgb, var(--accent) 72%, var(--line));
 }
 
 .fig-eye {
-    fill: color-mix(in srgb, var(--accent) 88%, var(--line));
+    fill: var(--ink);
 }
 
-.fig-blush {
-    fill: color-mix(in srgb, var(--accent-soft) 85%, transparent);
+.doodle-person:nth-of-type(2) {
+    transform: rotate(0.35deg);
+    transform-origin: center;
 }
 
 .hero-copy > p {
@@ -935,7 +977,7 @@ button {
     }
 
     .hero-bot {
-        width: min(100%, 200px);
+        width: min(100%, 172px);
     }
 
     .hero-copy > p br {
