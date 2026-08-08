@@ -26,7 +26,7 @@ SFTP 采用本地与远程双栏布局，文件和目录可以拖放，传输任
 
 ## AI 命令
 
-记不起命令参数时，可以让 AI 助手生成 Linux Shell、PowerShell、CMD 或 macOS 命令，并附上用途、执行前提和风险提示。结果可以复制，也可以直接填入当前终端，确认无误后再执行。
+记不清复杂的命令、参数时，可以让 AI 助手生成 Linux Shell、PowerShell、CMD 或 macOS 命令，并附上用途、执行前提和风险提示。结果可以复制，也可以直接填入当前终端，确认无误后再执行。
 
 ![Luna Remote AI 命令助手](/static/2026-08-06/ai-command.png)
 
