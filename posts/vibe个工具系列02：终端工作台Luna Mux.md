@@ -49,7 +49,7 @@ Luna mux 设置里面可以选择打开远程 Agent 控制功能，默认是关�
 
 AI 命令助手也是移植自 [Luna Remote](https://github.com/rainj2013/luna-remote) 软件，它和 Codex、Claude Code 这些 Agent 相互独立，使用用户自己配置的 OpenAI 兼容API，为当前终端生成 Linux Shell、PowerShell、CMD 或 macOS 命令。无论在本地还是 SSH 远程终端，都可以让 AI 帮忙写命令。结果带说明、前提、警告和风险等级，可以复制、只填入终端，或经风险确认后执行。不配置 AI 服务也不影响其他功能。
 
-## 技术选型
+## 技术选型和下载地址
 
 和 [Luna Remote](https://github.com/rainj2013/luna-remote) 一样基于 Tauri 构建，底层是 Rust，UI 由系统 WebView 渲染，终端用 xterm.js。会话、布局和连接存在本地 SQLite，密码等敏感信息交给 macOS Keychain 或 Windows Credential Manager。
 
