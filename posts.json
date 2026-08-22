@@ -1,67 +1,22 @@
 {
   "posts": [
     {
-      "id": "vibe个工具系列01-ssh客户端luna-remote",
-      "title": "vibe 个工具系列 01｜SSH 客户端 Luna Remote",
-      "excerpt": "最近宝宝出生了，生活一下忙了不少。这次先简单分享一个自己制作的，每天都在用的软件。\n \n ",
-      "date": "2026-08-06",
+      "id": "vibe个工具系列02-终端工作台luna-mux",
+      "title": "vibe 个工具系列 02｜终端工作台 Luna Mux",
+      "excerpt": "系列第二期。终端复用器管窗口，Luna Mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
+      "date": "2026-08-20",
       "tag": "AI工程",
-      "file": "posts/vibe个工具系列01：SSH客户端Luna Remote.md",
-      "hash": "000221ab"
+      "file": "posts/vibe个工具系列02：终端工作台Luna Mux.md",
+      "hash": "de67cb6d"
     },
     {
-      "id": "不要review-ai写的代码",
-      "title": "不要 Review AI 写的代码",
-      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
-      "date": "2026-06-02",
-      "tag": "AI工程",
-      "file": "posts/不要Review AI写的代码.md",
-      "hash": "d1407f19"
-    },
-    {
-      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
-      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
-      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
-      "date": "2026-06-16",
-      "tag": "AI工程",
-      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
-      "hash": "ad763234"
-    },
-    {
-      "id": "为什么有些大厂做不好-ai-转型",
-      "title": "为什么有些大厂做不好 AI 转型？",
-      "excerpt": "企业接入 AI 以后，很多流程还是跑不快。问题往往出在系统割裂、责任边界、隐性知识和组织协作。\n \n ",
-      "date": "2026-06-27",
-      "tag": "AI工程",
-      "file": "posts/为什么有些大厂做不好 AI 转型？.md",
-      "hash": "b0bb8892"
-    },
-    {
-      "id": "大模型工程化发展回顾-模型越强-工程化越少吗",
-      "title": "大模型工程化发展回顾：模型越强，工程化越少吗？",
-      "excerpt": "大模型工程化随着模型能力变化不断重新分工，重心也从弥补模型能力逐渐转向管理环境、边界和反馈。\n \n ",
-      "date": "2026-07-05",
-      "tag": "AI工程",
-      "file": "posts/大模型工程化发展回顾：模型越强，工程化越少吗？.md",
-      "hash": "df3a89cf"
-    },
-    {
-      "id": "ai-写代码会破坏架构吗-我用-nacos-做了次实测",
-      "title": "AI 写代码会破坏架构吗？我用 Nacos 做了次实测",
-      "excerpt": "我用两个 Nacos 真实需求对比三种 Codex 工作流，观察 AI 完成功能以后对应用级架构产生了什么影响。\n \n ",
-      "date": "2026-07-19",
-      "tag": "AI工程",
-      "file": "posts/AI 写代码会破坏架构吗？我用 Nacos 做了次实测.md",
-      "hash": "13b8b565"
-    },
-    {
-      "id": "纸上谈兵聊context-engineering",
-      "title": "纸上谈兵聊 Context Engineering",
-      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
-      "date": "2025-08-02",
-      "tag": "AI工程",
-      "file": "posts/纸上谈兵聊context engineering.md",
-      "hash": "1e4d125c"
+      "id": "通用mcp-host的system-prompt怎么写",
+      "title": "通用mcp host的system prompt怎么写",
+      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
+      "date": "2025-07-26",
+      "tag": "MCP",
+      "file": "posts/通用mcp host的system prompt怎么写.md",
+      "hash": "61862cae"
     },
     {
       "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
@@ -82,13 +37,40 @@
       "hash": "6cb4afd8"
     },
     {
-      "id": "通用mcp-host的system-prompt怎么写",
-      "title": "通用mcp host的system prompt怎么写",
-      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
-      "date": "2025-07-26",
-      "tag": "MCP",
-      "file": "posts/通用mcp host的system prompt怎么写.md",
-      "hash": "61862cae"
+      "id": "环境可见性-ai开发后端项目的高质量前提-以数据库为例",
+      "title": "环境可见性：AI开发后端项目的高质量前提——以数据库为例",
+      "excerpt": "后端项目里，AI 写 SQL 的主要难点在于缺少真实数据库的索引、规模和运行约束。\n \n ",
+      "date": "2026-05-22",
+      "tag": "AI工程",
+      "file": "posts/环境可见性-AI开发后端项目的高质量前提-以数据库为例.md",
+      "hash": "663452d3"
+    },
+    {
+      "id": "纸上谈兵聊context-engineering",
+      "title": "纸上谈兵聊 Context Engineering",
+      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
+      "date": "2025-08-02",
+      "tag": "AI工程",
+      "file": "posts/纸上谈兵聊context engineering.md",
+      "hash": "1e4d125c"
+    },
+    {
+      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
+      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
+      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
+      "date": "2026-03-22",
+      "tag": "Agent",
+      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
+      "hash": "4d4f62e2"
+    },
+    {
+      "id": "大模型工程化发展回顾-模型越强-工程化越少吗",
+      "title": "大模型工程化发展回顾：模型越强，工程化越少吗？",
+      "excerpt": "大模型工程化随着模型能力变化不断重新分工，重心也从弥补模型能力逐渐转向管理环境、边界和反馈。\n \n ",
+      "date": "2026-07-05",
+      "tag": "AI工程",
+      "file": "posts/大模型工程化发展回顾：模型越强，工程化越少吗？.md",
+      "hash": "df3a89cf"
     },
     {
       "id": "低速率大模型-api-下的agent体验优化",
@@ -109,22 +91,40 @@
       "hash": "e3a5174f"
     },
     {
-      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
-      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
-      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
-      "date": "2026-03-22",
-      "tag": "Agent",
-      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
-      "hash": "4d4f62e2"
+      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
+      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
+      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
+      "date": "2026-06-16",
+      "tag": "AI工程",
+      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
+      "hash": "ad763234"
     },
     {
-      "id": "环境可见性-ai开发后端项目的高质量前提-以数据库为例",
-      "title": "环境可见性：AI开发后端项目的高质量前提——以数据库为例",
-      "excerpt": "后端项目里，AI 写 SQL 的主要难点在于缺少真实数据库的索引、规模和运行约束。\n \n ",
-      "date": "2026-05-22",
+      "id": "不要review-ai写的代码",
+      "title": "不要 Review AI 写的代码",
+      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
+      "date": "2026-06-02",
       "tag": "AI工程",
-      "file": "posts/环境可见性-AI开发后端项目的高质量前提-以数据库为例.md",
-      "hash": "663452d3"
+      "file": "posts/不要Review AI写的代码.md",
+      "hash": "d1407f19"
+    },
+    {
+      "id": "为什么有些大厂做不好-ai-转型",
+      "title": "为什么有些大厂做不好 AI 转型？",
+      "excerpt": "企业接入 AI 以后，很多流程还是跑不快。问题往往出在系统割裂、责任边界、隐性知识和组织协作。\n \n ",
+      "date": "2026-06-27",
+      "tag": "AI工程",
+      "file": "posts/为什么有些大厂做不好 AI 转型？.md",
+      "hash": "b0bb8892"
+    },
+    {
+      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
+      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
+      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
+      "date": "2026-04-21",
+      "tag": "Agent",
+      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
+      "hash": "dccb569a"
     },
     {
       "id": "一个ai还是不够-ward-agent的team化改造",
@@ -134,15 +134,6 @@
       "tag": "Agent",
       "file": "posts/一个AI还是不够-Ward-Agent的Team化改造.md",
       "hash": "e1164a12"
-    },
-    {
-      "id": "openclaw-memory-management",
-      "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
-      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
-      "date": "2026-02-12",
-      "tag": "OpenClaw",
-      "file": "posts/openclaw-memory-management.md",
-      "hash": "5296714c"
     },
     {
       "id": "ward-agent-用-harness-思路做-agent产品",
@@ -163,31 +154,31 @@
       "hash": "c4a3e36b"
     },
     {
-      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
-      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
-      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
-      "date": "2026-04-21",
+      "id": "ward-agent-的一次上下文压缩策略优化",
+      "title": "Ward Agent 的一次上下文压缩策略优化",
+      "excerpt": "以 Ward 为例，记录一次把 Agent 上下文管理从最近历史和运行时摘要，推进到持久摘要、环境摘要和可观测状态的优化。\n \n ",
+      "date": "2026-06-11",
       "tag": "Agent",
-      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
-      "hash": "dccb569a"
+      "file": "posts/Ward Agent 的一次上下文压缩策略优化.md",
+      "hash": "dc2407e4"
     },
     {
-      "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
-      "title": "2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？",
-      "excerpt": "上一次尝试部署本地模型，还是在2025年10月，当时的体验只能说是图一乐。\n今年4月，阿里陆续开源了 Qwen3.6系列模型，其中有两款 Qwen3.6-35B-A3B 和 Qwe...\n ",
-      "date": "2026-04-30",
-      "tag": "AI技术",
-      "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
-      "hash": "05219605"
+      "id": "openclaw-memory-management",
+      "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
+      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
+      "date": "2026-02-12",
+      "tag": "OpenClaw",
+      "file": "posts/openclaw-memory-management.md",
+      "hash": "5296714c"
     },
     {
-      "id": "31岁-我给自己放了一个gap-month",
-      "title": "31岁，我给自己放了一个Gap Month",
-      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
-      "date": "2026-06-08",
-      "tag": "生活",
-      "file": "posts/31岁，我给自己放了一个Gap Month.md",
-      "hash": "8e76d078"
+      "id": "vibe个工具系列01-ssh客户端luna-remote",
+      "title": "vibe 个工具系列 01｜SSH 客户端 Luna Remote",
+      "excerpt": "最近宝宝出生了，生活一下忙了不少。这次先简单分享一个自己制作的，每天都在用的软件。\n \n ",
+      "date": "2026-08-06",
+      "tag": "AI工程",
+      "file": "posts/vibe个工具系列01：SSH客户端Luna Remote.md",
+      "hash": "2cc83907"
     },
     {
       "id": "mcp协议完整落地案例",
@@ -208,13 +199,31 @@
       "hash": "f01a70f6"
     },
     {
-      "id": "ward-agent-的一次上下文压缩策略优化",
-      "title": "Ward Agent 的一次上下文压缩策略优化",
-      "excerpt": "以 Ward 为例，记录一次把 Agent 上下文管理从最近历史和运行时摘要，推进到持久摘要、环境摘要和可观测状态的优化。\n \n ",
-      "date": "2026-06-11",
-      "tag": "Agent",
-      "file": "posts/Ward Agent 的一次上下文压缩策略优化.md",
-      "hash": "dc2407e4"
+      "id": "31岁-我给自己放了一个gap-month",
+      "title": "31岁，我给自己放了一个Gap Month",
+      "excerpt": "3月底，我从上一家公司离职了，记录一下在家休息这段时间的经历和思考。\n \n ",
+      "date": "2026-06-08",
+      "tag": "生活",
+      "file": "posts/31岁，我给自己放了一个Gap Month.md",
+      "hash": "8e76d078"
+    },
+    {
+      "id": "ai-写代码会破坏架构吗-我用-nacos-做了次实测",
+      "title": "AI 写代码会破坏架构吗？我用 Nacos 做了次实测",
+      "excerpt": "我用两个 Nacos 真实需求对比三种 Codex 工作流，观察 AI 完成功能以后对应用级架构产生了什么影响。\n \n ",
+      "date": "2026-07-19",
+      "tag": "AI工程",
+      "file": "posts/AI 写代码会破坏架构吗？我用 Nacos 做了次实测.md",
+      "hash": "13b8b565"
+    },
+    {
+      "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
+      "title": "2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？",
+      "excerpt": "上一次尝试部署本地模型，还是在2025年10月，当时的体验只能说是图一乐。\n今年4月，阿里陆续开源了 Qwen3.6系列模型，其中有两款 Qwen3.6-35B-A3B 和 Qwe...\n ",
+      "date": "2026-04-30",
+      "tag": "AI技术",
+      "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
+      "hash": "05219605"
     }
   ]
 }
