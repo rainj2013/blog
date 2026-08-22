@@ -7,7 +7,7 @@ excerpt: "系列第二期。终端复用器管窗口，Luna mux 想管的是项�
 
 [上一次](/?post=vibe个工具系列01-ssh客户端luna-remote)分享了 SSH 客户端 [Luna Remote](https://github.com/rainj2013/luna-remote)。这一期分享的是 [Luna mux](https://github.com/rainj2013/luna-mux)，一个跨平台的 Coding Agent 工作台。
 
-我手头有多台设备，包含 Windows、Mac 机器、WSL、云 Linux 服务器等环境，这些环境上跑的终端、Agent 也各不相同。我需要一个跨平台的工作台，方便统一管理这些环境下的 Coding Agent，让他们可以一起工作、聚合消息通知、调用本地浏览器进行自动化调试等，所以就有了 Luna mux 这个软件。
+我手头有多台不同的设备，包含 Windows、Macbook 机器、WSL、云 Linux 服务器等环境，这些环境上跑的终端、Agent 也各不相同。我需要一个跨平台的工作台，方便统一管理这些环境下的 Coding Agent，让他们可以一起工作、聚合消息通知、调用本地浏览器进行自动化调试等，所以就有了 Luna mux 这个软件。
 
 在详细介绍 Luna mux 之前，先向 [Cmux](https://github.com/manaflow-ai/cmux) 致敬。Cmux 是一个非常强大的终端工作台软件，我参考了它不少功能，再结合自己的需求做出了 Luna mux。
 
@@ -32,7 +32,7 @@ Hook 主要负责工作状态监控、生命周期管理和消息通知。Agent 
 
 2. 第二个是 [agent-browser](https://github.com/vercel-labs/agent-browser)，它让 Agent 可以自由控制一个受 Luna mux 管理的 Chrome 浏览器。Chrome CDP 协议支持的操作都可以做，例如打开页面、点击、填表、截图，通过查看控制台和网络请求等等。
 列举几个我自己常用的浏览器控制功能的使用场景：
-- 让 Agent 自己去查询需要登陆的平台上的信息（中间需要人工接管浏览器完成登录操作），例如企业内网的一些文档平台。
+- 让 Agent 自己去查询需要登录的平台上的信息（中间需要人工接管浏览器完成登录操作），例如企业内网的一些文档平台。
 - 让 Agent 在完成一个 WEB 功能开发后，自己去页面验收功能、调整实现效果。
 - 让 Agent 查看浏览器控制台和网络请求来排查问题。
 - 让 Agent 控制浏览器充当一个简易的爬虫，去收集一些信息，比纯粹通过curl等脚本去收集更不容易被网站安全策略拦截。
@@ -51,7 +51,7 @@ AI 命令助手也是移植自 [Luna Remote](https://github.com/rainj2013/luna-r
 
 ## 技术选型和下载地址
 
-和 [Luna Remote](https://github.com/rainj2013/luna-remote) 一样基于 Tauri 构建，底层是 Rust，UI 由系统 WebView 渲染，终端用 xterm.js。会话、布局和连接存在本地 SQLite，密码等敏感信息交给 macOS Keychain 或 Windows Credential Manager。
+Luna mux 和 [Luna Remote](https://github.com/rainj2013/luna-remote) 一样基于 Tauri 构建，底层是 Rust，UI 由系统 WebView 渲染，终端用 xterm.js。会话、布局和连接存在本地 SQLite，密码等敏感信息交给 macOS Keychain 或 Windows Credential Manager。
 
 Luna mux 已经发布第一个 release 版本，我自己也已经每天都在使用。应用安装包可以在 github 的 release 页面下载，支持 Mac 和 Windows 操作系统。源码、文档和构建说明都在 [GitHub](https://github.com/rainj2013/luna-mux)。这个系列后面还会继续写其他工具。
 
