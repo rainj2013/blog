@@ -1,5 +1,5 @@
 ---
-title: "vibe 个工具系列 02｜终端工作台 Luna mux"
+title: "vibe 个工具系列 02｜Coding Agent 工作台 Luna mux"
 date: 2026-08-20
 tag: AI工程
 excerpt: "系列第二期。终端复用器管窗口，Luna mux 想管的是项目里多个终端和多个 Agent 的协作。"

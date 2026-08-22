@@ -1,202 +1,22 @@
 {
   "posts": [
     {
-      "id": "vibe个工具系列02-终端工作台luna-mux",
-      "title": "vibe 个工具系列 02｜终端工作台 Luna Mux",
-      "excerpt": "系列第二期。终端复用器管窗口，Luna Mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
+      "id": "vibe个工具系列02-coding-agent-工作台luna-mux",
+      "title": "vibe 个工具系列 02｜Coding Agent 工作台 Luna mux",
+      "excerpt": "系列第二期。终端复用器管窗口，Luna mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
       "date": "2026-08-20",
       "tag": "AI工程",
-      "file": "posts/vibe个工具系列02：终端工作台Luna Mux.md",
-      "hash": "de67cb6d"
+      "file": "posts/vibe个工具系列02：Coding Agent 工作台Luna mux.md",
+      "hash": "0a4f4670"
     },
     {
-      "id": "通用mcp-host的system-prompt怎么写",
-      "title": "通用mcp host的system prompt怎么写",
-      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
-      "date": "2025-07-26",
-      "tag": "MCP",
-      "file": "posts/通用mcp host的system prompt怎么写.md",
-      "hash": "61862cae"
-    },
-    {
-      "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
-      "title": "讲清楚 Harness：一套简单可落地的 LLM Agent 实践",
-      "excerpt": "LLM主要应用还是ChatBot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n \n ",
-      "date": "2026-04-01",
-      "tag": "AI工程",
-      "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md",
-      "hash": "0f92c650"
-    },
-    {
-      "id": "调就是调-不调就是不调-微调是什么意思",
-      "title": "调就是调，不调就是不调，微调是什么意思？",
-      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
-      "date": "2025-09-30",
+      "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
+      "title": "2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？",
+      "excerpt": "上一次尝试部署本地模型，还是在2025年10月，当时的体验只能说是图一乐。\n今年4月，阿里陆续开源了 Qwen3.6系列模型，其中有两款 Qwen3.6-35B-A3B 和 Qwe...\n ",
+      "date": "2026-04-30",
       "tag": "AI技术",
-      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
-      "hash": "6cb4afd8"
-    },
-    {
-      "id": "环境可见性-ai开发后端项目的高质量前提-以数据库为例",
-      "title": "环境可见性：AI开发后端项目的高质量前提——以数据库为例",
-      "excerpt": "后端项目里，AI 写 SQL 的主要难点在于缺少真实数据库的索引、规模和运行约束。\n \n ",
-      "date": "2026-05-22",
-      "tag": "AI工程",
-      "file": "posts/环境可见性-AI开发后端项目的高质量前提-以数据库为例.md",
-      "hash": "663452d3"
-    },
-    {
-      "id": "纸上谈兵聊context-engineering",
-      "title": "纸上谈兵聊 Context Engineering",
-      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
-      "date": "2025-08-02",
-      "tag": "AI工程",
-      "file": "posts/纸上谈兵聊context engineering.md",
-      "hash": "1e4d125c"
-    },
-    {
-      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
-      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
-      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
-      "date": "2026-03-22",
-      "tag": "Agent",
-      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
-      "hash": "4d4f62e2"
-    },
-    {
-      "id": "大模型工程化发展回顾-模型越强-工程化越少吗",
-      "title": "大模型工程化发展回顾：模型越强，工程化越少吗？",
-      "excerpt": "大模型工程化随着模型能力变化不断重新分工，重心也从弥补模型能力逐渐转向管理环境、边界和反馈。\n \n ",
-      "date": "2026-07-05",
-      "tag": "AI工程",
-      "file": "posts/大模型工程化发展回顾：模型越强，工程化越少吗？.md",
-      "hash": "df3a89cf"
-    },
-    {
-      "id": "低速率大模型-api-下的agent体验优化",
-      "title": "低速率大模型 API 下的Agent体验优化",
-      "excerpt": "让 Ward 在大模型慢、速率有限、调用会失败的情况下，尽量表现得像个正常产品。\n \n ",
-      "date": "2026-05-12",
-      "tag": "AI工程",
-      "file": "posts/低速率大模型 API 下的Agent体验优化.md",
-      "hash": "984756f4"
-    },
-    {
-      "id": "困惑到实践-mcp的几个细节探究",
-      "title": "困惑到实践：MCP的几个细节探究",
-      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
-      "date": "2025-07-12",
-      "tag": "MCP",
-      "file": "posts/困惑到实践：MCP的几个细节探究.md",
-      "hash": "e3a5174f"
-    },
-    {
-      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
-      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
-      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
-      "date": "2026-06-16",
-      "tag": "AI工程",
-      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
-      "hash": "ad763234"
-    },
-    {
-      "id": "不要review-ai写的代码",
-      "title": "不要 Review AI 写的代码",
-      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
-      "date": "2026-06-02",
-      "tag": "AI工程",
-      "file": "posts/不要Review AI写的代码.md",
-      "hash": "d1407f19"
-    },
-    {
-      "id": "为什么有些大厂做不好-ai-转型",
-      "title": "为什么有些大厂做不好 AI 转型？",
-      "excerpt": "企业接入 AI 以后，很多流程还是跑不快。问题往往出在系统割裂、责任边界、隐性知识和组织协作。\n \n ",
-      "date": "2026-06-27",
-      "tag": "AI工程",
-      "file": "posts/为什么有些大厂做不好 AI 转型？.md",
-      "hash": "b0bb8892"
-    },
-    {
-      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
-      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
-      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
-      "date": "2026-04-21",
-      "tag": "Agent",
-      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
-      "hash": "dccb569a"
-    },
-    {
-      "id": "一个ai还是不够-ward-agent的team化改造",
-      "title": "一个 AI 还是不够：Ward Agent 的一次 Team 化改造",
-      "excerpt": "复杂任务需要一套能拆解、执行、验证和追踪的系统，不能只靠一个更强的模型硬扛。\n \n ",
-      "date": "2026-05-13",
-      "tag": "Agent",
-      "file": "posts/一个AI还是不够-Ward-Agent的Team化改造.md",
-      "hash": "e1164a12"
-    },
-    {
-      "id": "ward-agent-用-harness-思路做-agent产品",
-      "title": "用 Harness 思路做 Agent 产品：Ward 重构实录",
-      "excerpt": "Ward Agent 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 Harn...\n \n ",
-      "date": "2026-04-23",
-      "tag": "Agent",
-      "file": "posts/ward-agent-用-harness-思路做-agent产品.md",
-      "hash": "a53a555f"
-    },
-    {
-      "id": "ward-agent-美股市场数据分析ai工具",
-      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
-      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
-      "date": "2026-04-12",
-      "tag": "Agent",
-      "file": "posts/ward-agent-美股市场数据分析AI工具.md",
-      "hash": "c4a3e36b"
-    },
-    {
-      "id": "ward-agent-的一次上下文压缩策略优化",
-      "title": "Ward Agent 的一次上下文压缩策略优化",
-      "excerpt": "以 Ward 为例，记录一次把 Agent 上下文管理从最近历史和运行时摘要，推进到持久摘要、环境摘要和可观测状态的优化。\n \n ",
-      "date": "2026-06-11",
-      "tag": "Agent",
-      "file": "posts/Ward Agent 的一次上下文压缩策略优化.md",
-      "hash": "dc2407e4"
-    },
-    {
-      "id": "openclaw-memory-management",
-      "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
-      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
-      "date": "2026-02-12",
-      "tag": "OpenClaw",
-      "file": "posts/openclaw-memory-management.md",
-      "hash": "5296714c"
-    },
-    {
-      "id": "vibe个工具系列01-ssh客户端luna-remote",
-      "title": "vibe 个工具系列 01｜SSH 客户端 Luna Remote",
-      "excerpt": "最近宝宝出生了，生活一下忙了不少。这次先简单分享一个自己制作的，每天都在用的软件。\n \n ",
-      "date": "2026-08-06",
-      "tag": "AI工程",
-      "file": "posts/vibe个工具系列01：SSH客户端Luna Remote.md",
-      "hash": "2cc83907"
-    },
-    {
-      "id": "mcp协议完整落地案例",
-      "title": "MCP协议完整落地案例",
-      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
-      "date": "2025-07-20",
-      "tag": "MCP",
-      "file": "posts/MCP协议完整落地案例.md",
-      "hash": "cb5ad7e5"
-    },
-    {
-      "id": "openclaw-workspace-架构详解-多-agent-设计指南",
-      "title": "OpenClaw Workspace 架构详解：多 Agent 设计指南",
-      "excerpt": "> 本文介绍 OpenClaw 的 Workspace 文件架构，以及如何为不同 Agent 定制个性化工作环境\n \n ",
-      "date": "2026-03-10",
-      "tag": "OpenClaw",
-      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md",
-      "hash": "f01a70f6"
+      "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
+      "hash": "05219605"
     },
     {
       "id": "31岁-我给自己放了一个gap-month",
@@ -217,13 +37,193 @@
       "hash": "13b8b565"
     },
     {
-      "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
-      "title": "2026年了，本地小模型能给OpenClaw、Hermes当大脑了吗？",
-      "excerpt": "上一次尝试部署本地模型，还是在2025年10月，当时的体验只能说是图一乐。\n今年4月，阿里陆续开源了 Qwen3.6系列模型，其中有两款 Qwen3.6-35B-A3B 和 Qwe...\n ",
-      "date": "2026-04-30",
+      "id": "ward-agent-的一次上下文压缩策略优化",
+      "title": "Ward Agent 的一次上下文压缩策略优化",
+      "excerpt": "以 Ward 为例，记录一次把 Agent 上下文管理从最近历史和运行时摘要，推进到持久摘要、环境摘要和可观测状态的优化。\n \n ",
+      "date": "2026-06-11",
+      "tag": "Agent",
+      "file": "posts/Ward Agent 的一次上下文压缩策略优化.md",
+      "hash": "dc2407e4"
+    },
+    {
+      "id": "vibe个工具系列01-ssh客户端luna-remote",
+      "title": "vibe 个工具系列 01｜SSH 客户端 Luna Remote",
+      "excerpt": "最近宝宝出生了，生活一下忙了不少。这次先简单分享一个自己制作的，每天都在用的软件。\n \n ",
+      "date": "2026-08-06",
+      "tag": "AI工程",
+      "file": "posts/vibe个工具系列01：SSH客户端Luna Remote.md",
+      "hash": "2cc83907"
+    },
+    {
+      "id": "ward-agent-用-harness-思路做-agent产品",
+      "title": "用 Harness 思路做 Agent 产品：Ward 重构实录",
+      "excerpt": "Ward Agent 近期做了一次较大的重构，从手写的 agent loop 迁移到了 Mini-Agent 框架。重构过程中，代码组织更清晰了，但真正让我有收获的，是用 Harn...\n \n ",
+      "date": "2026-04-23",
+      "tag": "Agent",
+      "file": "posts/ward-agent-用-harness-思路做-agent产品.md",
+      "hash": "a53a555f"
+    },
+    {
+      "id": "ward-agent-美股市场数据分析ai工具",
+      "title": "被市场毒打后，我用 AI 给自己造了一个美股 Agent",
+      "excerpt": "我投资美股多年，回报率一直不太行。信息渠道太多，分不清哪些该看、哪些是噪音。干脆自己动手做了个工具：Ward。基于市场数据和 AI 大模型，把实时行情、技术分析、AI 解读、即时问...\n \n ",
+      "date": "2026-04-12",
+      "tag": "Agent",
+      "file": "posts/ward-agent-美股市场数据分析AI工具.md",
+      "hash": "c4a3e36b"
+    },
+    {
+      "id": "ward-更新日志-黄金监控-盘前盘后-skill接入-20260421",
+      "title": "Ward 更新日志：黄金监控、盘前盘后、Skill 接入",
+      "excerpt": "离上一篇文章过去了 10 天，Ward 陆续补上了几个之前规划的功能，做个更新记录。\n \n ",
+      "date": "2026-04-21",
+      "tag": "Agent",
+      "file": "posts/ward-更新日志-黄金监控、盘前盘后、skill接入-20260421.md",
+      "hash": "dccb569a"
+    },
+    {
+      "id": "一个ai还是不够-ward-agent的team化改造",
+      "title": "一个 AI 还是不够：Ward Agent 的一次 Team 化改造",
+      "excerpt": "复杂任务需要一套能拆解、执行、验证和追踪的系统，不能只靠一个更强的模型硬扛。\n \n ",
+      "date": "2026-05-13",
+      "tag": "Agent",
+      "file": "posts/一个AI还是不够-Ward-Agent的Team化改造.md",
+      "hash": "e1164a12"
+    },
+    {
+      "id": "不要review-ai写的代码",
+      "title": "不要 Review AI 写的代码",
+      "excerpt": "大家用 AI Coding Agent 写代码之后，一个很明显的变化是，代码产出速度变快了，而且快得有点不适应。以前一个需求可能需要半天搭接口、改逻辑、补测试。现在描述清楚一点，A...\n \n ",
+      "date": "2026-06-02",
+      "tag": "AI工程",
+      "file": "posts/不要Review AI写的代码.md",
+      "hash": "d1407f19"
+    },
+    {
+      "id": "为什么有些大厂做不好-ai-转型",
+      "title": "为什么有些大厂做不好 AI 转型？",
+      "excerpt": "企业接入 AI 以后，很多流程还是跑不快。问题往往出在系统割裂、责任边界、隐性知识和组织协作。\n \n ",
+      "date": "2026-06-27",
+      "tag": "AI工程",
+      "file": "posts/为什么有些大厂做不好 AI 转型？.md",
+      "hash": "b0bb8892"
+    },
+    {
+      "id": "从代码验证到eval体系-再谈ai生成代码的质量保障",
+      "title": "从代码验证到 Eval 体系：再谈 AI 生成代码的质量保障",
+      "excerpt": "上次讨论不要逐行 Review AI 写的代码，这次继续往前走一步：把单次验证升级成可回归、可比较、可持续演进的代码质量验证体系。\n \n ",
+      "date": "2026-06-16",
+      "tag": "AI工程",
+      "file": "posts/从代码验证到Eval体系：再谈AI生成代码的质量保障.md",
+      "hash": "ad763234"
+    },
+    {
+      "id": "低速率大模型-api-下的agent体验优化",
+      "title": "低速率大模型 API 下的Agent体验优化",
+      "excerpt": "让 Ward 在大模型慢、速率有限、调用会失败的情况下，尽量表现得像个正常产品。\n \n ",
+      "date": "2026-05-12",
+      "tag": "AI工程",
+      "file": "posts/低速率大模型 API 下的Agent体验优化.md",
+      "hash": "984756f4"
+    },
+    {
+      "id": "困惑到实践-mcp的几个细节探究",
+      "title": "困惑到实践：MCP的几个细节探究",
+      "excerpt": "1.有些MCP工具可以操作本地文件和UI，有些又可以提供公共的互联网产品服务（例如高德地图），这些都是MCP Server的能力吗？MCP Server之间有什么区别？\n2.MCP...\n ",
+      "date": "2025-07-12",
+      "tag": "MCP",
+      "file": "posts/困惑到实践：MCP的几个细节探究.md",
+      "hash": "e3a5174f"
+    },
+    {
+      "id": "大模型工程化发展回顾-模型越强-工程化越少吗",
+      "title": "大模型工程化发展回顾：模型越强，工程化越少吗？",
+      "excerpt": "大模型工程化随着模型能力变化不断重新分工，重心也从弥补模型能力逐渐转向管理环境、边界和反馈。\n \n ",
+      "date": "2026-07-05",
+      "tag": "AI工程",
+      "file": "posts/大模型工程化发展回顾：模型越强，工程化越少吗？.md",
+      "hash": "df3a89cf"
+    },
+    {
+      "id": "环境可见性-ai开发后端项目的高质量前提-以数据库为例",
+      "title": "环境可见性：AI开发后端项目的高质量前提——以数据库为例",
+      "excerpt": "后端项目里，AI 写 SQL 的主要难点在于缺少真实数据库的索引、规模和运行约束。\n \n ",
+      "date": "2026-05-22",
+      "tag": "AI工程",
+      "file": "posts/环境可见性-AI开发后端项目的高质量前提-以数据库为例.md",
+      "hash": "663452d3"
+    },
+    {
+      "id": "纸上谈兵聊context-engineering",
+      "title": "纸上谈兵聊 Context Engineering",
+      "excerpt": "> 本文前面部分由Claude根据我的零散笔记和代码生成，后面部分为本人手写总结。\n \n ",
+      "date": "2025-08-02",
+      "tag": "AI工程",
+      "file": "posts/纸上谈兵聊context engineering.md",
+      "hash": "1e4d125c"
+    },
+    {
+      "id": "调就是调-不调就是不调-微调是什么意思",
+      "title": "调就是调，不调就是不调，微调是什么意思？",
+      "excerpt": "这两年大模型应用的落地和发展迅速，出于本地化部署成本/性能等方面考虑，很多应用选择中小模型，结合常见的两个优化方式：微调（Fine-tuning） 和 RAG（检索增强生成），来提...\n \n ",
+      "date": "2025-09-30",
       "tag": "AI技术",
-      "file": "posts/2026年了，本地小模型能给OpenClaw-Hermes当大脑了吗？.md",
-      "hash": "05219605"
+      "file": "posts/调就是调，不调就是不调，微调是什么意思？.md",
+      "hash": "6cb4afd8"
+    },
+    {
+      "id": "mcp协议完整落地案例",
+      "title": "MCP协议完整落地案例",
+      "excerpt": "> 本文由Kimi k2和本人合作编写。\n \n ",
+      "date": "2025-07-20",
+      "tag": "MCP",
+      "file": "posts/MCP协议完整落地案例.md",
+      "hash": "cb5ad7e5"
+    },
+    {
+      "id": "openclaw-workspace-架构详解-多-agent-设计指南",
+      "title": "OpenClaw Workspace 架构详解：多 Agent 设计指南",
+      "excerpt": "> 本文介绍 OpenClaw 的 Workspace 文件架构，以及如何为不同 Agent 定制个性化工作环境\n \n ",
+      "date": "2026-03-10",
+      "tag": "OpenClaw",
+      "file": "posts/OpenClaw Workspace 架构详解：多 Agent 设计指南.md",
+      "hash": "f01a70f6"
+    },
+    {
+      "id": "openclaw-memory-management",
+      "title": "OpenClaw 与 Claude 的上下文管理机制对比：一场记忆持久化的探索",
+      "excerpt": "> 本文基于 OpenClaw 官方文档（v2026.1.10）和 Anthropic 官方文档整理，所有技术细节均来自各自官方渠道。\n \n ",
+      "date": "2026-02-12",
+      "tag": "OpenClaw",
+      "file": "posts/openclaw-memory-management.md",
+      "hash": "5296714c"
+    },
+    {
+      "id": "基于react推理模式的agent设计-以短信文案审核agent为例",
+      "title": "基于ReAct推理模式的Agent设计——以短信文案审核Agent为例",
+      "excerpt": "金融行业对外发送的短信需要严格合规审核——营销短信不能承诺保本收益、催收短信不能胁迫性表述、验证码短信必须有时效说明。\n \n ",
+      "date": "2026-03-22",
+      "tag": "Agent",
+      "file": "posts/基于ReAct推理模式的Agent设计--以短信文案审核Agent为例.md",
+      "hash": "4d4f62e2"
+    },
+    {
+      "id": "讲清楚-harness-一套简单可落地的-llm-agent-实践",
+      "title": "讲清楚 Harness：一套简单可落地的 LLM Agent 实践",
+      "excerpt": "LLM主要应用还是ChatBot的时候，大家在讨论 Prompt Engineering，如何设计一个精美的系统提示词，让大模型输出期望的结果。后来大家开始通过多轮会话解决复杂的问...\n \n ",
+      "date": "2026-04-01",
+      "tag": "AI工程",
+      "file": "posts/讲清楚 Harness：一套简单可落地的 LLM Agent 实践.md",
+      "hash": "0f92c650"
+    },
+    {
+      "id": "通用mcp-host的system-prompt怎么写",
+      "title": "通用mcp host的system prompt怎么写",
+      "excerpt": "网上有一些cursor、claude code等工具的客户端架构分析和源码解读，这些工具由于大而全，会有较复杂的模块化设计、分层管理等，system prompt也包含几万字。\n这...\n ",
+      "date": "2025-07-26",
+      "tag": "MCP",
+      "file": "posts/通用mcp host的system prompt怎么写.md",
+      "hash": "61862cae"
     }
   ]
 }
