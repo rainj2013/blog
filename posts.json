@@ -1,13 +1,13 @@
 {
   "posts": [
     {
-      "id": "vibe个工具系列02-coding-agent-工作台luna-mux",
-      "title": "vibe 个工具系列 02｜Coding Agent 工作台 Luna mux",
+      "id": "vibe个工具系列02-coding-agent-终端工作台luna-mux",
+      "title": "vibe 个工具系列 02｜Coding Agent 终端工作台 Luna mux",
       "excerpt": "系列第二期。终端复用器管窗口，Luna mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
       "date": "2026-08-20",
       "tag": "AI工程",
-      "file": "posts/vibe个工具系列02：Coding Agent 工作台Luna mux.md",
-      "hash": "0a4f4670"
+      "file": "posts/vibe个工具系列02：Coding Agent 终端工作台Luna mux.md",
+      "hash": "67ee6762"
     },
     {
       "id": "2026年了-本地小模型能给openclaw-hermes当大脑了吗",
