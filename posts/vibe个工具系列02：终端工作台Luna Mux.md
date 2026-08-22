@@ -5,58 +5,55 @@ tag: AI工程
 excerpt: "系列第二期。终端复用器管窗口，Luna Mux 想管的是项目里多个终端和多个 Agent 的协作。"
 ---
 
-[系列第一期](/?post=vibe个工具系列01-ssh客户端luna-remote)写了 SSH 客户端 [Luna Remote](https://github.com/rainj2013/luna-remote)，它管的是连接服务器。这一期写 [Luna Mux](https://github.com/rainj2013/luna-mux)，它管的是在项目里用 Coding Agent 写代码时的终端。
+[上一次](/?post=vibe个工具系列01-ssh客户端luna-remote)分享了 SSH 客户端 [Luna Remote](https://github.com/rainj2013/luna-remote)。这一期分享的是 [Luna Mux](https://github.com/rainj2013/luna-mux)，一个跨平台的 Coding Agent 工作台。
 
-Luna Remote 按连接来组织，一台服务器一个标签。用 Agent 写代码时，组织方式会反过来：一个项目要同时开好几个终端，有跑本地服务的、看日志的、连测试环境的，其中几个里面还跑着 Codex 或 Claude Code。这些终端属于同一个项目，我希望它们待在一个地方，也希望跑在里面的 Agent 能看见彼此在做什么。
+我手头有多台设备，包含 Windows、Mac 机器、WSL、云 Linux 服务器等环境，这些环境上跑的终端、Agent 也各不相同。我需要一个跨平台的工作台，方便统一管理这些环境下的 Coding Agent，让他们可以一起工作、聚合消息通知、调用本地浏览器进行自动化调试等，所以就有了 Luna Mux 这个软件。
 
-Luna Mux 就是按这个想法做的。它以项目目录为单位维护 Session，一个 Session 里放多个终端窗格。它和普通终端复用器最大的区别，不是多开几个窗口，而是把 Agent 当成应用里的一等公民。
+在详细介绍 Luna Mux 之前，先向 [Cmux](https://github.com/manaflow-ai/cmux) 致敬。Cmux 是一个非常强大的终端工作台软件，我参考了它不少功能，再结合自己的需求做出了 Luna Mux。
 
-## 先把终端体验拉平
+## 会话和窗格
 
-一个 Session 对应一个项目目录，保存项目根目录和窗格布局。在设计上，我没有把本地终端、WSL 和 SSH 分成三种东西，而是把它们都当成“一个 Pane 里的一个 Runtime”：只是到达方式不同，进来之后应该是一个手感。
+Luna Mux 以项目目录为单位维护一个会话，一个会话里可以新建多个窗格。每个窗格里是一个终端，可以是本地终端（zsh, bash, Powershell, WSL），也可以是 SSH 连上的远程机器的终端。不管哪种终端，进来之后都用同一套界面，搜索、复制粘贴、主题、字体、背景都保持一致。
 
 ![Luna Mux 终端工作区](/static/2026-08-20/terminal.png)
 
-- 本地终端、WSL、SSH 共用同一套 xterm.js 界面，搜索、复制粘贴、主题、字体、背景和输出流控都保持一致。
-- 窗格之间预留了互相读写的接口，Agent 可以读取另一个窗格的有界输出，也可以向它写入输入。多个 Agent 各自负责一个窗格时，不需要复制粘贴，也不用互相猜。
-- 应用重启后恢复 Session 和布局，但不会擅自重连服务器，也不会重启任何进程。
+同一个项目会话里的窗格之间预留了互相读写的接口，Agent 可以通过 Luna mux 的 mcp 读取另一个窗格的输出，也可以向它写入输入。多个 Agent 各自负责一个窗格时，可以互相通信。
 
-重启以后只恢复定义，不恢复进程。写代码时不少终端里跑着长任务，自动重连和自动重启可能把正在跑的东西打断。
+会话和窗格布局都会持久化保存，保留个人习惯的编排方式，例如我最常用的是一个 Coding Agnet + 一个 zsh 终端左右布局，外加一个浏览器。
 
-## Agent 是一等公民
+## 在窗格里增强 Agent
 
-这是 Luna Mux 和普通终端复用器最大的差别。以前的终端复用器主要服务人：切窗、看输出、发命令。Luna Mux 同时服务人和 Agent：在任意一个窗格里启动受支持的 Agent，目前是 Codex 和 Claude Code，Luna Mux 会自动发现它，并注入 Hook 和 MCP。
+在任意一个窗格里启动受支持的 Agent（目前是 Codex 和 Claude Code），Luna Mux 会自动发现它，并注入 Hook 和 MCP，用来拓展 Agent 的功能。
 
-Hook 负责状态监控、生命周期管理和消息通知。Agent 在忙、在等输入、在等权限、完成了还是出错了，这些状态会反馈到 Luna Mux；需要关注的窗格会在侧边栏、窗格边框和桌面通知里标记出来，点一下通知就回到对应位置，Agent 的生命周期也跟着应用走。
+Hook 主要负责工作状态监控、生命周期管理和消息通知。Agent 在等待输入、等待授权、完成工作或者是出错了等等状态变化都会通过hook发送消息给 Luna Mux。有消息需要关注时，Luna mux 会通过窗格边框颜色、侧边栏图标、系统通知等方式提醒用户，点击通知后即可跳转到对应需要处理的窗格，在多 Agent 并行使用时非常方便。
 
-Luna Mux MCP 是另一件事：让 Agent 反过来控制 Luna Mux。我觉得 AI 原生应用的标配，是应用自身的能力也能被 Agent 调用，而不是只给 Agent 一个黑盒终端。通过 Luna Mux MCP，Agent 可以发现 Session、窗格和终端，可以创建窗格、修改布局、读取有界终端输出、写入终端输入，也可以查询其他 Agent 的状态、投递任务、发送中断。Agent 要展开 subagent 时，可以自己开一个窗格，再读取同一个 Session 里其他窗格的信息。
+默认注入的 MCP 有两个：
+1. 第一个是 Luna mux 自身的 MCP 服务。AI 原生时代应用，一个标配的功能是需要支持通过 Agent 控制，MCP 也好 CLI也好，需要暴露可操作的接口。Luna Mux 需要在 SSH 的机器上以及 WSL 等环境支持跟本地一样的控制体验，网络环境比较复杂，最终还是选择了 MCP 。它让 Agent 可以自主控制 Luna Mux 这个软件：创建窗格、修改布局、读取终端输出、写入终端输入，也可以查询其他 Agent 的状态、投递任务、发送中断等待。Agent 要拓展子 Agent 时，也可以自己开一个窗格来跑。
 
-当然，能力开放要有边界。关闭终端、启动传输或隧道这类重要副作用，需要先在桌面端确认；凭据、私钥和 API Key 不会通过 MCP 暴露给 Agent。
+2. 第二个是 agent-browser，它让 Agent 可以自由控制一个受 Luna mux 管理的 Chrome 浏览器。Chrome CDP 协议支持的操作都可以做，例如打开页面、点击、填表、截图，通过查看控制台和网络请求等等。
+列举几个我自己常用的浏览器控制功能的使用场景：
+- 让 Agent 自己去查询需要登陆的平台上的信息（中间需要人工接管浏览器完成登录操作），例如企业内网的一些文档平台。
+- 让 Agent 在完成一个 WEB 功能开发后，自己去页面验收功能、调整实现效果。
+- 让 Agent 查看浏览器控制台和网络请求来排查问题。
+- 简易的爬虫，收集一些信息，比纯粹通过curl等脚本去收集更不容易被网站安全策略拦截。
 
-## 浏览器自动化，但不做成窗格
+这里有两个设计上的取舍：一是Luna mux 的安装包没有把浏览器打包进来，我希望保持 Luna Mux 精简，选择 Tauri 而不是 Electron 来构建应用就是不想包含一个浏览器，事实上大家电脑上应该都应该有Chrome吧(没有就装一个吧)。二是浏览器没有作为一个窗格嵌入到 Luna mux 里面。嵌入看起来集成度更高，但浏览器的操作往往不是全自动的，登录验证、页面 UI 检视这些都需要人工接管，塞在一个小窗格里体验并不好。所以浏览器以独立窗口运行，Agent 操作时用户也方便随时接手。
 
-Agent 还需要操作网页。Luna Mux 给每个 Session 准备了一个隔离的受管 Chrome，通过 agent-browser MCP 驱动，可以打开页面、点击、填表、读取快照、截图，也能看控制台和网络请求。
+## SSH 和 SFTP
 
-这里我做了两个取舍。一个是不打包浏览器：Luna Mux 保持精简，用户自己安装 Chrome，按需启动、之后复用同一个实例。另一个是不把浏览器做成嵌在分割树里的 Pane。嵌入看起来更像一体，但浏览器不总是全自动操作，登录验证、页面 UI 检查经常要人接管，缩在终端小窗格里的浏览器体验并不好。所以受管 Chrome 以独立窗口运行，Agent 操作时，用户可以随时接管。
+SSH 和 SFTP 这部分从我的另一个工具软件 Luna Remote 移植过来，密码、私钥、SSH Agent、Host Key 校验、保活、一级跳板机，以及 SFTP 和本地/远程/SOCKS5 转发，能力基本一致。
 
-## 远程 Agent 和本地 Agent 一个待遇
+Luna mux 设置里面可以选择打开远程 Agent 控制功能，默认是关闭的；开启后，Luna Mux 创建 SSH 连接时，会通过 SFTP 自动部署一个轻量 helper 到目标机器上，协助目标机器上的 Agent 与本地的 Luna mux 之间通信。之后在这个远程终端里启动的 Agent，使用浏览器控制、操作本地启动的 Luna Mux 软件、状态监控和消息通知等功能，用起来跟本地 Agent 体验完全一样。
 
-SSH 和 SFTP 这部分从 Luna Remote 移植过来：密码、私钥、SSH Agent、Host Key 校验、保活、一级跳板机，以及 SFTP 和本地/远程/SOCKS5 转发，能力基本对齐。
+## AI 命令助手
 
-这里真正的增量是远程 Agent。SSH 机器可以选开远程 Agent 控制，默认关闭；开启后，Luna Mux 会通过 SFTP 自动部署一个轻量 helper。之后在这个终端里启动的 Agent，和本地 Agent 一样拥有浏览器控制、Luna Mux 操作、状态监控和通知，而原始 CDP 调试端口不会直接暴露到远端。
-
-## AI 命令助手：给不用 Agent 的时候
-
-AI 命令助手和 Codex、Claude Code 这些 Agent 相互独立，使用用户自己配置的 OpenAI 兼容服务，为当前终端生成 Linux Shell、PowerShell、CMD 或 macOS 命令。
-
-它是给不用 Agent 的场景准备的：无论在本地还是 SSH 远程终端，都可以让 AI 帮着写命令。结果带说明、前提、警告和风险等级，可以复制、只填入终端，或经风险确认后执行；附带终端上下文时，发送前会先做常见个人信息的脱敏。不配置 AI 服务也不影响其他功能。
+AI 命令助手也是移植自 Luna Remote 软件，它和 Codex、Claude Code 这些 Agent 相互独立，使用用户自己配置的 OpenAI 兼容API，为当前终端生成 Linux Shell、PowerShell、CMD 或 macOS 命令。无论在本地还是 SSH 远程终端，都可以让 AI 帮忙写命令。结果带说明、前提、警告和风险等级，可以复制、只填入终端，或经风险确认后执行。不配置 AI 服务也不影响其他功能。
 
 ## 技术选型
 
-和 Luna Remote 一样基于 [Tauri](https://v2.tauri.app/concept/process-model/) 构建，底层 Rust，UI 由系统 WebView 渲染，终端用 xterm.js。Session、布局和连接存在本地 SQLite，密码等敏感信息交给 macOS Keychain 或 Windows Credential Manager。
+和 Luna Remote 一样基于 Tauri 构建，底层是 Rust，UI 由系统 WebView 渲染，终端用 xterm.js。会话、布局和连接存在本地 SQLite，密码等敏感信息交给 macOS Keychain 或 Windows Credential Manager。
 
-## 先把主路径跑顺
+Luna mux 已经发布第一个 release 版本，我自己也已经每天都在使用。应用安装包可以在 github 的 release 页面下载，支持 Mac 和 Windows 操作系统。源码、文档和构建说明都在 [GitHub](https://github.com/rainj2013/luna-mux)。这个系列后面还会继续写其他工具。
 
-Luna Mux 目前还在早期，版本 0.1.0。项目 Session、本地加远程的统一终端、Agent 的 Hook 和 MCP 注入、浏览器自动化、SSH 和 SFTP，这些主路径已经跑通。后面要打磨的是更顺手的布局操作、更完整的诊断和修复，以及远程 Agent 在更复杂环境里的健壮性。
-
-源码、文档和构建说明都在 [GitHub](https://github.com/rainj2013/luna-mux)。这个系列后面还会继续写其他工具。
+## 碎碎念
+虽然 Luna mux 只是个工具软件，但在制作时我却想到一些游戏设计的理念：当玩家从视觉或物理逻辑上认为某个元素可以操作时，游戏就应当给予对应的反馈。AI 原生时代的软件也应该是这样，当用户觉得一个功能应该可以与 AI 产生交互时，它就应该可以与 AI 产生交互。所以我把 Luna mux 大大小小的功能都暴露了 API 给 Agent，让用户可以很自然地通过 Agent 去控制 Luna mux 本身。
