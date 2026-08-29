@@ -134,13 +134,7 @@ function main() {
     }
 
     const files = fs.readdirSync(POSTS_DIR)
-        .filter(f => f.endsWith('.md'))
-        .sort((a, b) => {
-            // 按文件修改时间排序，最新的在前
-            const statA = fs.statSync(path.join(POSTS_DIR, a));
-            const statB = fs.statSync(path.join(POSTS_DIR, b));
-            return statB.mtime - statA.mtime;
-        });
+        .filter(f => f.endsWith('.md'));
 
     console.log(`📄 找到 ${files.length} 篇文章`);
 
@@ -160,6 +154,9 @@ function main() {
 
         console.log(`  ✓ ${post.title} (${post.date})`);
         return post;
+    }).sort((a, b) => {
+        // 按发表日期排序，最新的在前；同一天按标题稳定排序
+        return b.date.localeCompare(a.date) || a.title.localeCompare(b.title, 'zh-CN');
     });
 
     // 写入 posts.json
