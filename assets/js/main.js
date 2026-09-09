@@ -99,7 +99,7 @@ async function init() {
     initMarked();  // 先配置 marked.js
     loadTheme();
     setupEventListeners();
-    await loadPosts();
+    const postsLoaded = await loadPosts();
 
     // 点击外部关闭下拉菜单
     document.addEventListener('click', (e) => {
@@ -139,6 +139,10 @@ async function init() {
     } else if (about) {
         showAboutPage();
     }
+
+    if (postsLoaded) {
+        await registerBlogTools({ getPosts: () => allPosts, readPost, openPost });
+    }
 }
 
 // 加载文章列表
@@ -172,6 +176,7 @@ async function loadPosts() {
         buildTagColorMap(allPosts.map(post => post.tag));
         renderTagFilter();
         renderPosts(currentTagFilter ? allPosts.filter(p => p.tag === currentTagFilter) : allPosts);
+        return true;
     } catch (error) {
         console.error('Error loading posts:', error);
         postsContainer.innerHTML = `
@@ -316,24 +321,27 @@ function renderPosts(posts) {
 }
 
 // 打开文章详情 - 在当前页显示，避免跨窗口路径问题
-async function openPost(postId, fromHistory = false) {
+async function readPost(postId, signal) {
+    // 只允许读取文章索引内的 ID，不接受调用方提供的文件路径。
+    const indexResponse = await fetch(config.postsIndex, { signal });
+    if (!indexResponse.ok) throw new Error('Failed to load posts index');
+    const indexData = await indexResponse.json();
+    const post = indexData.posts.find(p => p.id === postId);
+    if (!post) throw new Error('Post not found');
+
+    const postUrl = new URL(window.location.pathname, baseUrl);
+    postUrl.pathname = '/' + post.file.split('/').map(encodeURIComponent).join('/');
+    if (post.hash) postUrl.searchParams.set('v', post.hash);
+    const response = await fetch(postUrl, { signal });
+    if (!response.ok) throw new Error('Failed to load post content');
+    const markdownContent = await response.text();
+    signal?.throwIfAborted();
+    return { post, markdownContent };
+}
+
+async function openPost(postId, fromHistory = false, options = {}) {
     try {
-        // 先加载索引获取文章信息
-        const indexResponse = await fetch(config.postsIndex);
-        const indexData = await indexResponse.json();
-        const post = indexData.posts.find(p => p.id === postId);
-        
-        if (!post) {
-            throw new Error('Post not found');
-        }
-        
-        // 加载 Markdown 内容（使用绝对路径，带上文件内容 hash 防止浏览器缓存）
-        const postUrl = `${baseUrl}/${encodeURI(post.file)}${post.hash ? '?v=' + post.hash : ''}`;
-        const contentResponse = await fetch(postUrl);
-        if (!contentResponse.ok) {
-            throw new Error(`Failed to load: ${postUrl}`);
-        }
-        const markdownContent = await contentResponse.text();
+        const { post, markdownContent } = await readPost(postId, options.signal);
         
         // 在当前页渲染文章
         // 找到下一篇
@@ -343,10 +351,12 @@ async function openPost(postId, fromHistory = false) {
         
         // 更新URL（不刷新页面），如果不是从历史记录来的
         if (!fromHistory) {
-            history.pushState({ postId: postId }, '', '?post=' + postId);
+            history.pushState({ postId: postId }, '', '?post=' + encodeURIComponent(postId));
         }
+        return post;
         
     } catch (error) {
+        if (options.throwOnError) throw error;
         console.error('Error opening post:', error);
         alert('加载文章失败：' + error.message);
     }
