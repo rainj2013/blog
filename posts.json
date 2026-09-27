@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "jev-能让-ai-客服更快-更省吗-一次初步实测",
+      "title": "Jev 在真实业务场景下的效果实测",
+      "excerpt": "第一次把 Jev 用在中文客服问答中：先分类，再按类别挑选知识，能更快、更省吗？通过与全库注入、RAG 的对比，聊聊实测结果，以及缓存、多意图识别和适用场景带来的启发。\n \n ",
+      "date": "2026-09-27",
+      "tag": "AI工程",
+      "file": "posts/JEV 能让 AI 客服更快、更省吗？一次初步实测.md",
+      "hash": "4c0dd78c"
+    },
+    {
       "id": "vibe个工具系列02-coding-agent-终端工作台luna-mux",
       "title": "vibe 个工具系列 02｜Coding Agent 终端工作台 Luna mux",
       "excerpt": "系列第二期。终端复用器管窗口，Luna mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
