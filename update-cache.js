@@ -101,6 +101,7 @@ function main() {
 
     updateVersion('assets/css/style.css');
     updateVersion('assets/js/main.js');
+    updateVersion('assets/js/webmcp.js');
     updateVersion('assets/vendor/marked.min.js');
     updateVersion('favicon.ico');
     updatePostsVersion();

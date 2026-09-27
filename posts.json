@@ -10,6 +10,15 @@
       "hash": "4c0dd78c"
     },
     {
+      "id": "vibe个工具系列03-agent-工作台-luna-mux-更新和一些设计理念",
+      "title": "vibe 个工具系列 03｜Agent 工作台 Luna mux 更新和一些设计理念",
+      "excerpt": "Luna mux 从首发 v0.1.1 更新到了 v0.5.0。这次分享数据库窗格、终端交互等更新，再聊聊让人和 Agent 共用一个可视化界面的想法。\n \n ",
+      "date": "2026-09-12",
+      "tag": "AI工程",
+      "file": "posts/vibe个工具系列03：Agent 工作台 Luna mux 更新和一些设计理念.md",
+      "hash": "4d1eac85"
+    },
+    {
       "id": "vibe个工具系列02-coding-agent-终端工作台luna-mux",
       "title": "vibe 个工具系列 02｜Coding Agent 终端工作台 Luna mux",
       "excerpt": "系列第二期。终端复用器管窗口，Luna mux 想管的是项目里多个终端和多个 Agent 的协作。\n \n ",
