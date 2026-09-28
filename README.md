@@ -16,5 +16,3 @@
 ## 关于博客
 
 博客地址: https://rainj2013.top
-
-文章存放在 `posts/` 目录，使用 `posts.json` 作为索引。
