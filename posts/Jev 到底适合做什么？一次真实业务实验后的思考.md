@@ -115,17 +115,8 @@ RAG 合格回答：204
 
 做这个实验之前，我把 Jev 当成一个 **更快的 Knowledge Router**，做完以后，我现在觉得这可能不是 System One 最有价值的位置。因为这个架构本质上只是在原来昂贵的大模型调用之前，又增加了一次模型调用。它能不能产生价值，完全取决于后面究竟省掉了多少东西。无论 Jev 怎么判断，最后还是一定要调用 LLM，它做的事情只是让 LLM 少接收一些输入。这种优化我现在更愿意叫**Context Routing**，但 System One 可能更适合做另外一种事情：**Compute Routing**。例如：
 
-```text
-                  ┌→ 固定客服话术
-                  │
-                  ├→ 业务 Workflow
-                  │
-Question → Jev ───┼→ API / Tool
-                  │
-                  ├→ 小模型
-                  │
-                  └→ 强 LLM
-```
+![jev 路由示意](/static/2026-09-27/jev-compute-routing-diagram.png)
+
 
 简单的问题：
 
