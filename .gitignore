@@ -1,3 +1,7 @@
 .hugo_build.lock
 .claude/settings.json
 .codex
+_site/
+__pycache__/
+
+.local-drafts/
