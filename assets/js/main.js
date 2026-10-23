@@ -792,10 +792,10 @@ function buildTagColorMap(tagNames) {
 function getTagColor(tagName) {
     const hue = tagColorMap.get(tagName) ?? getBaseTagHue(tagName);
     return {
-        bg: `hsl(${hue}, 60%, 90%)`,
-        color: `hsl(${hue}, 70%, 35%)`,
-        bgDark: `hsla(${hue}, 50%, 20%, 0.8)`,
-        colorDark: `hsl(${hue}, 70%, 75%)`
+        bg: `hsl(${hue}, 28%, 93%)`,
+        color: `hsl(${hue}, 30%, 34%)`,
+        bgDark: `hsla(${hue}, 22%, 22%, 0.8)`,
+        colorDark: `hsl(${hue}, 35%, 78%)`
     };
 }
 
