@@ -6,22 +6,25 @@
     <title>rainj2013的博客</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=9d3b638a">
 
-    <!-- 预加载字体，字体在后台下载，不阻塞首屏 -->
+    <!-- 字体样式异步加载；swap 先显示系统字体，中文按 Unicode 分片下载。 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://giscus.app">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&amp;text=rainj2013&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&amp;text=rainj2013&amp;display=swap"></noscript>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=e03c17d1">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400..700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400..700&amp;display=swap"></noscript>
+
+    <link rel="stylesheet" href="assets/css/style.css?v=ceaebb65">
     <script>window.__POSTS_VERSION__ = 'acfe1fba';</script>
-    <script>window.__GISCUS_THEME_VERSION__ = 'e377e648';</script>
+    <script>window.__GISCUS_THEME_VERSION__ = '3e894e22';</script>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <a href="/" class="logo" onclick="goHome(); return false;">
-                <span class="logo-icon">✏️</span>
+                <span class="logo-icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4 5 5M4 15 15 4a2 2 0 0 1 5 5L9 20l-6 1 1-6Z"/><path d="m4 15 5 5"/></svg></span>
                 <span class="logo-text">
                     <span class="logo-name">rainj2013</span>
                     <span class="logo-tagline">技术 · 生活 · 思考</span>
@@ -55,7 +58,7 @@
             <section class="hero">
                 <div class="hero-content">
                     <div class="hero-copy">
-                        <h2>记录 <span class="highlight">AI 实践</span><br>与生活日常</h2>
+                        <h2>记录 <span class="highlight">AI</span> 实践<br>与生活日常</h2>
                         <p class="hero-motto">保持好奇，认真生活。</p>
                         <div class="hero-stats" aria-label="博客统计">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>文章 <strong id="heroPostCount">—</strong> 篇</span>
@@ -64,6 +67,7 @@
                         </div>
                     </div>
                     <div class="hero-art" aria-hidden="true">
+                        <svg class="hero-cloud" viewBox="0 0 100 60" fill="none"><path d="M20 42C0 40 6 20 25 24 28 6 58 6 62 23c23-8 32 16 13 19-15 10-39 8-55 0Z"/></svg>
                         <svg class="hero-bot" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- 保留手绘线条，肤色、衣服和爱心使用独立的插画配色 -->
                             <g class="doodle-person doodle-dad">
@@ -155,19 +159,17 @@
             <section class="posts-section" id="posts">
                 <div class="posts-header">
                     <h3 class="section-title">
-                        文章列表
+                        精选文章
                         <span class="section-count" id="postCount">0 篇</span>
                     </h3>
                     <div class="posts-header-actions">
                         <div class="tag-dropdown" id="tagDropdown">
-                            <button class="tag-dropdown-toggle" id="tagToggle">
+                            <button class="tag-dropdown-toggle" id="tagToggle" aria-label="筛选文章分类" title="筛选分类">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                             </button>
                             <div class="tag-dropdown-menu" id="tagFilter"></div>
                         </div>
-                        <button class="view-toggle" id="viewToggle" title="切换视图">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-                        </button>
+                        <div class="view-switch" id="viewToggle" role="group" aria-label="文章视图"></div>
                     </div>
                 </div>
                 <div class="posts-grid" id="postsContainer">
@@ -179,14 +181,15 @@
 
     <footer class="footer">
         <div class="container">
-            <p>© 2026 rainj2013.</p>
+            <p>© 2026 <i>rainj2013.</i><span class="footer-motto">Keep Coding, Keep Life.</span></p>
+            <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ 返回顶部</a>
         </div>
     </footer>
 
     <!-- marked.js 本地化，省去一次 CDN 请求 -->
     <script src="assets/vendor/marked.min.js?v=e04ae0bf"></script>
     <script src="assets/js/webmcp.js?v=0a26c4af"></script>
-    <script src="assets/js/main.js?v=80d438a6"></script>
+    <script src="assets/js/main.js?v=ecfa2c46"></script>
 
     <div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;display:none;align-items:center;justify-content:center;z-index:99;cursor:pointer;">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>

@@ -1,18 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
-
 :root {
-    --paper: #faf8f5;
-    --surface: #f5f1eb;
-    --card: #fffdfa;
-    --ink: #34312f;
-    --muted: #78716b;
-    --soft: #f4eee7;
-    --line: #a89b8e;
-    --border: #ded7cf;
-    --accent: #ae5139;
-    --accent-ink: #fffdfa;
-    --accent-soft: #f8ede6;
-    --warm: #eee4d8;
+    --color-bg: #f8f7f4;
+    --color-surface: #ffffff;
+    --color-text: #242622;
+    --color-muted: #777972;
+    --color-accent: #b74e35;
+    --color-border: #e3e1db;
+    --paper: var(--color-bg);
+    --surface: var(--color-surface);
+    --card: var(--color-surface);
+    --ink: var(--color-text);
+    /* 小号文字在背景上的对比度 >= 4.5:1，保留设计用 muted 色值。 */
+    --muted: #6e7069;
+    --soft: #f0f0eb;
+    --line: #a5a69c;
+    --border: var(--color-border);
+    --accent: var(--color-accent);
+    --accent-ink: #ffffff;
+    --accent-soft: #f6ece8;
+    --warm: #eae9e2;
     --figure-line: #51443d;
     --figure-skin: #fff2e5;
     --figure-blue: #cadce8;
@@ -22,26 +27,29 @@
     --landscape-fill: #edf0e5;
     --landscape-line: #91a17c;
     --primary-color: var(--accent);
-    --radius: 12px;
-    --shadow: 0 6px 20px rgba(65, 48, 35, 0.06);
-    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    --font-display: 'ZCOOL KuaiLe', var(--font-body);
+    --radius: 6px;
+    --shadow: 0 6px 20px rgba(36, 38, 34, 0.04);
+    --font-body: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-display: var(--font-body);
+    --font-hero: "MiSans", var(--font-body);
+    --font-hand: 'ZCOOL KuaiLe', var(--font-body);
+    --font-meta: "IBM Plex Mono", Consolas, monospace;
     --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
 }
 
 [data-theme="dark"] {
-    --paper: #211f1e;
-    --surface: #292624;
-    --card: #2b2826;
-    --ink: #eee7df;
-    --muted: #b8ada3;
-    --soft: #332c28;
-    --line: #88796d;
-    --border: #49403a;
-    --accent: #efa58b;
-    --accent-ink: #2d211c;
-    --accent-soft: #3b2c26;
-    --warm: #3c322b;
+    --color-bg: #1d201d;
+    --color-surface: #252925;
+    --color-text: #e9ece5;
+    --color-muted: #a5ada1;
+    --color-accent: #e39a82;
+    --color-border: #3c433b;
+    --muted: var(--color-muted);
+    --soft: #2c322b;
+    --line: #858f7e;
+    --accent-ink: #242622;
+    --accent-soft: #392c27;
+    --warm: #333a30;
     --figure-line: #57463b;
     --figure-skin: #eed5bd;
     --figure-blue: #a8bfce;
@@ -68,10 +76,36 @@ body {
     display: flex;
     flex-direction: column;
     background: var(--paper);
+    position: relative;
+    isolation: isolate;
     color: var(--ink);
     font-family: var(--font-body);
     line-height: 1.75;
     -webkit-font-smoothing: antialiased;
+}
+
+/* 纹理只作中性的极淡装饰，不影响交互和内容对比度。 */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url('../../static/illustrations/paper-grain.svg');
+    opacity: .12;
+}
+
+[data-theme="dark"] body::before {
+    opacity: .06;
+}
+
+/* 只调用本机 MiSans，不额外下载完整字库。 */
+@font-face {
+    font-family: "MiSans";
+    src: local("MiSans VF"), local("MiSans-VF"), local("MiSans");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
 }
 
 ::selection {
@@ -88,7 +122,7 @@ button {
 }
 
 .container {
-    width: min(100%, 1180px);
+    width: min(100%, 1120px);
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -98,12 +132,13 @@ button {
     top: 0;
     z-index: 100;
     background: color-mix(in srgb, var(--paper) 92%, transparent);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 0;
     backdrop-filter: blur(16px);
 }
 
 .header .container {
-    height: 82px;
+    height: 88px;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -127,12 +162,13 @@ button {
     border: 1px solid var(--border);
     border-radius: 14px;
     box-shadow: var(--shadow);
+    color: var(--accent);
     transform: rotate(-2deg);
 }
 
 .logo-name {
     display: block;
-    font-family: var(--font-display);
+    font-family: var(--font-hand);
     font-size: 1.55rem;
     line-height: 1.1;
 }
@@ -291,17 +327,18 @@ button {
 .hero {
     position: relative;
     margin: 0 calc(50% - 50vw) 34px;
-    padding: 36px max(20px, calc((100vw - 1140px) / 2)) 90px;
+    padding: 38px max(20px, calc((100vw - 1080px) / 2)) 66px;
     overflow: hidden;
 }
 
 .hero h2 {
     position: relative;
     display: inline-block;
-    font-family: var(--font-display);
-    font-size: clamp(2.3rem, 4.2vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1.35;
+    font-family: var(--font-hero);
+    font-size: clamp(48px, 4.5vw, 54px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
     margin-bottom: 14px;
 }
 
@@ -311,7 +348,7 @@ button {
     width: 76%;
     height: 10px;
     margin: 8px 0 -1px 8px;
-    background: color-mix(in srgb, var(--accent) 45%, transparent);
+    background: var(--accent);
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C56 7 94 8 137 6.2c54-2.2 93-.7 129-2.4 38-1.8 62-1.1 91-2.2' fill='none' stroke='black' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M5 11.5c46-1.2 88-1 129-2.8 50-2.2 91-.7 127-2 40-1.5 66-1 94-2' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C56 7 94 8 137 6.2c54-2.2 93-.7 129-2.4 38-1.8 62-1.1 91-2.2' fill='none' stroke='black' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M5 11.5c46-1.2 88-1 129-2.8 50-2.2 91-.7 127-2 40-1.5 66-1 94-2' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
     transform: rotate(-0.8deg);
@@ -327,10 +364,11 @@ button {
 
 .hero .hero-motto {
     margin: 16px 0 0;
-    color: var(--accent);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
 }
 
 .hero-content {
@@ -378,7 +416,7 @@ button {
 .fig-hair,
 .fig-detail {
     stroke: var(--figure-line);
-    stroke-width: 3.2;
+    stroke-width: 2.2;
     stroke-linecap: round;
     stroke-linejoin: round;
     vector-effect: non-scaling-stroke;
@@ -465,20 +503,20 @@ button {
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: min(calc(100% - 40px), 1140px);
-    height: 92px;
+    width: min(100%, 1440px);
+    height: 90px;
     transform: translateX(-50%);
 }
 
 .hill-fill {
-    fill: var(--landscape-fill);
+    fill: color-mix(in srgb, var(--warm) 32%, transparent);
 }
 
 .hill-line,
 .hill-hatch {
     fill: none;
-    stroke: var(--landscape-line);
-    stroke-width: 1.2;
+    stroke: var(--line);
+    stroke-width: 1;
 }
 
 .hill-hatch {
@@ -514,8 +552,8 @@ button {
     gap: 16px;
     margin-bottom: 18px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-    border-radius: 4px;
+    border-bottom: 0;
+    border-radius: 0;
 }
 
 .posts-section {
@@ -527,7 +565,8 @@ button {
     align-items: center;
     gap: 10px;
     color: var(--ink);
-    font-size: 1.35rem;
+    font-family: var(--font-display);
+    font-size: 1.55rem;
 }
 
 .section-title::before {
@@ -595,17 +634,17 @@ button {
 
 .posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
 }
 
 .post-card,
 .skeleton-card {
     position: relative;
-    min-height: 230px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    min-height: 236px;
+    background: color-mix(in srgb, var(--card) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    border-radius: 6px;
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
@@ -615,24 +654,6 @@ button {
     border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
     transform: translateY(-3px);
     box-shadow: var(--shadow);
-}
-
-.post-card:first-child {
-    background: var(--accent-soft);
-    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-}
-
-.post-card:first-child::before {
-    content: '最近';
-    position: absolute;
-    top: -11px;
-    right: 14px;
-    padding: 2px 10px;
-    background: var(--accent);
-    color: var(--accent-ink);
-    border-radius: 6px;
-    font-size: 0.72rem;
-    transform: rotate(1deg);
 }
 
 .post-card-inner {
@@ -645,7 +666,9 @@ button {
 .post-title {
     margin-bottom: 10px;
     color: var(--ink);
-    font-size: 1.16rem;
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
     line-height: 1.45;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -657,11 +680,12 @@ button {
     flex: 1;
     margin-bottom: 14px;
     color: var(--muted);
-    font-size: 0.93rem;
-    line-height: 1.75;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.8;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
@@ -676,7 +700,7 @@ button {
     gap: 10px;
     flex-wrap: wrap;
     padding-top: 12px;
-    border-top: 1.5px dashed color-mix(in srgb, var(--line) 30%, transparent);
+    border-top: 0;
 }
 
 .post-date,
@@ -686,7 +710,8 @@ button {
     align-items: center;
     gap: 6px;
     color: var(--muted);
-    font-size: 0.84rem;
+    font-family: var(--font-meta);
+    font-size: 12px;
 }
 
 .posts-list {
@@ -940,8 +965,8 @@ button {
     margin-top: auto;
     padding: 14px 0;
     color: var(--muted);
-    text-align: center;
-    border-top: 2px dashed color-mix(in srgb, var(--line) 20%, transparent);
+    text-align: left;
+    border-top: 1px solid var(--border);
 }
 
 #backToTop {
@@ -970,6 +995,70 @@ button {
 @keyframes skeleton-loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+}
+
+/* 首页：纸张、编号文章与手绘桌面。 */
+.hero-cloud {
+    position: absolute;
+    width: 90px;
+    top: -36px;
+    left: -36px;
+    stroke: var(--line);
+    stroke-width: 2.2;
+    opacity: .55;
+}
+.post-kicker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: var(--muted);
+    font-family: var(--font-meta);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+.post-number { color: var(--accent); font-weight: 500; }
+.post-title a { text-decoration: none; }
+.post-title a:hover { color: var(--accent); }
+.post-excerpt { font-family: var(--font-display); }
+.post-tag { border-radius: 999px; font-size: 12px; }
+.post-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    min-height: 278px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+}
+.post-featured .post-card-inner { padding: 30px 34px; }
+.post-featured .post-kicker { gap: 28px; }
+.post-featured .post-number { letter-spacing: .1em; }
+.post-featured .post-title { font-size: 20px; font-weight: 600; line-height: 1.45; }
+.post-featured .post-tag { background: transparent !important; color: var(--muted) !important; border: 0; border-left: 2px solid var(--border); border-radius: 0; padding: 0 12px; }
+.featured-art { position: relative; display: grid; align-items: center; }
+.featured-art img { width: 100%; height: auto; display: block; }
+.featured-arrow {
+    position: absolute; right: 20px; bottom: 20px;
+    display: grid; place-items: center; width: 38px; height: 38px;
+    color: var(--accent-ink); background: var(--accent); border-radius: 50%; font-size: 1.5rem;
+}
+.view-switch { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 999px; }
+.view-switch button { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; }
+.view-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.tag-dropdown-toggle { border: 0; background: transparent; box-shadow: none; }
+.footer { padding: 24px 0 38px; }
+.footer .container { display: flex; justify-content: space-between; gap: 16px; font-family: var(--font-display); font-size: .9rem; }
+.footer a { text-decoration: none; }
+.footer-motto { margin-left: 18px; }
+.footer i { font-style: normal; }
+[data-theme="dark"] .featured-art img { opacity: .82; }
+@media (min-width: 701px) and (max-width: 900px) {
+    .posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-content { gap: 28px; }
 }
 
 @media (max-width: 700px) {
@@ -1002,14 +1091,21 @@ button {
         padding: 7px 7px;
     }
 
+    .hero h2 { font-size: clamp(32px, 7.5vw, 44px); }
+
     .hero {
         padding-top: 32px;
         padding-bottom: 70px;
     }
 
-    .hero-landscape {
-        width: calc(100% - 28px);
-    }
+    .hero-landscape { width: 100%; }
+    .posts-grid { grid-template-columns: 1fr; gap: 16px; }
+    .post-featured { grid-template-columns: 1fr; }
+    .post-featured .post-card-inner { padding: 24px; }
+    .featured-art { max-width: 380px; width: 100%; justify-self: center; }
+    .hero-cloud { top: 0; left: 12%; width: 64px; }
+    .footer .container { flex-wrap: wrap; }
+    .footer-motto { display: block; margin-left: 0; }
 
     .hero-content {
         grid-template-columns: 1fr;

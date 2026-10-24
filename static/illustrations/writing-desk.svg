@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" fill="none">
+<defs><filter id="wash"><feTurbulence baseFrequency=".045" numOctaves="3" seed="8" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="18"/></filter><filter id="pencil"><feTurbulence baseFrequency=".14" numOctaves="2" seed="4" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.3"/></filter><pattern id="grain" width="5" height="7" patternUnits="userSpaceOnUse"><path d="m0 1 4 3m-1 2 2 1" stroke="#fff7e9" stroke-width=".6" opacity=".24"/></pattern></defs>
+<path d="M70 82C118 9 346 3 475 31c90 28 99 179 38 229-74 50-240 17-327 31S-13 205 70 82Z" fill="#e8bf93" opacity=".32" filter="url(#wash)"/>
+<g stroke="#776653" stroke-linecap="round" stroke-linejoin="round" filter="url(#pencil)">
+<path d="m89 249 427-22" stroke="#ac9278" stroke-width="2"/>
+<path d="m184 89 177-19q11-1 13 10l19 141-189 17-27-137q-1-10 7-12Z" fill="#b8ac9c" stroke-width="3.5"/>
+<path d="m188 98 174-18 20 137-171 13Z" fill="#948a7d" stroke-width="2"/>
+<path d="m190 103 168-17 18 125-162 14Z" fill="url(#grain)" stroke-width="1" opacity=".8"/>
+<path d="m204 238 189-17 43-21 8 17-42 24-196 18-30-12Z" fill="#b9ac96" stroke-width="3"/>
+<path d="m213 241 177-16 37-16m-215 40 179-17 38-19" stroke-width="1.5"/>
+<path d="m230 249 77-7" stroke-width="1.2"/>
+<path d="m255 137-16 20 20 12m47-38 20 16-16 20m-27-33-8 36" stroke="#eee4d2" stroke-width="5"/>
+<path d="M109 211c12-9 42-9 54-1l-3 46c-12 10-34 9-45 0Z" fill="#f6e7cc" stroke-width="3"/>
+<ellipse cx="136" cy="210" rx="27" ry="8" fill="#d9c5a5" stroke-width="2.5"/>
+<path d="M163 217c31-8 27 30-2 28m-40-17 4 25" stroke-width="2.5"/>
+<path d="m442 151 42-4-4 47-31 3Z" fill="#cfad87" stroke-width="2.5"/>
+<path d="m438 150 48-4 1 8-47 5Z" fill="#e0c5a4" stroke-width="2"/>
+<path d="m461 148-6-79m4 55-23-23m22 2 21-30" stroke="#7b885b" stroke-width="2.5"/>
+<path d="M455 89c-29 2-35-27-23-30 16-4 26 16 23 30Zm3-8c-6-33 20-51 25-38 7 14-9 34-25 38Zm2 35c13-28 36-23 30-12-6 12-19 14-30 12Z" fill="#99a274" stroke="#788356" stroke-width="2"/>
+<path d="m451 83-15-18m27 7 14-22m-10 60 15-7" stroke="#6e7851" stroke-width="1"/>
+</g><g stroke="#ce8e61" stroke-width="3" stroke-linecap="round"><path d="m132 135-23-9m36-10-14-20m31 14-5-24"/></g>
+</svg>

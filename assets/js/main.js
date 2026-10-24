@@ -299,22 +299,22 @@ function renderPosts(posts) {
     } else {
         postsContainer.classList.remove('posts-list');
         postsContainer.classList.add('posts-grid');
-        postsContainer.innerHTML = sortedPosts.map((post) => {
+        postsContainer.innerHTML = sortedPosts.map((post, index) => {
             const colors = getTagColor(post.tag);
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const featured = index === 0;
+            const number = String(index + 1).padStart(2, '0');
             return `
-            <article class="post-card" onclick="openPost('${post.id}')">
+            <article class="post-card ${featured ? 'post-featured' : ''}" onclick="openPost('${post.id}')">
                 <div class="post-card-inner">
-                    <h3 class="post-title">${post.title}</h3>
+                    <div class="post-kicker"><span class="post-number">${number}${featured ? ' / LATEST' : ' /'}</span><time datetime="${post.date}">${post.date.replaceAll('-', '.')}</time></div>
+                    <h3 class="post-title"><a href="?post=${encodeURIComponent(post.id)}" onclick="event.stopPropagation(); openPost('${post.id}'); return false;">${post.title}</a></h3>
                     <p class="post-excerpt">${post.excerpt}</p>
                     <div class="post-meta">
-                        <span class="post-date">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                            ${post.date}
-                        </span>
                         <span class="post-tag" style="background:${isDark ? colors.bgDark : colors.bg}; color:${isDark ? colors.colorDark : colors.color};">${post.tag}</span>
                     </div>
                 </div>
+                ${featured ? '<div class="featured-art" aria-hidden="true"><img src="static/illustrations/writing-desk.svg" width="560" height="300" alt=""><span class="featured-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></div>' : ''}
             </article>
         `}).join('');
     }
@@ -594,15 +594,15 @@ function toggleViewMode() {
 
 // 更新视图切换按钮
 function updateViewToggle() {
-    if (viewToggle) {
-        if (viewMode === 'card') {
-            viewToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`;
-            viewToggle.title = '切换到紧凑视图';
-        } else {
-            viewToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`;
-            viewToggle.title = '切换到卡片视图';
-        }
-    }
+    if (!viewToggle) return;
+    const icons = {
+        card: '<rect width="6" height="6" x="3" y="3" rx="1"/><rect width="6" height="6" x="15" y="3" rx="1"/><rect width="6" height="6" x="15" y="15" rx="1"/><rect width="6" height="6" x="3" y="15" rx="1"/>',
+        compact: '<path d="M9 6h12M9 12h12M9 18h12M3 6h.01M3 12h.01M3 18h.01"/>'
+    };
+    viewToggle.innerHTML = Object.entries(icons).map(([mode, icon]) => `
+        <button type="button" data-view="${mode}" aria-label="${mode === 'card' ? '卡片视图' : '列表视图'}" aria-pressed="${viewMode === mode}" title="${mode === 'card' ? '卡片视图' : '列表视图'}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg>
+        </button>`).join('');
 }
 
 // 设置事件监听
@@ -612,7 +612,10 @@ function setupEventListeners() {
     }
 
     if (viewToggle) {
-        viewToggle.addEventListener('click', toggleViewMode);
+        viewToggle.addEventListener('click', event => {
+            const button = event.target.closest('[data-view]');
+            if (button && button.dataset.view !== viewMode) toggleViewMode();
+        });
         updateViewToggle();
     }
 
