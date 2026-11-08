@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "vibe个工具系列04-iphone照片备份工具luna-sync和其他工具更新",
+      "title": "vibe 个工具系列 04｜iPhone 照片备份工具 Luna Sync 和其他工具更新",
+      "excerpt": "这次做了一个把 iPhone 照片增量备份到外接硬盘的小工具 Luna Sync，也分享一下 Luna mux 和 Luna Remote 的近况。\n \n ",
+      "date": "2026-11-01",
+      "tag": "AI工程",
+      "file": "posts/vibe个工具系列04：iPhone照片备份工具Luna Sync和其他工具更新.md",
+      "hash": "08363a56"
+    },
+    {
       "id": "jev-到底适合做什么-一次真实业务实验后的思考",
       "title": "Jev 到底适合做什么？一次真实业务实验后的思考",
       "excerpt": "通过一次客服知识路由实验，分析 Jev 在准确率、成本、时延和多意图识别上的实际表现，并进一步讨论这类模型更适合放在什么样的业务决策位置。\n \n ",
