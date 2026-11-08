@@ -1,5 +1,6 @@
 """Exercise local save behavior against an isolated temporary blog."""
 import hashlib
+import base64
 import json
 from pathlib import Path
 import re
@@ -15,6 +16,7 @@ from http.server import ThreadingHTTPServer
 from dev.preview import make_handler, ROOT
 
 CONTENT = '---\ntitle: "测试文章"\ndate: 2026-09-27\ntag: 技术\nexcerpt: "摘要"\n---\n\n原文\n'
+PNG = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3ioAAAAASUVORK5CYII=')
 
 class PreviewTests(unittest.TestCase):
     def setUp(self):
@@ -102,6 +104,46 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(self.save(CONTENT.replace('测试文章', '不应留下的新标题'))[0], 500)
         self.assertEqual((self.root / 'posts/test.md').read_text(), CONTENT)
         self.assertEqual((self.root / 'posts.json').read_bytes(), before)
+
+    def upload(self, name='截图.png', content=CONTENT, image=PNG, headers=None):
+        payload = json.dumps({'file': 'posts/test.md', 'content': content, 'name': name,
+                              'image': base64.b64encode(image).decode()}).encode()
+        hdr = {'Content-Type': 'application/json', 'Origin': self.base, 'X-Local-Editor-Token': self.token}
+        hdr.update(headers or {})
+        try:
+            response = self.http.open(Request(self.base + '/__local/image', data=payload, headers=hdr))
+        except HTTPError as error:
+            response = error
+        return response.status, json.loads(response.read())
+
+    def test_image_uses_date_directory_and_preserves_article(self):
+        status, data = self.upload()
+        self.assertEqual(status, 200)
+        self.assertEqual(data['url'], '/static/2026-09-27/截图.png')
+        self.assertEqual(self.http.open(self.base + quote(data['url'])).read(), PNG)
+        self.assertEqual((self.root / 'posts/test.md').read_text(), CONTENT)
+        self.assertEqual(self.upload()[0], 409)
+        self.assertEqual((self.root / 'static/2026-09-27/截图.png').read_bytes(), PNG)
+
+    def test_image_reuses_existing_folder_and_adds_extension(self):
+        status, data = self.upload(name='新图片', content=CONTENT + '![](/static/2026-08-01/old.png)')
+        self.assertEqual(status, 200)
+        self.assertEqual(data['url'], '/static/2026-08-01/新图片.png')
+
+    def test_image_rejects_invalid_names_formats_and_dates(self):
+        for name in ('../escape.png', '/tmp/escape.png', 'a\\b.png', '.hidden.png', 'a.jpg', ' bad.png', 'a\n.png'):
+            self.assertEqual(self.upload(name=name)[0], 400, name)
+        self.assertEqual(self.upload(image=b'<svg></svg>')[0], 400)
+        self.assertEqual(self.upload(content=CONTENT.replace('2026-09-27', '2026-02-30'))[0], 400)
+        self.assertEqual(self.upload(content='no date')[0], 400)
+        self.assertFalse((self.root / 'static').exists())
+
+    def test_image_rejects_other_origins_tokens_and_symlinks(self):
+        for headers in ({'Origin': 'http://example.com'}, {'X-Local-Editor-Token': ''}, {'Host': 'example.com'}):
+            self.assertEqual(self.upload(headers=headers)[0], 403)
+        (self.root / 'static').symlink_to(self.root / 'dev', target_is_directory=True)
+        self.assertEqual(self.upload()[0], 400)
+        self.assertFalse((self.root / 'dev/2026-09-27').exists())
 
 if __name__ == '__main__':
     unittest.main()

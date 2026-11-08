@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Local-only blog preview with an injected Markdown editor. No dependencies."""
 import argparse
+import base64
+from datetime import date
 import hashlib
 import hmac
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import subprocess
@@ -15,6 +18,34 @@ from urllib.parse import parse_qs, unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BODY = 4 * 1024 * 1024
+MAX_IMAGE = 20 * 1024 * 1024
+
+
+def image_destination(content):
+    # Reuse the article's existing dated media folder, including in a draft.
+    folder = re.search(r'/static/(\d{4}-\d{2}-\d{2})/', content)
+    if folder:
+        value = folder[1]
+    else:
+        frontmatter = re.match(r'^---\r?\n([\s\S]*?)\r?\n---', content)
+        match = re.search(r'''^date:\s*["']?(\d{4}-\d{2}-\d{2})["']?\s*$''', frontmatter[1], re.M) if frontmatter else None
+        if not match:
+            raise ValueError('请先在文章信息中填写 YYYY-MM-DD 格式的日期。')
+        value = match[1]
+    date.fromisoformat(value)
+    return Path('static') / value
+
+
+def image_extension(data):
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return '.png'
+    if data.startswith(b'\xff\xd8\xff'):
+        return '.jpg'
+    if data.startswith((b'GIF87a', b'GIF89a')):
+        return '.gif'
+    if data.startswith(b'RIFF') and data[8:12] == b'WEBP':
+        return '.webp'
+    raise ValueError('支持粘贴 PNG、JPEG、GIF 和 WebP 图片。')
 
 def revision(content):
     return hashlib.sha256(content.encode('utf-8')).hexdigest()
@@ -103,7 +134,8 @@ def make_handler(root=ROOT):
             self.send_error(405)
 
         def do_POST(self):
-            if urlsplit(self.path).path != '/__local/save':
+            route = urlsplit(self.path).path
+            if route not in ('/__local/save', '/__local/image'):
                 self.reply(404, {'error': 'Not found'})
                 return
             origin = self.headers.get('Origin')
@@ -114,7 +146,8 @@ def make_handler(root=ROOT):
                 return
             try:
                 size = int(self.headers.get('Content-Length', '0'))
-                if not 0 < size <= MAX_BODY:
+                limit = MAX_IMAGE * 4 // 3 + MAX_BODY if route == '/__local/image' else MAX_BODY
+                if not 0 < size <= limit:
                     self.reply(413, {'error': '文章过大或内容为空。'})
                     return
                 if self.headers.get('Content-Type', '').split(';')[0] != 'application/json':
@@ -127,6 +160,9 @@ def make_handler(root=ROOT):
                 content = data.get('content')
                 if not isinstance(content, str) or not content.strip() or '\0' in content:
                     raise ValueError('文章内容不能为空或包含无效字符。')
+                if route == '/__local/image':
+                    self.save_image(data, content)
+                    return
                 if content.startswith('---\n') and '\n---' not in content[4:]:
                     raise ValueError('开头的文章信息缺少结束的 ---。')
                 with lock:
@@ -153,6 +189,42 @@ def make_handler(root=ROOT):
                     self.reply(200, {'revision': revision(content), 'post': post})
             except (ValueError, OSError, TypeError, UnicodeError) as error:
                 self.reply(400, {'error': str(error)})
+
+        def save_image(self, data, content):
+            encoded = data.get('image')
+            if not isinstance(encoded, str):
+                raise ValueError('没有读取到图片。')
+            image = base64.b64decode(encoded, validate=True)
+            if not 0 < len(image) <= MAX_IMAGE:
+                self.reply(413, {'error': '图片大小不能超过 20 MB。'})
+                return
+            extension = image_extension(image)
+            name = data.get('name')
+            if not isinstance(name, str) or name != name.strip() or not name or len(name) > 180 or re.search(r'[\\/\x00-\x1f<>:"|?*]', name) or name.startswith('.'):
+                raise ValueError('请输入有效图片文件名，不要包含目录或特殊字符。')
+            suffix = Path(name).suffix.lower()
+            if not suffix:
+                name += extension
+            elif suffix != extension and not (extension == '.jpg' and suffix == '.jpeg'):
+                raise ValueError('文件扩展名与图片格式不一致，请修改名称。')
+            relative = image_destination(content) / name
+            with lock:
+                target = root / relative
+                if not target.resolve().is_relative_to(root) or (root / 'static').is_symlink() or target.parent.is_symlink():
+                    raise ValueError('图片目录不能指向站点外部。')
+                target.parent.mkdir(parents=True, exist_ok=True)
+                try:
+                    # Exclusive creation also prevents replacing a symlink or existing image.
+                    with target.open('xb') as output:
+                        try:
+                            output.write(image)
+                        except OSError:
+                            target.unlink(missing_ok=True)
+                            raise
+                except FileExistsError:
+                    self.reply(409, {'error': '同名图片已存在，请换一个文件名。'})
+                    return
+            self.reply(200, {'url': '/' + relative.as_posix()})
 
     return Handler
 

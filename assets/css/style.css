@@ -831,6 +831,20 @@ button {
     color: var(--accent);
 }
 
+.post-content .post-image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.post-content .post-image-row img {
+    margin: 0;
+    min-width: 0;
+}
+
 .post-content img {
     max-width: 100%;
     height: auto;

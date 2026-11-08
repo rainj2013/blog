@@ -34,6 +34,108 @@
     const saveButton = document.getElementById('local-editor-save');
     const status = document.getElementById('local-editor-status');
     const preview = document.getElementById('local-editor-preview');
+    const imageDialog = document.createElement('dialog');
+    imageDialog.id = 'local-image-dialog';
+    imageDialog.setAttribute('aria-labelledby', 'local-image-title');
+    imageDialog.innerHTML = `
+        <form id="local-image-form">
+            <h2 id="local-image-title">粘贴图片</h2>
+            <img id="local-image-preview" alt="待插入图片预览">
+            <label for="local-image-name">图片文件名（可修改）</label>
+            <input id="local-image-name" required maxlength="180" autocomplete="off">
+            <small id="local-image-folder"></small>
+            <small>图片立即保存到本地；文章中的引用需随文章保存。同名文件不会覆盖。</small>
+            <div id="local-image-status" role="status" aria-live="polite"></div>
+            <div class="local-image-actions"><button type="button" class="local-editor-button" id="local-image-cancel">取消</button><button type="submit" class="local-editor-button primary" id="local-image-insert">保存并插入</button></div>
+        </form>`;
+    document.body.appendChild(imageDialog);
+    const imageName = document.getElementById('local-image-name');
+    const imageStatus = document.getElementById('local-image-status');
+    const imageInsert = document.getElementById('local-image-insert');
+    let pendingImage = null;
+    document.querySelector('.local-editor-bottom small').textContent = 'Ctrl / ⌘ + S 保存；可直接粘贴图片，命名后插入。';
+
+    function imageFolder() {
+        const existing = source.value.match(/\/static\/(\d{4}-\d{2}-\d{2})\//)?.[1];
+        const frontmatter = source.value.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+        const date = frontmatter?.[1].match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})["']?\s*$/m)?.[1];
+        return existing || date;
+    }
+    function cancelImage() {
+        if (state?.uploading) return;
+        if (pendingImage) URL.revokeObjectURL(pendingImage.url);
+        pendingImage = null;
+        imageDialog.close();
+        source.focus();
+    }
+    source.addEventListener('paste', event => {
+        const files = Array.from(event.clipboardData?.items || [])
+            .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
+            .map(item => item.getAsFile()).filter(Boolean);
+        if (!files.length) return;
+        event.preventDefault();
+        if (!state || state.saving || pendingImage) return;
+        if (files.length > 1) {
+            message('请每次粘贴一张图片，以便分别命名。', true);
+            return;
+        }
+        const file = files[0];
+        if (file.size > 20 * 1024 * 1024) {
+            message('图片大小不能超过 20 MB。', true);
+            return;
+        }
+        const folder = imageFolder();
+        if (!folder) {
+            message('请先在文章信息中填写 YYYY-MM-DD 格式的日期。', true);
+            return;
+        }
+        pendingImage = { file, start: source.selectionStart, end: source.selectionEnd, url: URL.createObjectURL(file) };
+        document.getElementById('local-image-preview').src = pendingImage.url;
+        imageName.value = file.name || 'image.png';
+        document.getElementById('local-image-folder').textContent = `保存目录：static/${folder}/`;
+        imageStatus.textContent = '';
+        imageDialog.showModal();
+        imageName.focus();
+        imageName.setSelectionRange(0, imageName.value.lastIndexOf('.') > 0 ? imageName.value.lastIndexOf('.') : imageName.value.length);
+    });
+    document.getElementById('local-image-cancel').addEventListener('click', cancelImage);
+    imageDialog.addEventListener('cancel', event => { event.preventDefault(); cancelImage(); });
+    document.getElementById('local-image-form').addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!pendingImage || !state || state.uploading) return;
+        state.uploading = true;
+        imageInsert.disabled = true;
+        imageName.disabled = true;
+        imageStatus.textContent = '正在保存图片…';
+        let inserted = false;
+        try {
+            const image = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = () => reject(new Error('读取图片失败，请重新粘贴。'));
+                reader.readAsDataURL(pendingImage.file);
+            });
+            const data = await request('/__local/image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Local-Editor-Token': token },
+                body: JSON.stringify({ file: state.file, content: source.value, name: imageName.value, image })
+            });
+            const url = data.url.split('/').map(part => encodeURIComponent(part))
+                .join('/').replace(/[()]/g, char => '%' + char.charCodeAt(0).toString(16));
+            const alt = imageName.value.replace(/\.[^.]+$/, '').replace(/[\[\]\\\r\n]/g, '');
+            source.setRangeText(`\n![${alt}](${url})\n`, pendingImage.start, pendingImage.end, 'end');
+            renderPreview();
+            message(`图片已保存到 ${data.url}，请保存文章以保留引用。`);
+            inserted = true;
+        } catch (error) {
+            imageStatus.textContent = error.message;
+        } finally {
+            state.uploading = false;
+            imageInsert.disabled = false;
+            imageName.disabled = false;
+            if (inserted) cancelImage();
+        }
+    });
     const dirty = () => state && source.value !== state.saved;
     function message(text, error = false) {
         status.textContent = text;
@@ -112,13 +214,13 @@
         }
     }
     function close() {
-        if (state?.saving) return;
+        if (state?.saving || state?.uploading) return;
         if (dirty() && !confirm('还有未保存的修改，确定放弃并关闭吗？')) return;
         dialog.close();
         state = null;
     }
     async function save() {
-        if (!state || state.saving) return;
+        if (!state || state.saving || state.uploading || pendingImage) return;
         state.saving = true;
         saveButton.disabled = true;
         const content = source.value;
@@ -161,7 +263,7 @@
         }
     });
     window.addEventListener('beforeunload', event => {
-        if (dirty() || state?.saving) { event.preventDefault(); event.returnValue = ''; }
+        if (dirty() || state?.saving || state?.uploading) { event.preventDefault(); event.returnValue = ''; }
     });
     function addEntry() {
         const header = document.querySelector('#postContainer .post-header');
